@@ -1,0 +1,15 @@
+E:\WORK\Tamm Projects\TammBackend\TammbusinessLayer\bin\Release\net8.0\TammbusinessLayer.deps.json
+E:\WORK\Tamm Projects\TammBackend\TammbusinessLayer\bin\Release\net8.0\TammbusinessLayer.dll
+E:\WORK\Tamm Projects\TammBackend\TammbusinessLayer\bin\Release\net8.0\TammbusinessLayer.pdb
+E:\WORK\Tamm Projects\TammBackend\TammbusinessLayer\bin\Release\net8.0\TammDataLayer.dll
+E:\WORK\Tamm Projects\TammBackend\TammbusinessLayer\bin\Release\net8.0\TammDataLayer.pdb
+E:\WORK\Tamm Projects\TammBackend\TammbusinessLayer\obj\Release\net8.0\TammbusinessLayer.csproj.AssemblyReference.cache
+E:\WORK\Tamm Projects\TammBackend\TammbusinessLayer\obj\Release\net8.0\TammbusinessLayer.GeneratedMSBuildEditorConfig.editorconfig
+E:\WORK\Tamm Projects\TammBackend\TammbusinessLayer\obj\Release\net8.0\TammbusinessLayer.AssemblyInfoInputs.cache
+E:\WORK\Tamm Projects\TammBackend\TammbusinessLayer\obj\Release\net8.0\TammbusinessLayer.AssemblyInfo.cs
+E:\WORK\Tamm Projects\TammBackend\TammbusinessLayer\obj\Release\net8.0\TammbusinessLayer.csproj.CoreCompileInputs.cache
+E:\WORK\Tamm Projects\TammBackend\TammbusinessLayer\obj\Release\net8.0\Tammbusi.EB94E199.Up2Date
+E:\WORK\Tamm Projects\TammBackend\TammbusinessLayer\obj\Release\net8.0\TammbusinessLayer.dll
+E:\WORK\Tamm Projects\TammBackend\TammbusinessLayer\obj\Release\net8.0\refint\TammbusinessLayer.dll
+E:\WORK\Tamm Projects\TammBackend\TammbusinessLayer\obj\Release\net8.0\TammbusinessLayer.pdb
+E:\WORK\Tamm Projects\TammBackend\TammbusinessLayer\obj\Release\net8.0\ref\TammbusinessLayer.dll

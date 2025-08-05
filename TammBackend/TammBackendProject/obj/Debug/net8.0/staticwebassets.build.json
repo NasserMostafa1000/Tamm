@@ -1,0 +1,331 @@
+{
+  "Version": 1,
+  "Hash": "WvsQ7wwPEaiLqOzrQX9nWxgfD0rLu6Uueiaddu6n+hw=",
+  "Source": "TammBackendProject",
+  "BasePath": "_content/TammBackendProject",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "TammBackendProject\\wwwroot",
+      "Source": "TammBackendProject",
+      "ContentRoot": "E:\\WORK\\Tamm Projects\\TammBackend\\TammBackendProject\\wwwroot\\",
+      "BasePath": "_content/TammBackendProject",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "E:\\WORK\\Tamm Projects\\TammBackend\\TammBackendProject\\wwwroot\\AdImages\\0a3c3fff-8a8f-43c1-b40b-c7993060feaf.jpg",
+      "SourceId": "TammBackendProject",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\WORK\\Tamm Projects\\TammBackend\\TammBackendProject\\wwwroot\\",
+      "BasePath": "_content/TammBackendProject",
+      "RelativePath": "AdImages/0a3c3fff-8a8f-43c1-b40b-c7993060feaf#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "pdaskpkm2n",
+      "Integrity": "c4SMC29N8pf1KOXIE2urvztVAcjis0Wg0xk2ujH4SvA=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\AdImages\\0a3c3fff-8a8f-43c1-b40b-c7993060feaf.jpg"
+    },
+    {
+      "Identity": "E:\\WORK\\Tamm Projects\\TammBackend\\TammBackendProject\\wwwroot\\AdImages\\5f225dc9-c263-47f7-be4f-3fdc303a319d.jpeg",
+      "SourceId": "TammBackendProject",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\WORK\\Tamm Projects\\TammBackend\\TammBackendProject\\wwwroot\\",
+      "BasePath": "_content/TammBackendProject",
+      "RelativePath": "AdImages/5f225dc9-c263-47f7-be4f-3fdc303a319d#[.{fingerprint}]?.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "us75bzf5cs",
+      "Integrity": "vj1XybIOCEchMIRZPIY+uVkjQY13Vb2iRxr9xZ2obUk=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\AdImages\\5f225dc9-c263-47f7-be4f-3fdc303a319d.jpeg"
+    },
+    {
+      "Identity": "E:\\WORK\\Tamm Projects\\TammBackend\\TammBackendProject\\wwwroot\\AdImages\\b5c2abe3-93e0-45f2-b455-a1a249a8e07e.jpg",
+      "SourceId": "TammBackendProject",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\WORK\\Tamm Projects\\TammBackend\\TammBackendProject\\wwwroot\\",
+      "BasePath": "_content/TammBackendProject",
+      "RelativePath": "AdImages/b5c2abe3-93e0-45f2-b455-a1a249a8e07e#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "a7psqjhz1h",
+      "Integrity": "ajuvFXskLc7krST58nx0oBFFvw3cXFROoDjsuIv19UQ=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\AdImages\\b5c2abe3-93e0-45f2-b455-a1a249a8e07e.jpg"
+    }
+  ],
+  "Endpoints": [
+    {
+      "Route": "AdImages/0a3c3fff-8a8f-43c1-b40b-c7993060feaf.jpg",
+      "AssetFile": "E:\\WORK\\Tamm Projects\\TammBackend\\TammBackendProject\\wwwroot\\AdImages\\0a3c3fff-8a8f-43c1-b40b-c7993060feaf.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "66911"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"c4SMC29N8pf1KOXIE2urvztVAcjis0Wg0xk2ujH4SvA=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 25 Jul 2025 13:44:31 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-c4SMC29N8pf1KOXIE2urvztVAcjis0Wg0xk2ujH4SvA="
+        }
+      ]
+    },
+    {
+      "Route": "AdImages/0a3c3fff-8a8f-43c1-b40b-c7993060feaf.pdaskpkm2n.jpg",
+      "AssetFile": "E:\\WORK\\Tamm Projects\\TammBackend\\TammBackendProject\\wwwroot\\AdImages\\0a3c3fff-8a8f-43c1-b40b-c7993060feaf.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "66911"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"c4SMC29N8pf1KOXIE2urvztVAcjis0Wg0xk2ujH4SvA=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 25 Jul 2025 13:44:31 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "pdaskpkm2n"
+        },
+        {
+          "Name": "label",
+          "Value": "AdImages/0a3c3fff-8a8f-43c1-b40b-c7993060feaf.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-c4SMC29N8pf1KOXIE2urvztVAcjis0Wg0xk2ujH4SvA="
+        }
+      ]
+    },
+    {
+      "Route": "AdImages/5f225dc9-c263-47f7-be4f-3fdc303a319d.jpeg",
+      "AssetFile": "E:\\WORK\\Tamm Projects\\TammBackend\\TammBackendProject\\wwwroot\\AdImages\\5f225dc9-c263-47f7-be4f-3fdc303a319d.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "82227"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"vj1XybIOCEchMIRZPIY+uVkjQY13Vb2iRxr9xZ2obUk=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 25 Jul 2025 13:44:31 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-vj1XybIOCEchMIRZPIY+uVkjQY13Vb2iRxr9xZ2obUk="
+        }
+      ]
+    },
+    {
+      "Route": "AdImages/5f225dc9-c263-47f7-be4f-3fdc303a319d.us75bzf5cs.jpeg",
+      "AssetFile": "E:\\WORK\\Tamm Projects\\TammBackend\\TammBackendProject\\wwwroot\\AdImages\\5f225dc9-c263-47f7-be4f-3fdc303a319d.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "82227"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"vj1XybIOCEchMIRZPIY+uVkjQY13Vb2iRxr9xZ2obUk=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 25 Jul 2025 13:44:31 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "us75bzf5cs"
+        },
+        {
+          "Name": "label",
+          "Value": "AdImages/5f225dc9-c263-47f7-be4f-3fdc303a319d.jpeg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-vj1XybIOCEchMIRZPIY+uVkjQY13Vb2iRxr9xZ2obUk="
+        }
+      ]
+    },
+    {
+      "Route": "AdImages/b5c2abe3-93e0-45f2-b455-a1a249a8e07e.a7psqjhz1h.jpg",
+      "AssetFile": "E:\\WORK\\Tamm Projects\\TammBackend\\TammBackendProject\\wwwroot\\AdImages\\b5c2abe3-93e0-45f2-b455-a1a249a8e07e.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "74595"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"ajuvFXskLc7krST58nx0oBFFvw3cXFROoDjsuIv19UQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 25 Jul 2025 13:44:31 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "a7psqjhz1h"
+        },
+        {
+          "Name": "label",
+          "Value": "AdImages/b5c2abe3-93e0-45f2-b455-a1a249a8e07e.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-ajuvFXskLc7krST58nx0oBFFvw3cXFROoDjsuIv19UQ="
+        }
+      ]
+    },
+    {
+      "Route": "AdImages/b5c2abe3-93e0-45f2-b455-a1a249a8e07e.jpg",
+      "AssetFile": "E:\\WORK\\Tamm Projects\\TammBackend\\TammBackendProject\\wwwroot\\AdImages\\b5c2abe3-93e0-45f2-b455-a1a249a8e07e.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "74595"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"ajuvFXskLc7krST58nx0oBFFvw3cXFROoDjsuIv19UQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 25 Jul 2025 13:44:31 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-ajuvFXskLc7krST58nx0oBFFvw3cXFROoDjsuIv19UQ="
+        }
+      ]
+    }
+  ]
+}

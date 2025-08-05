@@ -1,0 +1,40 @@
+﻿<Project>
+  <ItemGroup>
+    <StaticWebAssetEndpoint Include="_content/TammBackendProject/AdImages/0a3c3fff-8a8f-43c1-b40b-c7993060feaf.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\AdImages\0a3c3fff-8a8f-43c1-b40b-c7993060feaf.jpg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-c4SMC29N8pf1KOXIE2urvztVAcjis0Wg0xk2ujH4SvA="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"66911"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022c4SMC29N8pf1KOXIE2urvztVAcjis0Wg0xk2ujH4SvA=\u0022"},{"Name":"Last-Modified","Value":"Fri, 25 Jul 2025 13:44:31 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/TammBackendProject/AdImages/0a3c3fff-8a8f-43c1-b40b-c7993060feaf.pdaskpkm2n.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\AdImages\0a3c3fff-8a8f-43c1-b40b-c7993060feaf.jpg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"pdaskpkm2n"},{"Name":"integrity","Value":"sha256-c4SMC29N8pf1KOXIE2urvztVAcjis0Wg0xk2ujH4SvA="},{"Name":"label","Value":"_content/TammBackendProject/AdImages/0a3c3fff-8a8f-43c1-b40b-c7993060feaf.jpg"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"66911"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022c4SMC29N8pf1KOXIE2urvztVAcjis0Wg0xk2ujH4SvA=\u0022"},{"Name":"Last-Modified","Value":"Fri, 25 Jul 2025 13:44:31 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/TammBackendProject/AdImages/5f225dc9-c263-47f7-be4f-3fdc303a319d.jpeg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\AdImages\5f225dc9-c263-47f7-be4f-3fdc303a319d.jpeg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-vj1XybIOCEchMIRZPIY\u002BuVkjQY13Vb2iRxr9xZ2obUk="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"82227"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022vj1XybIOCEchMIRZPIY\u002BuVkjQY13Vb2iRxr9xZ2obUk=\u0022"},{"Name":"Last-Modified","Value":"Fri, 25 Jul 2025 13:44:31 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/TammBackendProject/AdImages/5f225dc9-c263-47f7-be4f-3fdc303a319d.us75bzf5cs.jpeg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\AdImages\5f225dc9-c263-47f7-be4f-3fdc303a319d.jpeg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"us75bzf5cs"},{"Name":"integrity","Value":"sha256-vj1XybIOCEchMIRZPIY\u002BuVkjQY13Vb2iRxr9xZ2obUk="},{"Name":"label","Value":"_content/TammBackendProject/AdImages/5f225dc9-c263-47f7-be4f-3fdc303a319d.jpeg"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"82227"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022vj1XybIOCEchMIRZPIY\u002BuVkjQY13Vb2iRxr9xZ2obUk=\u0022"},{"Name":"Last-Modified","Value":"Fri, 25 Jul 2025 13:44:31 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/TammBackendProject/AdImages/b5c2abe3-93e0-45f2-b455-a1a249a8e07e.a7psqjhz1h.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\AdImages\b5c2abe3-93e0-45f2-b455-a1a249a8e07e.jpg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"a7psqjhz1h"},{"Name":"integrity","Value":"sha256-ajuvFXskLc7krST58nx0oBFFvw3cXFROoDjsuIv19UQ="},{"Name":"label","Value":"_content/TammBackendProject/AdImages/b5c2abe3-93e0-45f2-b455-a1a249a8e07e.jpg"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"74595"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022ajuvFXskLc7krST58nx0oBFFvw3cXFROoDjsuIv19UQ=\u0022"},{"Name":"Last-Modified","Value":"Fri, 25 Jul 2025 13:44:31 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/TammBackendProject/AdImages/b5c2abe3-93e0-45f2-b455-a1a249a8e07e.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\AdImages\b5c2abe3-93e0-45f2-b455-a1a249a8e07e.jpg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-ajuvFXskLc7krST58nx0oBFFvw3cXFROoDjsuIv19UQ="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"74595"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022ajuvFXskLc7krST58nx0oBFFvw3cXFROoDjsuIv19UQ=\u0022"},{"Name":"Last-Modified","Value":"Fri, 25 Jul 2025 13:44:31 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+  </ItemGroup>
+</Project>

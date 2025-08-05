@@ -1,0 +1,37 @@
+{
+  "Files": [
+    {
+      "Id": "E:\\WORK\\Tamm Projects\\TammBackend\\TammBackendProject\\wwwroot\\AdImages\\0a3c3fff-8a8f-43c1-b40b-c7993060feaf.jpg",
+      "PackagePath": "staticwebassets\\AdImages\\0a3c3fff-8a8f-43c1-b40b-c7993060feaf.jpg"
+    },
+    {
+      "Id": "E:\\WORK\\Tamm Projects\\TammBackend\\TammBackendProject\\wwwroot\\AdImages\\5f225dc9-c263-47f7-be4f-3fdc303a319d.jpeg",
+      "PackagePath": "staticwebassets\\AdImages\\5f225dc9-c263-47f7-be4f-3fdc303a319d.jpeg"
+    },
+    {
+      "Id": "E:\\WORK\\Tamm Projects\\TammBackend\\TammBackendProject\\wwwroot\\AdImages\\b5c2abe3-93e0-45f2-b455-a1a249a8e07e.jpg",
+      "PackagePath": "staticwebassets\\AdImages\\b5c2abe3-93e0-45f2-b455-a1a249a8e07e.jpg"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.TammBackendProject.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.TammBackendProject.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.build.TammBackendProject.props",
+      "PackagePath": "build\\TammBackendProject.props"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.TammBackendProject.props",
+      "PackagePath": "buildMultiTargeting\\TammBackendProject.props"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.buildTransitive.TammBackendProject.props",
+      "PackagePath": "buildTransitive\\TammBackendProject.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

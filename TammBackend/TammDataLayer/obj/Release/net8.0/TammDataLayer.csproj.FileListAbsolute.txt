@@ -1,0 +1,12 @@
+E:\WORK\Tamm Projects\TammBackend\TammDataLayer\bin\Release\net8.0\TammDataLayer.deps.json
+E:\WORK\Tamm Projects\TammBackend\TammDataLayer\bin\Release\net8.0\TammDataLayer.dll
+E:\WORK\Tamm Projects\TammBackend\TammDataLayer\bin\Release\net8.0\TammDataLayer.pdb
+E:\WORK\Tamm Projects\TammBackend\TammDataLayer\obj\Release\net8.0\TammDataLayer.csproj.AssemblyReference.cache
+E:\WORK\Tamm Projects\TammBackend\TammDataLayer\obj\Release\net8.0\TammDataLayer.GeneratedMSBuildEditorConfig.editorconfig
+E:\WORK\Tamm Projects\TammBackend\TammDataLayer\obj\Release\net8.0\TammDataLayer.AssemblyInfoInputs.cache
+E:\WORK\Tamm Projects\TammBackend\TammDataLayer\obj\Release\net8.0\TammDataLayer.AssemblyInfo.cs
+E:\WORK\Tamm Projects\TammBackend\TammDataLayer\obj\Release\net8.0\TammDataLayer.csproj.CoreCompileInputs.cache
+E:\WORK\Tamm Projects\TammBackend\TammDataLayer\obj\Release\net8.0\TammDataLayer.dll
+E:\WORK\Tamm Projects\TammBackend\TammDataLayer\obj\Release\net8.0\refint\TammDataLayer.dll
+E:\WORK\Tamm Projects\TammBackend\TammDataLayer\obj\Release\net8.0\TammDataLayer.pdb
+E:\WORK\Tamm Projects\TammBackend\TammDataLayer\obj\Release\net8.0\ref\TammDataLayer.dll

@@ -1,0 +1,6 @@
+@TammBackendProject_HostAddress = http://localhost:5043
+
+GET {{TammBackendProject_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
