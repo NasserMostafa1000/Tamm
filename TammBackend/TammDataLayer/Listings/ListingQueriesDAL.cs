@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Azure.Core;
 using Microsoft.Data.SqlClient;
 using Newtonsoft.Json;
 using static TammDataLayer.Listings.ListingsDtos;
@@ -12,18 +13,22 @@ namespace TammDataLayer.Listings
 {
     public static class ListingQueriesDAL
     {
-        public static async Task<(List<ListingPreviewDto> Listings, int TotalCount)> SearchOnTammAsync(string lang, string filterWith, int pageNumber, int pageSize)
+        public static async Task<(List<ListingPreviewDto> Listings, int TotalCount)> SearchOnTammAsync(string lang, string filterWith, int pageNumber, int pageSize,decimal min , decimal max)
         {
             var listings = new List<ListingPreviewDto>();
             int totalCount = 0;
             using (var conn = new SqlConnection(Settings._ProductionConnectionString))
-            using (var cmd = new SqlCommand("searchOnTammV2", conn))
+            using (var cmd = new SqlCommand("searchOnTamm", conn))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@Lang", lang);
                 cmd.Parameters.AddWithValue("@FilterWith", (object?)filterWith ?? DBNull.Value);
                 cmd.Parameters.AddWithValue("@PageNumber", pageNumber);
                 cmd.Parameters.AddWithValue("@PageSize", pageSize);
+                cmd.Parameters.AddWithValue("@Min", min);
+                cmd.Parameters.AddWithValue("@Max", max);
+
+
 
                 await conn.OpenAsync();
                 using (var reader = await cmd.ExecuteReaderAsync())
@@ -58,7 +63,7 @@ namespace TammDataLayer.Listings
 
             return (listings, totalCount);
         }
-        public static async Task<List<ListingPreviewDto>> GetListingPreviewByLangAsync(string lang, string filterWith,string CurrentPlace)
+        public static async Task<List<ListingPreviewDto>> GetListingPreviewByLangAsync(string lang, string filterWith, string CurrentPlace)
         {
             var listings = new List<ListingPreviewDto>();
 
@@ -271,7 +276,32 @@ namespace TammDataLayer.Listings
 
             return listings;
         }
+        public static async Task<PriceRangeDto> GetMinAndMaxPricesForSubcategory(string subCategoryName)
+        {
+            PriceRangeDto result = null;
 
+            using (SqlConnection conn = new SqlConnection(Settings._ProductionConnectionString))
+            using (SqlCommand cmd = new SqlCommand("GetMinAndMaxPricesForSubcategory", conn))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@SubCategoryName", subCategoryName);
+
+                await conn.OpenAsync();
+                using (SqlDataReader reader = await cmd.ExecuteReaderAsync())
+                {
+                    if (await reader.ReadAsync())
+                    {
+                        result = new PriceRangeDto
+                        {
+                            MinPrice = reader["MinPrice"] != DBNull.Value ? Convert.ToDecimal(reader["MinPrice"]) : 0,
+                            MaxPrice = reader["MaxPrice"] != DBNull.Value ? Convert.ToDecimal(reader["MaxPrice"]) : 0
+                        };
+                    }
+                }
+            }
+
+            return result;
+        }
     }
 }
 

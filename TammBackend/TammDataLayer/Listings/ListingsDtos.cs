@@ -20,6 +20,11 @@ namespace TammDataLayer.Listings
             public decimal? Price { get; set; }
             public int ListingAddressId { get; set; }
         }
+        public class PriceRangeDto
+        {
+            public decimal MinPrice { get; set; }
+            public decimal MaxPrice { get; set; }
+        }
 
         //[query]
         public class ListingPreviewDto

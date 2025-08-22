@@ -24,6 +24,7 @@ using TammbusinessLayer.ListingReports.ListingReportsReasons;
 using TammbusinessLayer.Listings;
 using TammbusinessLayer.ListingsAttributes;
 using TammbusinessLayer.NotificationsServices;
+using TammbusinessLayer.Payments;
 using TammbusinessLayer.Users;
 using TammDataLayer.Listings;
 using TammDataLayer.Registration;
@@ -57,6 +58,7 @@ namespace TammBackendProject
             builder.Services.AddScoped<IListingQueries, ListingQueriesServices>();
             builder.Services.AddScoped<IFavoriteCommands, FavoritesCommandServices>();
             builder.Services.AddScoped<IFavoriteQueries, FavoritesQueriesServices>();
+            builder.Services.AddHttpClient<PayPalClient>();
             builder.Services.AddScoped<ICountryQueries, CountriesQueriesServices>();
             builder.Services.AddScoped<IListingReportReasonsQueries, ListingReportReasonsQueries>();
             builder.Services.AddScoped<IListingReportsCommands, ListingReportCommandsServices>();
@@ -65,6 +67,7 @@ namespace TammBackendProject
             builder.Services.AddScoped<IUserQueries, UsersQueriesServices>();
             builder.Services.AddScoped<NotificationsFactory>();
             builder.Services.AddScoped<ICoinCommands, CoinsCommandsServices>();
+            builder.Services.AddScoped<IPayments, PaymentsCommandsServices>();
             builder.Services.AddScoped<ICoinQueries, CoinsQueriesServices>();
             builder.Services.AddScoped<INotification, GmailNotifications>();
             builder.Services.AddScoped<IAdminContactCommands, AdminContactsCommandsServices>();

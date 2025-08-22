@@ -918,6 +918,22 @@
   },
   {
     "ContainingType": "TammBackendProject.Controllers.ListingsController",
+    "Method": "GetPriceRange",
+    "RelativePath": "api/Listings/GetPriceRange",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "subCategoryName",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TammBackendProject.Controllers.ListingsController",
     "Method": "GetUnapprovedListings",
     "RelativePath": "api/Listings/GetUnapprovedListings",
     "HttpMethod": "GET",
@@ -1009,6 +1025,16 @@
       {
         "Name": "pageSize",
         "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "min",
+        "Type": "System.Decimal",
+        "IsRequired": false
+      },
+      {
+        "Name": "max",
+        "Type": "System.Decimal",
         "IsRequired": false
       }
     ],
@@ -1128,6 +1154,22 @@
       {
         "Name": "request",
         "Type": "TammBackendProject.Controllers.NotificationsController\u002BNotificationRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PaymentsController",
+    "Method": "VerifyOrder",
+    "RelativePath": "api/Payments/verify",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "VerifyOrderRequest",
         "IsRequired": true
       }
     ],

@@ -32,6 +32,7 @@ import AboutPage from "./Pages/Aboutus.jsx";
 import ContactUsSection from "./Pages/ContactUs.jsx";
 import UpdateContactInfo from "./Pages/UpdateContacts.jsx";
 import TermsAndPrivacy from "./Pages/TermsAndPrivacy.jsx";
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 
 const clientId =
   "711767028404-59t8c0804kcoomt50mfcfpiulcj2fdqi.apps.googleusercontent.com";
@@ -69,7 +70,20 @@ createRoot(document.getElementById("root")).render(
                 <Route path="/Admin/Coins" element={<AdminCoinsManager />} />
                 <Route path="/Admin/Clients" element={<ClientsTable />} />
                 <Route path="/AboutUs" element={<AboutPage />} />
-                <Route path="/RechargingCoins" element={<RechargeCoins />} />
+                <Route
+                  path="/RechargingCoins"
+                  element={
+                    <PayPalScriptProvider
+                      options={{
+                        clientId:
+                          "AbaYFaxibJgq266zJBB_hy3PLXvpIMe-EZBMYv_6-S_VncjSAuKdwzVMA92I5KeRtvBEYSaWdNUFEYHG",
+                        currency: "USD",
+                      }}
+                    >
+                      <RechargeCoins />
+                    </PayPalScriptProvider>
+                  }
+                />
                 <Route
                   path="Admin/ListingReports"
                   element={<ListingReportsContainer />}

@@ -10,3 +10,4 @@ E:\WORK\Tamm Projects\TammBackend\TammDataLayer\obj\Release\net8.0\TammDataLayer
 E:\WORK\Tamm Projects\TammBackend\TammDataLayer\obj\Release\net8.0\refint\TammDataLayer.dll
 E:\WORK\Tamm Projects\TammBackend\TammDataLayer\obj\Release\net8.0\TammDataLayer.pdb
 E:\WORK\Tamm Projects\TammBackend\TammDataLayer\obj\Release\net8.0\ref\TammDataLayer.dll
+E:\WORK\Tamm Projects\TammBackend\TammDataLayer\obj\Release\net8.0\TammDataLayer.sourcelink.json

@@ -8,6 +8,7 @@ E:\WORK\Tamm Projects\TammBackend\TammbusinessLayer\obj\Debug\net8.0\Tammbusines
 E:\WORK\Tamm Projects\TammBackend\TammbusinessLayer\obj\Debug\net8.0\TammbusinessLayer.AssemblyInfoInputs.cache
 E:\WORK\Tamm Projects\TammBackend\TammbusinessLayer\obj\Debug\net8.0\TammbusinessLayer.AssemblyInfo.cs
 E:\WORK\Tamm Projects\TammBackend\TammbusinessLayer\obj\Debug\net8.0\TammbusinessLayer.csproj.CoreCompileInputs.cache
+E:\WORK\Tamm Projects\TammBackend\TammbusinessLayer\obj\Debug\net8.0\TammbusinessLayer.sourcelink.json
 E:\WORK\Tamm Projects\TammBackend\TammbusinessLayer\obj\Debug\net8.0\Tammbusi.EB94E199.Up2Date
 E:\WORK\Tamm Projects\TammBackend\TammbusinessLayer\obj\Debug\net8.0\TammbusinessLayer.dll
 E:\WORK\Tamm Projects\TammBackend\TammbusinessLayer\obj\Debug\net8.0\refint\TammbusinessLayer.dll

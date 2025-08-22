@@ -170,6 +170,8 @@ export async function addListing(listingData) {
 }
 
 export async function uploadListingImages(listingId, files) {
+  const token = localStorage.getItem("userToken"); // أو الاسم الصحيح للتوكن حسب ما خزّنته
+
   for (const file of files) {
     try {
       const formData = new FormData();
@@ -180,6 +182,9 @@ export async function uploadListingImages(listingId, files) {
         {
           method: "POST",
           body: formData,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
 
@@ -187,7 +192,7 @@ export async function uploadListingImages(listingId, files) {
         throw new Error("Failed to upload image");
       }
 
-      await res.json(); // لو عايز تخزن أو تطبع نتيجة كل صورة
+      await res.json(); // لو عايز تستخدم النتيجة
     } catch (error) {
       console.error("Error uploading image:", error);
       throw error;

@@ -13,9 +13,14 @@ export default function HomeSections() {
       en: "Most Popular in Apartments for Rent",
     },
     {
-      key: "عقار للبيع",
-      ar: "الأكثر شهرة في قسم عقارات للبيع",
-      en: "Most Popular in Properties for Sale",
+      key: "Employees",
+      ar: "الأكثر شهرة في قسم الموظفين",
+      en: "Most Popular in Employees",
+    },
+    {
+      key: "سيارات",
+      ar: "الأكثر شهرة في قسم سيارات للبيع",
+      en: "Most Popular in Cars for Sale",
     },
     {
       key: "عقار للإيجار",

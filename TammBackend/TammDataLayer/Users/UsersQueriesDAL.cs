@@ -69,6 +69,29 @@ namespace TammDataLayer.Users
 
             return personId;
         }
+        public static async Task<int> GetClientIdByUserId(int UserId)
+        {
+            int personId = 0;
+            string query = "SELECT ClientId FROM Clients WHERE UserId = @UserId;";
+
+            using (SqlConnection conn = new SqlConnection(Settings._ProductionConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@userId", UserId);
+
+                    await conn.OpenAsync();
+                    object result = await cmd.ExecuteScalarAsync();
+
+                    if (result != null && result != DBNull.Value)
+                    {
+                        personId = Convert.ToInt32(result);
+                    }
+                }
+            }
+
+            return personId;
+        }
         public static async Task<int> GetUserIdByClientId(int ClientId)
         {
             int personId = 0;

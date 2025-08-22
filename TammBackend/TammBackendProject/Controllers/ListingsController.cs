@@ -94,7 +94,7 @@ namespace TammBackendProject.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         // [Authorize(Roles = "Admin,Manager")] ← تم إزالة التقييد لأدوار معينة
-        //  [Authorize] 
+          [Authorize] 
         public async Task<ActionResult> UploadAdImage(IFormFile imageFile, int ListingId)
         {
             // التحقق من الصورة
@@ -141,11 +141,11 @@ namespace TammBackendProject.Controllers
         }
 
         [HttpGet("Search")]
-        public async Task<IActionResult> SearchListings([FromQuery] string lang, [FromQuery] string filterWith, [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
+        public async Task<IActionResult> SearchListings([FromQuery] string lang, [FromQuery] string filterWith, [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10, decimal min=0 ,decimal max= 999999999)
         {
             try
             {
-                var (listings, totalCount) = await _QueriesServices.SearchOnTammAsync(lang, filterWith, pageNumber, pageSize);
+                var (listings, totalCount) = await _QueriesServices.SearchOnTammAsync(lang, filterWith, pageNumber, pageSize,min,max);
 
                 return Ok(new
                 {
@@ -358,6 +358,19 @@ namespace TammBackendProject.Controllers
             }
         }
 
+        [HttpGet("GetPriceRange")]
+        public async Task<IActionResult> GetPriceRange([FromQuery] string subCategoryName)
+        {
+            if (string.IsNullOrWhiteSpace(subCategoryName))
+                return BadRequest("SubCategoryName is required.");
+
+            var result = await _QueriesServices.GetMinAndMaxPricesForSubcategory(subCategoryName);
+
+            if (result == null)
+                return NotFound("No prices found for this subcategory.");
+
+            return Ok(result);
+        }
     }
 
 }

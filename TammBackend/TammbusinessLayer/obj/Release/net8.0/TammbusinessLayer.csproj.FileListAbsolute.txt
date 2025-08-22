@@ -13,3 +13,4 @@ E:\WORK\Tamm Projects\TammBackend\TammbusinessLayer\obj\Release\net8.0\Tammbusin
 E:\WORK\Tamm Projects\TammBackend\TammbusinessLayer\obj\Release\net8.0\refint\TammbusinessLayer.dll
 E:\WORK\Tamm Projects\TammBackend\TammbusinessLayer\obj\Release\net8.0\TammbusinessLayer.pdb
 E:\WORK\Tamm Projects\TammBackend\TammbusinessLayer\obj\Release\net8.0\ref\TammbusinessLayer.dll
+E:\WORK\Tamm Projects\TammBackend\TammbusinessLayer\obj\Release\net8.0\TammbusinessLayer.sourcelink.json

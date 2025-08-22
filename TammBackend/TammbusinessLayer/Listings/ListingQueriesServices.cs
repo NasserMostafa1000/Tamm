@@ -12,11 +12,11 @@ namespace TammbusinessLayer.Listings
 {
     public class ListingQueriesServices:IListingQueries
     {
-        public async Task<(List<ListingPreviewDto> Listings, int TotalCount)> SearchOnTammAsync(string lang, string filterWith, int pageNumber, int pageSize)
+        public async Task<(List<ListingPreviewDto> Listings, int TotalCount)> SearchOnTammAsync(string lang, string filterWith, int pageNumber, int pageSize,decimal min ,decimal max)
         {
             try
             {
-                return await TammDataLayer.Listings.ListingQueriesDAL.SearchOnTammAsync(lang, filterWith, pageNumber, 10);
+                return await TammDataLayer.Listings.ListingQueriesDAL.SearchOnTammAsync(lang, filterWith, pageNumber, 10,min,max);
             }
             catch
             {
@@ -81,5 +81,15 @@ namespace TammbusinessLayer.Listings
             }
         }
 
+        public async Task<PriceRangeDto> GetMinAndMaxPricesForSubcategory(string subCategoryName)
+        {
+            try
+            {
+                return await TammDataLayer.Listings.ListingQueriesDAL.GetMinAndMaxPricesForSubcategory(subCategoryName);
+            }catch
+            {
+                throw;    
+            }
+        }
     }
 }

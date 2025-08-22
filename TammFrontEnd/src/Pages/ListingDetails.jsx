@@ -303,7 +303,9 @@ const FinalListingDetails = () => {
                   }`}
                 >
                   <FiMessageCircle className="w-4 h-4" />
-                  <span>{isArabic ? "تواصل" : "Contact"}</span>
+                  <span>
+                    {isArabic ? "تواصل مع صاحب الأعلان" : "Contact Seller"}
+                  </span>
                 </motion.button>
               )}
             </div>

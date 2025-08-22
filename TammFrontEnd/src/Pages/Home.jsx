@@ -4,7 +4,6 @@ import HomeSections from "../Components/HomeSections";
 import { useNavigate } from "react-router-dom";
 import { useLanguage } from "../Context/LangContext";
 import MainCategoriesGrid from "../Components/MainCategoriesGrid";
-import Footer from "../Components/Footer";
 import { SiteNameAR, SiteNameEN } from "../Utils/Constant";
 import { Helmet } from "react-helmet";
 import ContactUs from "./ContactUs";

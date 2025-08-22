@@ -14,6 +14,8 @@ import { getCoinRate, getAllCoinPackages } from "../Services/AdminCoinsManager";
 import { useLanguage } from "../Context/LangContext";
 import LoadingSpinner from "../Loader/LoadingSpinner";
 import { Helmet } from "react-helmet";
+import { PayPalButtons } from "@paypal/react-paypal-js";
+import { toast } from "react-toastify";
 import { ServerPath, SiteNameAR, SiteNameEN } from "../Utils/Constant";
 import { Line } from "react-chartjs-2";
 import {
@@ -23,6 +25,7 @@ import {
   LinearScale,
   PointElement,
 } from "chart.js";
+import { verifyPayPalOrder } from "../Services/RechargeCoins";
 
 Chart.register(LineElement, CategoryScale, LinearScale, PointElement);
 
@@ -35,6 +38,7 @@ export default function RechargeCoins() {
   const [totalCost, setTotalCost] = useState(0);
   const [loading, setLoading] = useState(false);
   const [selectedOffer, setSelectedOffer] = useState(null);
+  const [isPaying, setIsPaying] = useState(false); // للدفع فقط
 
   const fetchInitialData = async () => {
     try {
@@ -198,15 +202,16 @@ export default function RechargeCoins() {
         </p>
       </motion.div>
 
-      {loading && (
-        <LoadingSpinner
-          text={
-            language === "العربية"
-              ? "جاري تحميل البيانات..."
-              : "Loading data..."
-          }
-        />
-      )}
+      {loading ||
+        (isPaying && (
+          <LoadingSpinner
+            text={
+              language === "العربية"
+                ? "جاري تحميل البيانات..."
+                : "Loading data..."
+            }
+          />
+        ))}
 
       {!loading && (
         <AnimatePresence>
@@ -447,29 +452,83 @@ export default function RechargeCoins() {
 
             {/* Payment Button */}
             <motion.div variants={cardVariants}>
-              <motion.button
-                variants={buttonVariants}
-                whileHover="hover"
-                whileTap="tap"
-                className={`w-full py-4 px-6 rounded-xl text-lg font-semibold flex items-center justify-center gap-2 transition-all ${
-                  !customCoins
-                    ? "bg-gray-300 dark:bg-gray-600 cursor-not-allowed"
-                    : "bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 shadow-lg"
-                }`}
-                disabled={!customCoins}
-              >
-                <FaShoppingCart className="animate-bounce" />
-                {language === "العربية"
-                  ? "المتابعة للدفع"
-                  : "Proceed to Payment"}
-                <motion.span
-                  animate={{ x: [0, 5, 0] }}
-                  transition={{ repeat: Infinity, duration: 2 }}
-                  className="ml-1"
-                >
-                  {language === "العربية" ? "➔" : "→"}
-                </motion.span>
-              </motion.button>
+              {customCoins && (
+                <div className="mt-6">
+                  {loading && (
+                    <div className="mb-4 text-blue-600 font-semibold">
+                      {language === "العربية"
+                        ? "جاري معالجة الدفع..."
+                        : "Processing payment..."}
+                    </div>
+                  )}
+                  <PayPalButtons
+                    style={{
+                      layout: "vertical",
+                      color: "blue",
+                      shape: "rect",
+                      label: "checkout",
+                    }}
+                    createOrder={(data, actions) => {
+                      const usdPrice = (totalCost * 0.27).toFixed(2); // تحويل دراهم إلى دولار
+                      return actions.order.create({
+                        purchase_units: [
+                          {
+                            amount: {
+                              value: usdPrice,
+                              currency_code: "USD",
+                            },
+                          },
+                        ],
+                      });
+                    }}
+                    onApprove={(data, actions) => {
+                      {
+                        setIsPaying(true);
+                      }
+
+                      return actions.order.capture().then(async (details) => {
+                        const paymentMethodId = 1;
+                        try {
+                          await verifyPayPalOrder({
+                            orderId: details.id,
+                            amountOfCoins: Number(customCoins),
+                            paymentMethodId,
+                          });
+
+                          toast.success(
+                            language === "العربية"
+                              ? "✅ تم الدفع وتأكيد الطلب بنجاح!"
+                              : "✅ Payment and verification successful!"
+                          );
+                        } catch (error) {
+                          toast.error(
+                            language === "العربية"
+                              ? "فشل تأكيد الطلب من السيرفر"
+                              : "Payment succeeded, but server verification failed"
+                          );
+                        } finally {
+                          setIsPaying(false); // ✅ إيقاف التحميل دائمًا
+                        }
+                      });
+                    }}
+                    onCancel={() => {
+                      toast.info(
+                        language === "العربية"
+                          ? "تم إلغاء الدفع"
+                          : "Payment was cancelled"
+                      );
+                    }}
+                    onError={(err) => {
+                      console.error("PayPal error:", err);
+                      toast.error(
+                        language === "العربية"
+                          ? "حدث خطأ أثناء عملية الدفع"
+                          : "An error occurred during payment"
+                      );
+                    }}
+                  />
+                </div>
+              )}
             </motion.div>
 
             {/* Additional Info */}

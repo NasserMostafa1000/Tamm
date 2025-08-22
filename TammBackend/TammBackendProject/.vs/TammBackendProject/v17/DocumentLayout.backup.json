@@ -3,29 +3,25 @@
   "WorkspaceRootPath": "E:\\WORK\\Tamm Projects\\TammBackend\\TammBackendProject\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{2AD51398-E8F3-4D72-9C3A-48E1CAFDD1D5}|TammBackendProject.csproj|e:\\work\\tamm projects\\tammbackend\\tammbackendproject\\controllers\\clientscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2AD51398-E8F3-4D72-9C3A-48E1CAFDD1D5}|TammBackendProject.csproj|solutionrelative:controllers\\clientscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5DF13437-70E1-4318-8116-4D7326D9002E}|..\\TammbusinessLayer\\TammbusinessLayer.csproj|e:\\work\\tamm projects\\tammbackend\\tammbusinesslayer\\paypalclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5DF13437-70E1-4318-8116-4D7326D9002E}|..\\TammbusinessLayer\\TammbusinessLayer.csproj|e:\\work\\tamm projects\\tammbackend\\tammbusinesslayer\\users\\userscommandservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{293962F7-6460-4704-9883-D1937949F0E8}|..\\TammDataLayer\\TammDataLayer.csproj|e:\\work\\tamm projects\\tammbackend\\tammdatalayer\\users\\usersqueriesdal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2AD51398-E8F3-4D72-9C3A-48E1CAFDD1D5}|TammBackendProject.csproj|e:\\work\\tamm projects\\tammbackend\\tammbackendproject\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{2AD51398-E8F3-4D72-9C3A-48E1CAFDD1D5}|TammBackendProject.csproj|solutionrelative:properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{293962F7-6460-4704-9883-D1937949F0E8}|..\\TammDataLayer\\TammDataLayer.csproj|e:\\work\\tamm projects\\tammbackend\\tammdatalayer\\tammdatalayer.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+      "AbsoluteMoniker": "D:0:0:{2AD51398-E8F3-4D72-9C3A-48E1CAFDD1D5}|TammBackendProject.csproj|e:\\work\\tamm projects\\tammbackend\\tammbackendproject\\controllers\\paymentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2AD51398-E8F3-4D72-9C3A-48E1CAFDD1D5}|TammBackendProject.csproj|solutionrelative:controllers\\paymentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5DF13437-70E1-4318-8116-4D7326D9002E}|..\\TammbusinessLayer\\TammbusinessLayer.csproj|e:\\work\\tamm projects\\tammbackend\\tammbusinesslayer\\tammbusinesslayer.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+      "AbsoluteMoniker": "D:0:0:{293962F7-6460-4704-9883-D1937949F0E8}|..\\TammDataLayer\\TammDataLayer.csproj|e:\\work\\tamm projects\\tammbackend\\tammdatalayer\\payments\\paymentscommandsdal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2AD51398-E8F3-4D72-9C3A-48E1CAFDD1D5}|TammBackendProject.csproj|e:\\work\\tamm projects\\tammbackend\\tammbackendproject\\tammbackendproject.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{2AD51398-E8F3-4D72-9C3A-48E1CAFDD1D5}|TammBackendProject.csproj|solutionrelative:tammbackendproject.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2AD51398-E8F3-4D72-9C3A-48E1CAFDD1D5}|TammBackendProject.csproj|e:\\work\\tamm projects\\tammbackend\\tammbackendproject\\controllers\\listingscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2AD51398-E8F3-4D72-9C3A-48E1CAFDD1D5}|TammBackendProject.csproj|solutionrelative:controllers\\listingscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2AD51398-E8F3-4D72-9C3A-48E1CAFDD1D5}|TammBackendProject.csproj|e:\\work\\tamm projects\\tammbackend\\tammbackendproject\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2AD51398-E8F3-4D72-9C3A-48E1CAFDD1D5}|TammBackendProject.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -35,21 +31,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 5,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "ClientsController.cs",
-              "DocumentMoniker": "E:\\WORK\\Tamm Projects\\TammBackend\\TammBackendProject\\Controllers\\ClientsController.cs",
-              "RelativeDocumentMoniker": "Controllers\\ClientsController.cs",
-              "ToolTip": "E:\\WORK\\Tamm Projects\\TammBackend\\TammBackendProject\\Controllers\\ClientsController.cs",
-              "RelativeToolTip": "Controllers\\ClientsController.cs",
-              "ViewState": "AgIAAJMAAAAAAAAAAAAAAJ4AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-30T11:29:23.137Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:1:0:{fabf9319-47eb-497e-b8f6-d9f73fba5f55}"
@@ -72,52 +55,29 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "UsersCommandServices.cs",
-              "DocumentMoniker": "E:\\WORK\\Tamm Projects\\TammBackend\\TammbusinessLayer\\Users\\UsersCommandServices.cs",
-              "RelativeDocumentMoniker": "..\\TammbusinessLayer\\Users\\UsersCommandServices.cs",
-              "ToolTip": "E:\\WORK\\Tamm Projects\\TammBackend\\TammbusinessLayer\\Users\\UsersCommandServices.cs",
-              "RelativeToolTip": "..\\TammbusinessLayer\\Users\\UsersCommandServices.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "PayPalClient.cs",
+              "DocumentMoniker": "E:\\WORK\\Tamm Projects\\TammBackend\\TammbusinessLayer\\PayPalClient.cs",
+              "RelativeDocumentMoniker": "..\\TammbusinessLayer\\PayPalClient.cs",
+              "ToolTip": "E:\\WORK\\Tamm Projects\\TammBackend\\TammbusinessLayer\\PayPalClient.cs*",
+              "RelativeToolTip": "..\\TammbusinessLayer\\PayPalClient.cs*",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAuwAwAAAB9AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-30T11:28:11.416Z",
+              "WhenOpened": "2025-08-21T15:27:01.582Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "TammDataLayer.csproj",
-              "DocumentMoniker": "E:\\WORK\\Tamm Projects\\TammBackend\\TammDataLayer\\TammDataLayer.csproj",
-              "RelativeDocumentMoniker": "..\\TammDataLayer\\TammDataLayer.csproj",
-              "ToolTip": "E:\\WORK\\Tamm Projects\\TammBackend\\TammDataLayer\\TammDataLayer.csproj",
-              "RelativeToolTip": "..\\TammDataLayer\\TammDataLayer.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAOAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-07-28T22:14:53.428Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "TammbusinessLayer.csproj",
-              "DocumentMoniker": "E:\\WORK\\Tamm Projects\\TammBackend\\TammbusinessLayer\\TammbusinessLayer.csproj",
-              "RelativeDocumentMoniker": "..\\TammbusinessLayer\\TammbusinessLayer.csproj",
-              "ToolTip": "E:\\WORK\\Tamm Projects\\TammBackend\\TammbusinessLayer\\TammbusinessLayer.csproj",
-              "RelativeToolTip": "..\\TammbusinessLayer\\TammbusinessLayer.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-07-28T22:14:51.067Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "TammBackendProject.csproj",
-              "DocumentMoniker": "E:\\WORK\\Tamm Projects\\TammBackend\\TammBackendProject\\TammBackendProject.csproj",
-              "RelativeDocumentMoniker": "TammBackendProject.csproj",
-              "ToolTip": "E:\\WORK\\Tamm Projects\\TammBackend\\TammBackendProject\\TammBackendProject.csproj",
-              "RelativeToolTip": "TammBackendProject.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-07-28T22:14:47.072Z"
+              "DocumentIndex": 1,
+              "Title": "UsersQueriesDAL.cs",
+              "DocumentMoniker": "E:\\WORK\\Tamm Projects\\TammBackend\\TammDataLayer\\Users\\UsersQueriesDAL.cs",
+              "RelativeDocumentMoniker": "..\\TammDataLayer\\Users\\UsersQueriesDAL.cs",
+              "ToolTip": "E:\\WORK\\Tamm Projects\\TammBackend\\TammDataLayer\\Users\\UsersQueriesDAL.cs",
+              "RelativeToolTip": "..\\TammDataLayer\\Users\\UsersQueriesDAL.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFIAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-21T15:20:59.59Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -127,22 +87,46 @@
               "RelativeDocumentMoniker": "Properties\\launchSettings.json",
               "ToolTip": "E:\\WORK\\Tamm Projects\\TammBackend\\TammBackendProject\\Properties\\launchSettings.json",
               "RelativeToolTip": "Properties\\launchSettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAlAAAAAAAAAA==",
+              "ViewState": "AgIAADEAAAAAAAAAAAAYwEsAAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-07-28T22:03:14.661Z",
+              "WhenOpened": "2025-08-21T15:07:23.621Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "ListingsController.cs",
-              "DocumentMoniker": "E:\\WORK\\Tamm Projects\\TammBackend\\TammBackendProject\\Controllers\\ListingsController.cs",
-              "RelativeDocumentMoniker": "Controllers\\ListingsController.cs",
-              "ToolTip": "E:\\WORK\\Tamm Projects\\TammBackend\\TammBackendProject\\Controllers\\ListingsController.cs",
-              "RelativeToolTip": "Controllers\\ListingsController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACcAAAApAAAAAAAAAA==",
+              "DocumentIndex": 4,
+              "Title": "PaymentsCommandsDAL.cs",
+              "DocumentMoniker": "E:\\WORK\\Tamm Projects\\TammBackend\\TammDataLayer\\Payments\\PaymentsCommandsDAL.cs",
+              "RelativeDocumentMoniker": "..\\TammDataLayer\\Payments\\PaymentsCommandsDAL.cs",
+              "ToolTip": "E:\\WORK\\Tamm Projects\\TammBackend\\TammDataLayer\\Payments\\PaymentsCommandsDAL.cs",
+              "RelativeToolTip": "..\\TammDataLayer\\Payments\\PaymentsCommandsDAL.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-28T21:58:43.865Z"
+              "WhenOpened": "2025-08-21T15:06:28.725Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "PaymentsController.cs",
+              "DocumentMoniker": "E:\\WORK\\Tamm Projects\\TammBackend\\TammBackendProject\\Controllers\\PaymentsController.cs",
+              "RelativeDocumentMoniker": "Controllers\\PaymentsController.cs",
+              "ToolTip": "E:\\WORK\\Tamm Projects\\TammBackend\\TammBackendProject\\Controllers\\PaymentsController.cs",
+              "RelativeToolTip": "Controllers\\PaymentsController.cs",
+              "ViewState": "AgIAADAAAAAAAAAAAAAYwEMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-21T14:25:35.534Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Program.cs",
+              "DocumentMoniker": "E:\\WORK\\Tamm Projects\\TammBackend\\TammBackendProject\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "E:\\WORK\\Tamm Projects\\TammBackend\\TammBackendProject\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAACkAAAAAAAAAAAAQwD0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-21T14:23:01.672Z"
             }
           ]
         }
