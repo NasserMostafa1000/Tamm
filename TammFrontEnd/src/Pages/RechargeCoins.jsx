@@ -327,7 +327,7 @@ export default function RechargeCoins() {
               </motion.div>
             )}
 
-            {/* Offers Section */}
+            {/* Offers Section 
             <motion.div variants={cardVariants} className="mb-8">
               <h3 className="text-lg font-semibold mb-4 flex items-center gap-2 text-gray-700 dark:text-gray-300">
                 <FaGem className="text-blue-500" />
@@ -383,7 +383,7 @@ export default function RechargeCoins() {
                 ))}
               </div>
             </motion.div>
-
+*/}
             {/* Custom Amount Section */}
             <motion.div variants={cardVariants} className="mb-8">
               <h3 className="text-lg font-semibold mb-4 flex items-center gap-2 text-gray-700 dark:text-gray-300">

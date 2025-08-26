@@ -252,7 +252,7 @@ export default function AdminCoinsManager() {
       </div>
 
       {/* Add Package Section */}
-      <div
+      {/* <div
         className={`p-6 rounded-xl shadow-md mb-8 ${
           mode === "dark" ? "bg-gray-800" : "bg-white"
         }`}
@@ -305,7 +305,7 @@ export default function AdminCoinsManager() {
             </button>
           </div>
         </div>
-      </div>
+      </div>*/}
 
       {/* Packages Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

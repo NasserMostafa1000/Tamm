@@ -16,6 +16,11 @@ namespace TammbusinessLayer.Factories
             {
                 { "google", new GoogleRegistration() },
                 { "Tamm", new TammDataLayer.Registration.TammRegistration() },
+                 { "dubaizzle", new TammDataLayer.Registration.TammRegistration() },
+                { "emirates market", new TammDataLayer.Registration.TammRegistration() },
+                { "propz", new TammDataLayer.Registration.TammRegistration() },
+                { "dubai market", new TammDataLayer.Registration.TammRegistration() },
+
 
             };
         }

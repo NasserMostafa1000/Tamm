@@ -2,8 +2,11 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using TammbusinessLayer.Coins;
 using TammbusinessLayer.Interfaces;
 using TammbusinessLayer.Payments;
+using TammDataLayer;
+using TammDataLayer.Coins;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -41,15 +44,25 @@ public class PaymentsController : ControllerBase
             || string.IsNullOrEmpty(order.PurchaseUnits[0].Amount.Value))
         {
             var orderJson = Newtonsoft.Json.JsonConvert.SerializeObject(order);
-            Console.WriteLine("PayPal order data: " + orderJson);
             return BadRequest("Payment not completed or order details are invalid.");
         }
         int amountOfCoins = request.AmountOfCoins;
         int paymentMethodId = request.PaymentMethodId;
-        decimal totalCost = decimal.Parse(order.PurchaseUnits[0].Amount.Value);
+        decimal totalCostUsd = decimal.Parse(order.PurchaseUnits[0].Amount.Value);
+        decimal coinRate = await Settings.GetCoinRate(); // سعر الكوين بالدرهم
+        decimal expectedCostAED = coinRate * amountOfCoins; // التكلفة بالدرهم
+        decimal usdRate = 0.27m; // ثابت: 1 درهم = 0.27 دولار
+        decimal expectedCostUSD = expectedCostAED * usdRate; // التحويل إلى دولار
+
+        // ✅ تحقق أن المبلغ اللي اتدفع = المبلغ المتوقع
+        if (Math.Abs(totalCostUsd - expectedCostUSD) > 5m)
+        {
+            return BadRequest("Invalid payment amount. Possible tampering detected.");
+        }
+
 
         // سجل الدفع في الداتا بيز
-        bool success = await _paymentService.AddPaymentAsync(clientId, amountOfCoins, paymentMethodId, totalCost);
+        bool success = await _paymentService.AddPaymentAsync(clientId, amountOfCoins, paymentMethodId, totalCostUsd);
 
         if (success)
             return Ok(new { message = "Payment recorded successfully." });

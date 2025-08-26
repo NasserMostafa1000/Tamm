@@ -112,24 +112,18 @@ namespace TammBackendProject
 
             builder.Services.AddAuthorization();
             builder.Services.AddSignalR();
-
             builder.Services.AddCors(options =>
             {
-                options.AddPolicy("AllowReactApp", policy =>
+                options.AddPolicy("AllowAllWithCredentials", policy =>
                 {
                     policy
-                        .SetIsOriginAllowed(origin =>
-                            new[]
-                            {
-                    "http://localhost:3000",
-                    "https://tamm-uae.netlify.app",
-                    "http://192.168.1.167:3000"
-                            }.Contains(origin))
+                        .SetIsOriginAllowed(_ => true) // يسمح بأي Origin
                         .AllowAnyHeader()
                         .AllowAnyMethod()
                         .AllowCredentials();
                 });
             });
+
 
 
 
@@ -142,7 +136,7 @@ namespace TammBackendProject
 
             app.UseRouting();
 
-            app.UseCors("AllowReactApp");            // استدعاء مرة واحدة قبل المصادقة
+            app.UseCors("AllowAllWithCredentials");            // استدعاء مرة واحدة قبل المصادقة
 
             app.UseAuthentication();            // استدعاء مرة واحدة وبالترتيب الصحيح
             app.UseAuthorization();
