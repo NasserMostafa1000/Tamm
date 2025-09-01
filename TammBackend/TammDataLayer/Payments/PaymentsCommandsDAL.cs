@@ -10,7 +10,7 @@ namespace TammDataLayer.Payments
 {
     public static class PaymentsCommandsDAL
     {
-        public static async Task<bool> AddPaymentAsync(int clientId, int amountOfCoins, int paymentMethodId, decimal totalCost)
+        public static async Task<bool> AddPaymentAsync(int clientId, int amountOfCoins, int paymentMethodId, decimal totalCost,string PayPalOrderId)
         {
             using (SqlConnection connection = new SqlConnection(Settings._ProductionConnectionString))
             using (SqlCommand command = new SqlCommand("AddPayment", connection))
@@ -21,6 +21,8 @@ namespace TammDataLayer.Payments
                 command.Parameters.AddWithValue("@AmountOfCoins", amountOfCoins);
                 command.Parameters.AddWithValue("@PaymentMethodId", paymentMethodId);
                 command.Parameters.AddWithValue("@TotalCost", totalCost);
+                command.Parameters.AddWithValue("@PayPalOrderId", PayPalOrderId);
+
 
                 try
                 {

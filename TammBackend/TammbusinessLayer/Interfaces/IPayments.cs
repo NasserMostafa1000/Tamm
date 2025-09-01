@@ -8,6 +8,6 @@ namespace TammbusinessLayer.Interfaces
 {
     public interface IPayments
     {
-        Task<bool> AddPaymentAsync(int clientId, int amountOfCoins, int paymentMethodId, decimal totalCost);
+        Task<bool> AddPaymentAsync(int clientId, int amountOfCoins, int paymentMethodId, decimal totalCost,string PayPalOrderId);
     }
 }
