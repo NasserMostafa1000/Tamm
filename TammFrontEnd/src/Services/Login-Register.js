@@ -10,7 +10,7 @@ export default async function LoginReisgteration(
   try {
     // فك التوكن
     const decoded = jwtDecode(token);
-     console.log(token)
+    console.log(token);
     if (!(decoded && decoded.email)) return false; // التحقق من صحة التوكن
 
     // إعداد بيانات المستخدم للإرسال إلى API
@@ -24,7 +24,7 @@ export default async function LoginReisgteration(
       Gender: null,
       Email: decoded.email,
       HashedPassword: null,
-      LoginProviderName: "Google",
+      LoginProviderName: "Google tamm",
       RoleId: 2,
     };
 
@@ -100,4 +100,39 @@ export async function manualLogin({ email, password, lang }) {
   }
 
   return data.token;
+}
+export async function resetPassword({
+  email,
+  notifierId,
+  language,
+  notificationProvider,
+}) {
+  try {
+    const response = await fetch(`${API_BASE_URL}users/reset`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+        notifierId,
+        language,
+        notificationProvider,
+      }),
+    });
+
+    const data = await response.json();
+
+    return {
+      success: response.ok,
+      message:
+        data.message || (response.ok ? "Success" : "Something went wrong"),
+    };
+  } catch (error) {
+    console.error("Error resetting password:", error.message);
+    return {
+      success: false,
+      message: error.message,
+    };
+  }
 }

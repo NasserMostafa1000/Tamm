@@ -38,7 +38,33 @@ namespace TammDataLayer.Users
         {
             public string ImageUrl { get; set; }
         }
+        public static async Task<int> UpdatePasswordWithEmailAsync(string email, string newHashedPassword, string language = "en")
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(Settings._ProductionConnectionString))
+                {
+                    using (SqlCommand cmd = new SqlCommand("UpdatePassword", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
 
+                        cmd.Parameters.AddWithValue("@Email", email);
+                        cmd.Parameters.AddWithValue("@NewHashedPassword", newHashedPassword);
+                        cmd.Parameters.AddWithValue("@Language", language);
+
+                        await conn.OpenAsync();
+
+                        int rowsAffected = await cmd.ExecuteNonQueryAsync();
+                        return rowsAffected;
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                // لو فيه THROW من SQL (مثلاً "البريد الإلكتروني غير موجود.")
+                throw new Exception(ex.Message, ex);
+            }
+        }
         public static async Task<List<string>> DeletePersonAndAddressesAndGetImagePathsAsync(int personId)
         {
             using (SqlConnection conn = new SqlConnection(Settings._ProductionConnectionString))
@@ -64,7 +90,7 @@ namespace TammDataLayer.Users
             }
         }
 
-    }
+}
 
 }
 

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TammBackendProject")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f632e7ff5503e6e89dae75b3a38794c6a6126b77")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+56100e7c1f9f1cdbfc736ee44e7f746f72f47fdf")]
 [assembly: System.Reflection.AssemblyProductAttribute("TammBackendProject")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TammBackendProject")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

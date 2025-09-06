@@ -69,9 +69,8 @@ namespace TammBackendProject
             builder.Services.AddScoped<ICoinCommands, CoinsCommandsServices>();
             builder.Services.AddScoped<IPayments, PaymentsCommandsServices>();
             builder.Services.AddScoped<IPendingPayments, PendingPayments>();
-
             builder.Services.AddScoped<ICoinQueries, CoinsQueriesServices>();
-            builder.Services.AddScoped<INotification, GmailNotifications>();
+//            builder.Services.AddScoped<INotification, GmailNotifications>();
             builder.Services.AddScoped<IAdminContactCommands, AdminContactsCommandsServices>();
             builder.Services.AddScoped<IAdminContactQueries, AdminContactsQueriesServices>();
             builder.Services.AddSingleton<TokenHelper>();

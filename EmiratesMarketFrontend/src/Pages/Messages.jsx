@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from "react";
 import * as signalR from "@microsoft/signalr";
-import { playNotificationSound, ServerPath } from "../Utils/Constant";
+import {
+  playNotificationSound,
+  ServerPath,
+  SiteNameAR,
+  SiteNameEN,
+} from "../Utils/Constant";
 import { useAuth } from "../Context/TokenContext";
 import { useLanguage } from "../Context/LangContext";
 import { fetchChatContacts } from "../Services/messages";
 import { useNavigate } from "react-router-dom";
-import { FaUserCircle } from "react-icons/fa";
+import { FaCheckCircle, FaUserCircle } from "react-icons/fa";
 
 export default function MessagesPage() {
   const { userToken, userId } = useAuth();
@@ -144,7 +149,33 @@ export default function MessagesPage() {
                 <div className="flex-1 overflow-hidden">
                   <div className="flex justify-between items-center">
                     <h3 className="font-semibold text-gray-900 dark:text-white truncate">
-                      {contact.fullName}
+                      {contact.toUserId === 23 ? (
+                        isArabic ? (
+                          <span
+                            style={{
+                              display: "inline-flex",
+                              alignItems: "center",
+                              gap: "0.25rem",
+                            }}
+                          >
+                            {SiteNameAR}
+                            <FaCheckCircle style={{ color: "blue" }} />
+                          </span>
+                        ) : (
+                          <span
+                            style={{
+                              display: "inline-flex",
+                              alignItems: "center",
+                              gap: "0.25rem",
+                            }}
+                          >
+                            {SiteNameEN}
+                            <FaCheckCircle style={{ color: "blue" }} />
+                          </span>
+                        )
+                      ) : (
+                        contact.fullName
+                      )}
                     </h3>
                     <span className="text-xs text-gray-400 whitespace-nowrap">
                       {formatDate(contact.sentAt)}

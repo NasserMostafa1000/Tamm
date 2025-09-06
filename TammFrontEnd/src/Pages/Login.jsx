@@ -71,6 +71,9 @@ export default function Login() {
       setIsLoading(false);
     }
   };
+  const handleForgotPasswordClick = () => {
+    navigate("/reset-password");
+  };
 
   const handleGoogleSuccess = async (response) => {
     setError(null);
@@ -89,7 +92,7 @@ export default function Login() {
         DateOfBirth: null,
         Gender: null,
         HashedPassword: null,
-        LoginProviderName: "Google",
+        LoginProviderName: "Google tamm",
         RoleId: 2,
       };
 
@@ -156,6 +159,12 @@ export default function Login() {
           placeholder={isArabic ? "البريد الإلكتروني" : "Email"}
           className={getInputClass(mode)}
         />
+        <a
+          onClick={handleForgotPasswordClick}
+          className="text-sm text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 font-medium"
+        >
+          {isArabic ? "هل نسيت كلمة السر؟" : "Forgot Password?"}
+        </a>
         <input
           type="password"
           value={password}

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TammbusinessLayer.Interfaces;
+using TammDataLayer.Users;
 
 namespace TammbusinessLayer.Users
 {
@@ -14,6 +15,29 @@ namespace TammbusinessLayer.Users
             try
             {
                 return await TammDataLayer.Users.UsersQueriesDAL.GetAllUserEmailsAsync();
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public async Task<string> GetLoginProviderNameAsync(int personId)
+        {
+            try
+            {
+                return await  UsersQueriesDAL.GetLoginProviderNameAsync(personId);
+            }catch
+            {
+                throw;
+            }
+        }
+
+        public async Task<string> GetLoginProviderNameByEmailAsync(string email)
+        {
+            try
+            {
+                return await UsersQueriesDAL.GetLoginProviderNameByEmailAsync(email);
             }
             catch
             {

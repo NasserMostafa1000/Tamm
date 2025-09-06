@@ -156,5 +156,53 @@ namespace TammDataLayer.Users
 
 
         }
+        /// Returns the login provider name for a specific user.
+        /// </summary>
+        /// <param name="personId">The ID of the user.</param>
+        /// <returns>The login provider name as a string, or null if not found.</returns>
+        public static async Task<string> GetLoginProviderNameAsync(int personId)
+        {
+            using (SqlConnection conn = new SqlConnection(Settings._ProductionConnectionString))
+            using (SqlCommand cmd = new SqlCommand("GetLoginProviderName", conn))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@PersonId", personId);
+
+                await conn.OpenAsync();
+
+                var result = await cmd.ExecuteScalarAsync();
+                return result?.ToString();
+            }
+        }
+
+        /// <summary>
+        /// Overload to get login provider by email.
+        /// </summary>
+        /// <param name="email">User's email.</param>
+        /// <returns>The login provider name as a string, or null if not found.</returns>
+        public static async Task<string> GetLoginProviderNameByEmailAsync(string email)
+        {
+            using (SqlConnection conn = new SqlConnection(Settings._ProductionConnectionString))
+            using (SqlCommand cmd = new SqlCommand("SELECT LoginProviderName FROM Users WHERE Email = @Email", conn))
+            {
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("@Email", email);
+
+                await conn.OpenAsync();
+
+                var result = await cmd.ExecuteScalarAsync();
+                var provider = result?.ToString() ?? "";
+
+                // لو الاسم فيه "google"، نشيلها مع تجاهل الحالة
+                if (provider.IndexOf("google", StringComparison.OrdinalIgnoreCase) >= 0)
+                {
+                    provider = provider.Remove(provider.IndexOf("google", StringComparison.OrdinalIgnoreCase), "google".Length).Trim();
+                }
+
+                return provider;
+            }
+        }
+
+
     }
 }

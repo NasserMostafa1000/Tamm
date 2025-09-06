@@ -13,11 +13,19 @@ namespace TammbusinessLayer.Factories
     {
         private readonly Dictionary<string, INotification> _strategies;
 
-        public NotificationsFactory(IEnumerable<INotification> notifications)
+        public NotificationsFactory()
         {
             _strategies = new Dictionary<string, INotification>(StringComparer.OrdinalIgnoreCase)
             {
                 { "gmail", new GmailNotifications() },
+                { "Google propz", new GmailNotifications() },
+                { "Google", new GmailNotifications() },
+                { "google tamm", new GmailNotifications() },
+                { "google emirates market", new GmailNotifications() },
+                { "google dubai market", new GmailNotifications() },
+                { "google dubaizzle", new GmailNotifications() },
+
+
             };
         }
 

@@ -9,5 +9,6 @@ namespace TammbusinessLayer.Interfaces
     public interface IUsersCommands
     {
         Task<bool> BlockPersonAsync(int personId);
+        Task<int> UpdatePasswordWithEmailAsync(string email, string notifierId, string language , string NotificationSender);
     }
 }

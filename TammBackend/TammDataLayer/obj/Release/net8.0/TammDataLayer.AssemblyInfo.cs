@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TammDataLayer")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bd3a55d9bffb79e076ee6cf5f085db104cca1a7e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+56100e7c1f9f1cdbfc736ee44e7f746f72f47fdf")]
 [assembly: System.Reflection.AssemblyProductAttribute("TammDataLayer")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TammDataLayer")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

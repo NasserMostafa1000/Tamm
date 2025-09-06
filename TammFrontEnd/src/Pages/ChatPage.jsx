@@ -193,10 +193,6 @@ export default function ChatPage() {
     );
   }
 
-  const defaultMsg = isArabic
-    ? "هل مازال الإعلان متوفرًا؟"
-    : "Is this ad still available?";
-
   return (
     <div className="flex flex-col h-screen max-w-2xl mx-auto bg-white dark:bg-gray-900">
       {/* Header */}
@@ -242,7 +238,6 @@ export default function ChatPage() {
       {/* Messages container */}
       <div className="flex-1 overflow-y-auto p-4 space-y-3">
         {messages.map((msg, idx) => {
-          const isDefaultMessage = msg.message === defaultMsg;
           const isMyMessage = msg.fromUserId == userId;
           const isRead = msg.isRead || false;
 

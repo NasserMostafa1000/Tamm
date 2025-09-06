@@ -172,17 +172,19 @@ export default function SearchBar({ onSearch, suggestions = [] }) {
         transition: "background-image 1s ease-in-out",
       }}
     >
-      <style jsx>{`
-        @keyframes blink {
-          0%,
-          100% {
-            opacity: 1;
-          }
-          50% {
-            opacity: 0;
-          }
-        }
-      `}</style>
+      <style>
+        {`
+    @keyframes blink {
+      0%,
+      100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0;
+      }
+    }
+  `}
+      </style>
 
       <div className="relative flex flex-col items-center w-full max-w-xl px-4">
         <div

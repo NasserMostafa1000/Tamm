@@ -14,7 +14,12 @@ namespace TammbusinessLayer.Factories
         {
             _strategies = new Dictionary<string, IRegister>(StringComparer.OrdinalIgnoreCase)
             {
-                { "google", new GoogleRegistration() },
+                { "google tamm", new GoogleRegistration() },
+                { "google propz", new GoogleRegistration() },
+                { "google emirates market", new GoogleRegistration() },
+                { "google dubai market", new GoogleRegistration() },
+                { "google dubaizzle", new GoogleRegistration() },
+
                 { "Tamm", new TammDataLayer.Registration.TammRegistration() },
                  { "dubaizzle", new TammDataLayer.Registration.TammRegistration() },
                 { "emirates market", new TammDataLayer.Registration.TammRegistration() },
@@ -34,6 +39,7 @@ namespace TammbusinessLayer.Factories
             {
                 return strategy;
             }
+     
 
             throw new KeyNotFoundException($"No notification strategy found for provider: {providerName}");
         }

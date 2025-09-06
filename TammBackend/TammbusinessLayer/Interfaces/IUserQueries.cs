@@ -9,5 +9,7 @@ namespace TammbusinessLayer.Interfaces
     public interface IUserQueries
     {
         Task<List<string>> GetAllUserEmailsAsync();
+        Task<string> GetLoginProviderNameAsync(int personId);
+        Task<string> GetLoginProviderNameByEmailAsync(string email);
     }
 }

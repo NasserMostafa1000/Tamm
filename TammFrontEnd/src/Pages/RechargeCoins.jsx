@@ -32,12 +32,12 @@ Chart.register(LineElement, CategoryScale, LinearScale, PointElement);
 export default function RechargeCoins() {
   const { language } = useLanguage();
   const [priceHistory, setPriceHistory] = useState([]);
-  const [offers, setOffers] = useState([]);
+  const [setOffers] = useState([]);
   const [customCoins, setCustomCoins] = useState("");
   const [coinRate, setCoinRate] = useState(null);
   const [totalCost, setTotalCost] = useState(0);
   const [loading, setLoading] = useState(false);
-  const [selectedOffer, setSelectedOffer] = useState(null);
+  const [setSelectedOffer] = useState(null);
   const [isPaying, setIsPaying] = useState(false); // للدفع فقط
 
   const fetchInitialData = async () => {
@@ -71,11 +71,6 @@ export default function RechargeCoins() {
     }
   };
 
-  const handleOfferClick = (offer) => {
-    setSelectedOffer(offer.coinId);
-    setCustomCoins(offer.coinsAmount);
-    setTotalCost(offer.coinPrice);
-  };
   useEffect(() => {
     if (customCoins && coinRate) {
       setTotalCost(Number(customCoins) * coinRate);
@@ -122,10 +117,6 @@ export default function RechargeCoins() {
     visible: { opacity: 1, y: 0 },
   };
 
-  const buttonVariants = {
-    hover: { scale: 1.03 },
-    tap: { scale: 0.98 },
-  };
   const coinStructuredData = {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -500,7 +491,7 @@ export default function RechargeCoins() {
                               ? "✅ تم الدفع وتأكيد الطلب بنجاح!"
                               : "✅ Payment and verification successful!"
                           );
-                        } catch (error) {
+                        } catch {
                           toast.error(
                             language === "العربية"
                               ? "فشل تأكيد الطلب من السيرفر"

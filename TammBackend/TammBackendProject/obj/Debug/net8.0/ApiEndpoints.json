@@ -1176,6 +1176,16 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "PaymentsController",
+    "Method": "Webhook",
+    "RelativePath": "api/Payments/webhook",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "TammBackendProject.Controllers.UsersController",
     "Method": "BlockPerson",
     "RelativePath": "api/Users/BlockPerson",
@@ -1210,6 +1220,22 @@
         "StatusCode": 200
       }
     ]
+  },
+  {
+    "ContainingType": "TammBackendProject.Controllers.UsersController",
+    "Method": "ResetPassword",
+    "RelativePath": "api/Users/reset",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "TammBackendProject.Controllers.ResetPasswordRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
   },
   {
     "ContainingType": "TammBackendProject.Controllers.SiteMapController",

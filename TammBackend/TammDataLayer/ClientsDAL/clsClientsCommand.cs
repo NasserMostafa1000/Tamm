@@ -20,7 +20,6 @@ namespace TammDataLayer.ClientsDAL
                 using (SqlCommand cmd = new SqlCommand("AddClient", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-
                     cmd.Parameters.AddWithValue("@Lang", client.Lang);
                     cmd.Parameters.AddWithValue("@FirstName", client.FirstName);
                     cmd.Parameters.AddWithValue("@LastName", client.LastName);
@@ -44,7 +43,6 @@ namespace TammDataLayer.ClientsDAL
                 throw new Exception(ex.Message);
             }
         }
-
         public static async Task UpdateClientProfileAsync(UpdateClientProfileDto dto)
         {
             using (SqlConnection connection = new SqlConnection(Settings._ProductionConnectionString))

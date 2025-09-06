@@ -14,7 +14,7 @@ export default function DecodedTokenAndReturnCurrentClientInfoInfo(token) {
     Gender: null,
     Email: decoded.email || "",
     HashedPassword: null,
-    LoginProviderName: "google",
+    LoginProviderName: "google propz",
     RoleId: 0,
   };
 }

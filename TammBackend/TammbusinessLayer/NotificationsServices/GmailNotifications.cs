@@ -11,7 +11,7 @@ namespace TammbusinessLayer.NotificationsServices
 {
     public class GmailNotifications : INotification
     {
-        public async Task SendNotificationAsync(string toUserIdOrEmail, string subjectOrTitle, string messageBody)
+        public async Task SendNotificationAsync(string toUserIdOrEmail, string subjectOrTitle, string messageBody,string CurrentUserProviderName)
         {
             try
             {
@@ -19,7 +19,7 @@ namespace TammbusinessLayer.NotificationsServices
                 string appPassword = "lckp jgvm uuqo qyra";
                 string toAddress = toUserIdOrEmail; 
                 string subject = subjectOrTitle;
-                string fromName = "[TAMM]";
+                string fromName = CurrentUserProviderName;
                 string body = messageBody;
 
                 SmtpClient smtp = new SmtpClient

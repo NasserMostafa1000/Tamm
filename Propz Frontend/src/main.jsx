@@ -30,6 +30,7 @@ import SettingsPage from "./Pages/SettingsPage.jsx";
 import AdminCoinsManager from "./Pages/AdminCoinsManager.jsx";
 import AboutPage from "./Pages/Aboutus.jsx";
 import ContactUsSection from "./Pages/ContactUs.jsx";
+import ResetPasswordForm from "./Pages/ResetPasswordForm.jsx";
 import UpdateContactInfo from "./Pages/UpdateContacts.jsx";
 import TermsAndPrivacy from "./Pages/TermsAndPrivacy.jsx";
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
@@ -70,6 +71,8 @@ createRoot(document.getElementById("root")).render(
                 <Route path="/Admin/Coins" element={<AdminCoinsManager />} />
                 <Route path="/Admin/Clients" element={<ClientsTable />} />
                 <Route path="/AboutUs" element={<AboutPage />} />
+                <Route path="/reset-password" element={<ResetPasswordForm />} />
+
                 <Route
                   path="/RechargingCoins"
                   element={

@@ -2,4 +2,4 @@ User-agent: *
 Disallow: /Admin
 Disallow: /admins
 Disallow: /admin
-Sitemap: https://tamm-uae.netlify.app/sitemap.xml
+Sitemap: https://propz-uae.netlify.app/sitemap.xml

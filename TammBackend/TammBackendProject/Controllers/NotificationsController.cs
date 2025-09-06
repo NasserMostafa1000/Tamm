@@ -17,12 +17,15 @@ namespace TammBackendProject.Controllers
         private readonly IHubContext<ChatHub> _hubContext;
         private readonly NotificationsFactory _notificationsFactory;
         private readonly IChatService _chatService;
+        private readonly IUserQueries _userQueries;
 
-        public NotificationsController(IHubContext<ChatHub> hubContext, NotificationsFactory notificationsFactory, IChatService chatService)
+
+        public NotificationsController(IHubContext<ChatHub> hubContext, NotificationsFactory notificationsFactory, IChatService chatService, IUserQueries userQueries)
         {
             _hubContext = hubContext;
             _notificationsFactory = notificationsFactory;
             _chatService= chatService;
+            _userQueries = userQueries;
         }
         public class NotificationRequest
         {
@@ -54,9 +57,12 @@ namespace TammBackendProject.Controllers
                 }
                 else
                 {
-                    // بعت الرسالة عن طريق الـ Factory (Gmail أو غيره)
+                    //here gmail notifications
                     INotification notifier = _notificationsFactory.GetNotificationSender(request.NotificationProvider);
-                    await notifier.SendNotificationAsync(request.EmailOrUserId, request.Subject, request.Body);
+                    // Determines the sender name for the user (for multiple front-end sites)
+                    string UserNotificationProvider = await _userQueries.GetLoginProviderNameByEmailAsync(request.EmailOrUserId);
+                    string cleaned = UserNotificationProvider.Replace("google", "", StringComparison.OrdinalIgnoreCase).Replace("gmail", "", StringComparison.OrdinalIgnoreCase).Trim();
+                    await notifier.SendNotificationAsync(request.EmailOrUserId, request.Subject, request.Body, UserNotificationProvider);
 
                     return Ok("Notification sent successfully.");
                 }

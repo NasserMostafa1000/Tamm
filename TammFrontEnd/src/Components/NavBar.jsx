@@ -38,7 +38,7 @@ export default function NavBar() {
   const { mode, toggleMode } = useTheme();
   const { userToken } = useAuth();
   const isDark = mode === "dark";
-  const [profileMenuOpen, setProfileMenuOpen] = useState(false);
+  const [profileMenuOpen, setProfileMenuOpen] = useState(true);
   const profileRefDesktop = useRef();
   const profileRefMobile = useRef();
   const [connection, setConnection] = useState(null);

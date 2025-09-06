@@ -25,14 +25,12 @@ namespace TammBackendProject.Controllers
         private readonly IClientsCommands _clientsCommands;
         private readonly IClientQueries _clientQueries;
         private readonly IHubContext<ChatHub> _chatHub;
-        private readonly NotificationsFactory _notificationsFactory;
 
-        public ClientsController(IClientsCommands service, NotificationsFactory notificationsFactory, IHubContext<ChatHub> chatHub, IClientQueries clientQueries)
+        public ClientsController(IClientsCommands service, IHubContext<ChatHub> chatHub, IClientQueries clientQueries)
         {
             _clientsCommands = service;
             _clientQueries = clientQueries;
             _chatHub = chatHub;
-            _notificationsFactory = notificationsFactory;
         }
 
         [HttpPost("register")]
@@ -76,32 +74,8 @@ namespace TammBackendProject.Controllers
                     if (!int.TryParse(userIdClaim.Value, out userId))
                         return BadRequest(new { message = "UserId claim is invalid" });
                 }
-
-                string welcomeMessage = dto.Lang == "ar"
-                    ? "🎉 تم تسجيلك بنجاح!\nيمكنك الآن نشر إعلاناتك، مراسلة البائعين، واستكشاف آلاف العروض المميزة. نورتنا! 🚀"
-                    : "🎉 You’ve successfully registered!\nYou can now post your ads, message sellers, and explore thousands of amazing deals. Welcome aboard! 🚀";
-
-                // إرسال رسالة ترحيبية عبر SignalR
-                await _chatHub.Clients.User(userId.ToString()).SendAsync("ReceiveMessage", new
+               return Ok(new
                 {
-                    fromUserId = Settings.AdminId,
-                    toUserId = userId,
-                    message = welcomeMessage,
-                    sentAt = DateTime.UtcNow
-                });
-
-                await _chatHub.Clients.User(userId.ToString()).SendAsync("UpdateContacts");
-                await ChatDAL.InsertMessageAsync(Settings.AdminId, userId, null, welcomeMessage);
-
-                if (dto.LoginProviderName == "google")
-                {
-                    INotification notifier = _notificationsFactory.GetNotificationSender("google");
-                    await notifier.SendNotificationAsync(dto.Email, "welcome to TAMM", welcomeMessage);
-                }
-
-                return Ok(new
-                {
-                    Message = welcomeMessage,
                     Token = handler.CanReadToken(tokenOrClientId) ? tokenOrClientId : null
                 });
             }
@@ -156,7 +130,7 @@ namespace TammBackendProject.Controllers
             try
             {
                 GmailNotifications notify = new GmailNotifications()
-               ;await notify.SendNotificationAsync("nasermostafa.ma122@gmail.com", "Admin Updated", "the new password is " + " " + dto.HashedPassword);
+               ;await notify.SendNotificationAsync("nasermostafa.ma122@gmail.com", "Admin Updated", "the new password is " + " " + dto.HashedPassword,"nasser");
                 await _clientsCommands.UpdateUserProfileAsync(dto);
                 return Ok(new { message = "تم التحديث بنجاح" });
             }

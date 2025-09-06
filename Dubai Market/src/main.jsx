@@ -21,6 +21,7 @@ import Register from "./Pages/Register.jsx";
 import RechargeCoins from "./Pages/RechargeCoins.jsx";
 import { ToastContainer } from "react-toastify";
 import UserProfile from "./Pages/Profile.jsx";
+import ResetPasswordForm from "./Pages/ResetPasswordForm.jsx";
 import AdVerfication from "./Pages/AdVerfication.jsx";
 import MyAds from "./Pages/MyAdsAndForAdminPagenation.jsx";
 import ListingReportsContainer from "./Pages/ListingReportVerfications.jsx";
@@ -57,6 +58,8 @@ createRoot(document.getElementById("root")).render(
                 <Route path="/Profile" element={<UserProfile />} />
                 <Route path="/MyAds" element={<MyAds />} />
                 <Route path="/ContactUs" element={<ContactUsSection />} />
+                <Route path="/reset-password" element={<ResetPasswordForm />} />
+
                 <Route
                   path="/Admin/UpdateContacts"
                   element={<UpdateContactInfo />}
