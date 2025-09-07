@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TammBackendProject")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6a99dd32a0607e2dba3f99ccf30cc2b4226a1e98")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c83a2f68f526fd6d37f4dff0d721dfa225c3659c")]
 [assembly: System.Reflection.AssemblyProductAttribute("TammBackendProject")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TammBackendProject")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

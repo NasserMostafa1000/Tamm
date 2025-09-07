@@ -46,9 +46,7 @@ const FinalListingDetails = () => {
       const decoded = jwtDecode(userToken);
       userId = decoded.sub || decoded.userId || decoded.nameID || null;
     }
-  } catch {
-    navigate("/");
-  }
+  } catch {}
 
   const fetchListing = async () => {
     const CurrentRole = GetCurrentUserRoleName(userToken);

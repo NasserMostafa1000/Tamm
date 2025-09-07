@@ -60,7 +60,7 @@
             },
             "Microsoft.Data.SqlClient": {
               "target": "Package",
-              "version": "[6.1.1, )"
+              "version": "[6.0.0, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
@@ -211,7 +211,7 @@
             },
             "Microsoft.Data.SqlClient": {
               "target": "Package",
-              "version": "[6.1.1, )"
+              "version": "[6.0.0, )"
             },
             "Microsoft.Extensions.Configuration.Abstractions": {
               "target": "Package",
