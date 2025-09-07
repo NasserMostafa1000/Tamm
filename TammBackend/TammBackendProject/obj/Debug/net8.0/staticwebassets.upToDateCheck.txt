@@ -1,3 +1,5 @@
 wwwroot\AdImages\0a3c3fff-8a8f-43c1-b40b-c7993060feaf.jpg
 wwwroot\AdImages\5f225dc9-c263-47f7-be4f-3fdc303a319d.jpeg
 wwwroot\AdImages\b5c2abe3-93e0-45f2-b455-a1a249a8e07e.jpg
+wwwroot\AdImages\cd8b0022-115c-4974-9349-3140a507b5db.jpeg
+wwwroot\AdImages\dd61ec7b-ed75-4f7b-906f-c85cbb2d32e2.jpeg

@@ -4,11 +4,21 @@ import { useLocation } from "react-router-dom";
 import { useAuth } from "../Context/TokenContext";
 import { fetchUnApprovedListingById } from "../Services/Ad";
 import { fetchMessages } from "../Services/messages";
-import { playNotificationSound, ServerPath } from "../Utils/Constant";
+import {
+  playNotificationSound,
+  ServerPath,
+  SiteNameAR,
+  SiteNameEN,
+} from "../Utils/Constant";
 import { useLanguage } from "../Context/LangContext";
 import { jwtDecode } from "jwt-decode";
 import { useTheme } from "../Context/ThemeContext";
-import { FaUserCircle, FaCheck, FaCheckDouble } from "react-icons/fa";
+import {
+  FaUserCircle,
+  FaCheck,
+  FaCheckDouble,
+  FaCheckCircle,
+} from "react-icons/fa";
 import { formatDistanceToNow } from "date-fns";
 import { ar, enUS } from "date-fns/locale";
 
@@ -193,10 +203,6 @@ export default function ChatPage() {
     );
   }
 
-  const defaultMsg = isArabic
-    ? "هل مازال الإعلان متوفرًا؟"
-    : "Is this ad still available?";
-
   return (
     <div className="flex flex-col h-screen max-w-2xl mx-auto bg-white dark:bg-gray-900">
       {/* Header */}
@@ -213,7 +219,33 @@ export default function ChatPage() {
 
         <div className="flex-1">
           <h2 className="text-lg font-semibold text-gray-800 dark:text-white">
-            {recipientName || "User"}
+            {recipientUserId === 23 ? (
+              isArabic ? (
+                <span
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "0.25rem",
+                  }}
+                >
+                  {SiteNameAR}
+                  <FaCheckCircle style={{ color: "blue" }} />
+                </span>
+              ) : (
+                <span
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "0.25rem",
+                  }}
+                >
+                  {SiteNameEN}
+                  <FaCheckCircle style={{ color: "blue" }} />
+                </span>
+              )
+            ) : (
+              recipientName || "User"
+            )}
           </h2>
         </div>
       </div>
@@ -242,7 +274,6 @@ export default function ChatPage() {
       {/* Messages container */}
       <div className="flex-1 overflow-y-auto p-4 space-y-3">
         {messages.map((msg, idx) => {
-          const isDefaultMessage = msg.message === defaultMsg;
           const isMyMessage = msg.fromUserId == userId;
           const isRead = msg.isRead || false;
 

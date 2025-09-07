@@ -44,5 +44,16 @@ namespace TammbusinessLayer.Users
                 throw;
             }
         }
+
+        public async Task<int> GetPersonIdByUserId(int userId)
+        {
+            try
+            {
+                return await UsersQueriesDAL.GetPersonIdByUserId(userId);
+            }catch
+            {
+                throw;
+            }
+        }
     }
 }

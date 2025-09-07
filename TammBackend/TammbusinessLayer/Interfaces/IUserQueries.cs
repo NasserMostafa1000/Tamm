@@ -11,5 +11,6 @@ namespace TammbusinessLayer.Interfaces
         Task<List<string>> GetAllUserEmailsAsync();
         Task<string> GetLoginProviderNameAsync(int personId);
         Task<string> GetLoginProviderNameByEmailAsync(string email);
+        Task<int> GetPersonIdByUserId(int userId);
     }
 }

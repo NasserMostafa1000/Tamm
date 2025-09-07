@@ -66,3 +66,40 @@ export async function fetchUnApprovedListingById(lang, listingId, token) {
     return null;
   }
 }
+
+export const upsertCustomerRating = async (toUserId, ratingValue, token) => {
+  const response = await fetch(
+    `${API_BASE_URL}ClientsRatings/upsert?toUserId=${toUserId}&ratingValue=${ratingValue}`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  if (!response.ok) {
+    const error = await response.text();
+    throw new Error(error || "Failed to submit rating.");
+  }
+
+  return response.text();
+};
+
+export const getCustomerRating = async (toUserId, token) => {
+  const response = await fetch(`${API_BASE_URL}ClientsRatings/${toUserId}`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!response.ok) {
+    if (response.status === 404) return null;
+    const error = await response.text();
+    throw new Error(error || "Failed to fetch rating.");
+  }
+
+  return response.json();
+};

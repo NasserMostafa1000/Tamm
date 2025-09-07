@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TammbusinessLayer")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+56100e7c1f9f1cdbfc736ee44e7f746f72f47fdf")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6a99dd32a0607e2dba3f99ccf30cc2b4226a1e98")]
 [assembly: System.Reflection.AssemblyProductAttribute("TammbusinessLayer")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TammbusinessLayer")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

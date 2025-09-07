@@ -3,43 +3,18 @@
   "WorkspaceRootPath": "E:\\WORK\\Tamm Projects\\TammBackend\\TammBackendProject\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{5DF13437-70E1-4318-8116-4D7326D9002E}|..\\TammbusinessLayer\\TammbusinessLayer.csproj|e:\\work\\tamm projects\\tammbackend\\tammbusinesslayer\\factories\\registrationfactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5DF13437-70E1-4318-8116-4D7326D9002E}|..\\TammbusinessLayer\\TammbusinessLayer.csproj|e:\\work\\tamm projects\\tammbackend\\tammbusinesslayer\\factories\\notificationsfactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5DF13437-70E1-4318-8116-4D7326D9002E}|..\\TammbusinessLayer\\TammbusinessLayer.csproj|e:\\work\\tamm projects\\tammbackend\\tammbusinesslayer\\notificationsservices\\gmailnotifications.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5DF13437-70E1-4318-8116-4D7326D9002E}|..\\TammbusinessLayer\\TammbusinessLayer.csproj|e:\\work\\tamm projects\\tammbackend\\tammbusinesslayer\\users\\userscommandservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{293962F7-6460-4704-9883-D1937949F0E8}|..\\TammDataLayer\\TammDataLayer.csproj|e:\\work\\tamm projects\\tammbackend\\tammdatalayer\\users\\usersqueriesdal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{293962F7-6460-4704-9883-D1937949F0E8}|..\\TammDataLayer\\TammDataLayer.csproj|e:\\work\\tamm projects\\tammbackend\\tammdatalayer\\users\\userscommanddal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2AD51398-E8F3-4D72-9C3A-48E1CAFDD1D5}|TammBackendProject.csproj|e:\\work\\tamm projects\\tammbackend\\tammbackendproject\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{2AD51398-E8F3-4D72-9C3A-48E1CAFDD1D5}|TammBackendProject.csproj|solutionrelative:properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{293962F7-6460-4704-9883-D1937949F0E8}|..\\TammDataLayer\\TammDataLayer.csproj|e:\\work\\tamm projects\\tammbackend\\tammdatalayer\\settings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5DF13437-70E1-4318-8116-4D7326D9002E}|..\\TammbusinessLayer\\TammbusinessLayer.csproj|e:\\work\\tamm projects\\tammbackend\\tammbusinesslayer\\interfaces\\iuserscommands.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2AD51398-E8F3-4D72-9C3A-48E1CAFDD1D5}|TammBackendProject.csproj|e:\\work\\tamm projects\\tammbackend\\tammbackendproject\\controllers\\clientsratingscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2AD51398-E8F3-4D72-9C3A-48E1CAFDD1D5}|TammBackendProject.csproj|solutionrelative:controllers\\clientsratingscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2AD51398-E8F3-4D72-9C3A-48E1CAFDD1D5}|TammBackendProject.csproj|e:\\work\\tamm projects\\tammbackend\\tammbackendproject\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2AD51398-E8F3-4D72-9C3A-48E1CAFDD1D5}|TammBackendProject.csproj|solutionrelative:controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{293962F7-6460-4704-9883-D1937949F0E8}|..\\TammDataLayer\\TammDataLayer.csproj|e:\\work\\tamm projects\\tammbackend\\tammdatalayer\\clientsdal\\clsclientscommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2AD51398-E8F3-4D72-9C3A-48E1CAFDD1D5}|TammBackendProject.csproj|e:\\work\\tamm projects\\tammbackend\\tammbackendproject\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2AD51398-E8F3-4D72-9C3A-48E1CAFDD1D5}|TammBackendProject.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2AD51398-E8F3-4D72-9C3A-48E1CAFDD1D5}|TammBackendProject.csproj|e:\\work\\tamm projects\\tammbackend\\tammbackendproject\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{2AD51398-E8F3-4D72-9C3A-48E1CAFDD1D5}|TammBackendProject.csproj|solutionrelative:properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{5DF13437-70E1-4318-8116-4D7326D9002E}|..\\TammbusinessLayer\\TammbusinessLayer.csproj|e:\\work\\tamm projects\\tammbackend\\tammbusinesslayer\\interfaces\\iuserqueries.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -49,8 +24,21 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 0,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "E:\\WORK\\Tamm Projects\\TammBackend\\TammBackendProject\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "Properties\\launchSettings.json",
+              "ToolTip": "E:\\WORK\\Tamm Projects\\TammBackend\\TammBackendProject\\Properties\\launchSettings.json*",
+              "RelativeToolTip": "Properties\\launchSettings.json*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADUAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-09-07T12:39:25.606Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:1:0:{fabf9319-47eb-497e-b8f6-d9f73fba5f55}"
@@ -73,158 +61,41 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "UsersCommandDAL.cs",
-              "DocumentMoniker": "E:\\WORK\\Tamm Projects\\TammBackend\\TammDataLayer\\Users\\UsersCommandDAL.cs",
-              "RelativeDocumentMoniker": "..\\TammDataLayer\\Users\\UsersCommandDAL.cs",
-              "ToolTip": "E:\\WORK\\Tamm Projects\\TammBackend\\TammDataLayer\\Users\\UsersCommandDAL.cs",
-              "RelativeToolTip": "..\\TammDataLayer\\Users\\UsersCommandDAL.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "Settings.cs",
+              "DocumentMoniker": "E:\\WORK\\Tamm Projects\\TammBackend\\TammDataLayer\\Settings.cs",
+              "RelativeDocumentMoniker": "..\\TammDataLayer\\Settings.cs",
+              "ToolTip": "E:\\WORK\\Tamm Projects\\TammBackend\\TammDataLayer\\Settings.cs*",
+              "RelativeToolTip": "..\\TammDataLayer\\Settings.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-06T09:39:59.287Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "RegistrationFactory.cs",
-              "DocumentMoniker": "E:\\WORK\\Tamm Projects\\TammBackend\\TammbusinessLayer\\Factories\\RegistrationFactory.cs",
-              "RelativeDocumentMoniker": "..\\TammbusinessLayer\\Factories\\RegistrationFactory.cs",
-              "ToolTip": "E:\\WORK\\Tamm Projects\\TammBackend\\TammbusinessLayer\\Factories\\RegistrationFactory.cs",
-              "RelativeToolTip": "..\\TammbusinessLayer\\Factories\\RegistrationFactory.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAABYAAAAGAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-06T09:32:59.831Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "clsClientsCommand.cs",
-              "DocumentMoniker": "E:\\WORK\\Tamm Projects\\TammBackend\\TammDataLayer\\ClientsDAL\\clsClientsCommand.cs",
-              "RelativeDocumentMoniker": "..\\TammDataLayer\\ClientsDAL\\clsClientsCommand.cs",
-              "ToolTip": "E:\\WORK\\Tamm Projects\\TammBackend\\TammDataLayer\\ClientsDAL\\clsClientsCommand.cs",
-              "RelativeToolTip": "..\\TammDataLayer\\ClientsDAL\\clsClientsCommand.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAAABUAAABCAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-06T09:31:22.801Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "UsersController.cs",
-              "DocumentMoniker": "E:\\WORK\\Tamm Projects\\TammBackend\\TammBackendProject\\Controllers\\UsersController.cs",
-              "RelativeDocumentMoniker": "Controllers\\UsersController.cs",
-              "ToolTip": "E:\\WORK\\Tamm Projects\\TammBackend\\TammBackendProject\\Controllers\\UsersController.cs",
-              "RelativeToolTip": "Controllers\\UsersController.cs",
-              "ViewState": "AgIAACcAAAAAAAAAAAAAADwAAABNAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-06T08:29:29.771Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "UsersQueriesDAL.cs",
-              "DocumentMoniker": "E:\\WORK\\Tamm Projects\\TammBackend\\TammDataLayer\\Users\\UsersQueriesDAL.cs",
-              "RelativeDocumentMoniker": "..\\TammDataLayer\\Users\\UsersQueriesDAL.cs",
-              "ToolTip": "E:\\WORK\\Tamm Projects\\TammBackend\\TammDataLayer\\Users\\UsersQueriesDAL.cs",
-              "RelativeToolTip": "..\\TammDataLayer\\Users\\UsersQueriesDAL.cs",
-              "ViewState": "AgIAAKgAAAAAAAAAAAAAwL4AAAAnAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-06T07:58:52.815Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "GmailNotifications.cs",
-              "DocumentMoniker": "E:\\WORK\\Tamm Projects\\TammBackend\\TammbusinessLayer\\NotificationsServices\\GmailNotifications.cs",
-              "RelativeDocumentMoniker": "..\\TammbusinessLayer\\NotificationsServices\\GmailNotifications.cs",
-              "ToolTip": "E:\\WORK\\Tamm Projects\\TammBackend\\TammbusinessLayer\\NotificationsServices\\GmailNotifications.cs",
-              "RelativeToolTip": "..\\TammbusinessLayer\\NotificationsServices\\GmailNotifications.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAABUAAAAQAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-06T07:53:40.505Z",
+              "WhenOpened": "2025-09-07T11:44:11.642Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "UsersCommandServices.cs",
-              "DocumentMoniker": "E:\\WORK\\Tamm Projects\\TammBackend\\TammbusinessLayer\\Users\\UsersCommandServices.cs",
-              "RelativeDocumentMoniker": "..\\TammbusinessLayer\\Users\\UsersCommandServices.cs",
-              "ToolTip": "E:\\WORK\\Tamm Projects\\TammBackend\\TammbusinessLayer\\Users\\UsersCommandServices.cs",
-              "RelativeToolTip": "..\\TammbusinessLayer\\Users\\UsersCommandServices.cs",
-              "ViewState": "AgIAADAAAAAAAAAAAAAvwD8AAAAIAAAAAAAAAA==",
+              "Title": "IUserQueries.cs",
+              "DocumentMoniker": "E:\\WORK\\Tamm Projects\\TammBackend\\TammbusinessLayer\\Interfaces\\IUserQueries.cs",
+              "RelativeDocumentMoniker": "..\\TammbusinessLayer\\Interfaces\\IUserQueries.cs",
+              "ToolTip": "E:\\WORK\\Tamm Projects\\TammBackend\\TammbusinessLayer\\Interfaces\\IUserQueries.cs",
+              "RelativeToolTip": "..\\TammbusinessLayer\\Interfaces\\IUserQueries.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-06T07:29:53.13Z",
+              "WhenOpened": "2025-09-07T10:39:16.11Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "IUsersCommands.cs",
-              "DocumentMoniker": "E:\\WORK\\Tamm Projects\\TammBackend\\TammbusinessLayer\\Interfaces\\IUsersCommands.cs",
-              "RelativeDocumentMoniker": "..\\TammbusinessLayer\\Interfaces\\IUsersCommands.cs",
-              "ToolTip": "E:\\WORK\\Tamm Projects\\TammBackend\\TammbusinessLayer\\Interfaces\\IUsersCommands.cs",
-              "RelativeToolTip": "..\\TammbusinessLayer\\Interfaces\\IUsersCommands.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAsAAAASAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "ClientsRatingsController.cs",
+              "DocumentMoniker": "E:\\WORK\\Tamm Projects\\TammBackend\\TammBackendProject\\Controllers\\ClientsRatingsController.cs",
+              "RelativeDocumentMoniker": "Controllers\\ClientsRatingsController.cs",
+              "ToolTip": "E:\\WORK\\Tamm Projects\\TammBackend\\TammBackendProject\\Controllers\\ClientsRatingsController.cs",
+              "RelativeToolTip": "Controllers\\ClientsRatingsController.cs",
+              "ViewState": "AgIAACgAAAAAAAAAAAAmwD4AAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-06T07:17:13.783Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "Settings.cs",
-              "DocumentMoniker": "E:\\WORK\\Tamm Projects\\TammBackend\\TammDataLayer\\Settings.cs",
-              "RelativeDocumentMoniker": "..\\TammDataLayer\\Settings.cs",
-              "ToolTip": "E:\\WORK\\Tamm Projects\\TammBackend\\TammDataLayer\\Settings.cs",
-              "RelativeToolTip": "..\\TammDataLayer\\Settings.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-06T07:10:12.917Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "launchSettings.json",
-              "DocumentMoniker": "E:\\WORK\\Tamm Projects\\TammBackend\\TammBackendProject\\Properties\\launchSettings.json",
-              "RelativeDocumentMoniker": "Properties\\launchSettings.json",
-              "ToolTip": "E:\\WORK\\Tamm Projects\\TammBackend\\TammBackendProject\\Properties\\launchSettings.json",
-              "RelativeToolTip": "Properties\\launchSettings.json",
-              "ViewState": "AgIAAC4AAAAAAAAAAAAIwFAAAAAHAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-09-06T07:08:07.744Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "Program.cs",
-              "DocumentMoniker": "E:\\WORK\\Tamm Projects\\TammBackend\\TammBackendProject\\Program.cs",
-              "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "E:\\WORK\\Tamm Projects\\TammBackend\\TammBackendProject\\Program.cs",
-              "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAADoAAAAAAAAAAAAAwEwAAAAtAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-06T06:49:23.411Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "NotificationsFactory.cs",
-              "DocumentMoniker": "E:\\WORK\\Tamm Projects\\TammBackend\\TammbusinessLayer\\Factories\\NotificationsFactory.cs",
-              "RelativeDocumentMoniker": "..\\TammbusinessLayer\\Factories\\NotificationsFactory.cs",
-              "ToolTip": "E:\\WORK\\Tamm Projects\\TammBackend\\TammbusinessLayer\\Factories\\NotificationsFactory.cs",
-              "RelativeToolTip": "..\\TammbusinessLayer\\Factories\\NotificationsFactory.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAAOAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-06T06:46:54.765Z",
+              "WhenOpened": "2025-09-07T10:32:04.161Z",
               "EditorCaption": ""
             }
           ]
