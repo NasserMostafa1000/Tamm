@@ -149,7 +149,7 @@ export default function MessagesPage() {
                 <div className="flex-1 overflow-hidden">
                   <div className="flex justify-between items-center">
                     <h3 className="font-semibold text-gray-900 dark:text-white truncate">
-                      {contact.fromUserId == 23 ? (
+                      {contact.contactUserId == 23 ? (
                         isArabic ? (
                           <span
                             style={{
