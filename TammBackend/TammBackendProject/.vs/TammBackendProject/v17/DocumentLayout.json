@@ -3,14 +3,11 @@
   "WorkspaceRootPath": "E:\\WORK\\Tamm Projects\\TammBackend\\TammBackendProject\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{2AD51398-E8F3-4D72-9C3A-48E1CAFDD1D5}|TammBackendProject.csproj|e:\\work\\tamm projects\\tammbackend\\tammbackendproject\\tammbackendproject.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{2AD51398-E8F3-4D72-9C3A-48E1CAFDD1D5}|TammBackendProject.csproj|solutionrelative:tammbackendproject.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+      "AbsoluteMoniker": "D:0:0:{5DF13437-70E1-4318-8116-4D7326D9002E}|..\\TammbusinessLayer\\TammbusinessLayer.csproj|e:\\work\\tamm projects\\tammbackend\\tammbusinesslayer\\clientservices\\clientsqueriesservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{293962F7-6460-4704-9883-D1937949F0E8}|..\\TammDataLayer\\TammDataLayer.csproj|e:\\work\\tamm projects\\tammbackend\\tammdatalayer\\tammdatalayer.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5DF13437-70E1-4318-8116-4D7326D9002E}|..\\TammbusinessLayer\\TammbusinessLayer.csproj|e:\\work\\tamm projects\\tammbackend\\tammbusinesslayer\\tammbusinesslayer.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+      "AbsoluteMoniker": "D:0:0:{2AD51398-E8F3-4D72-9C3A-48E1CAFDD1D5}|TammBackendProject.csproj|e:\\work\\tamm projects\\tammbackend\\tammbackendproject\\controllers\\clientscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2AD51398-E8F3-4D72-9C3A-48E1CAFDD1D5}|TammBackendProject.csproj|solutionrelative:controllers\\clientscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -20,7 +17,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Bookmark",
@@ -45,40 +42,27 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "TammDataLayer",
-              "DocumentMoniker": "E:\\WORK\\Tamm Projects\\TammBackend\\TammDataLayer\\TammDataLayer.csproj",
-              "RelativeDocumentMoniker": "..\\TammDataLayer\\TammDataLayer.csproj",
-              "ToolTip": "E:\\WORK\\Tamm Projects\\TammBackend\\TammDataLayer\\TammDataLayer.csproj",
-              "RelativeToolTip": "..\\TammDataLayer\\TammDataLayer.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAgAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-09-07T12:56:43.769Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "TammbusinessLayer",
-              "DocumentMoniker": "E:\\WORK\\Tamm Projects\\TammBackend\\TammbusinessLayer\\TammbusinessLayer.csproj",
-              "RelativeDocumentMoniker": "..\\TammbusinessLayer\\TammbusinessLayer.csproj",
-              "ToolTip": "E:\\WORK\\Tamm Projects\\TammBackend\\TammbusinessLayer\\TammbusinessLayer.csproj",
-              "RelativeToolTip": "..\\TammbusinessLayer\\TammbusinessLayer.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-09-07T12:56:39.785Z",
+              "Title": "ClientsController.cs",
+              "DocumentMoniker": "E:\\WORK\\Tamm Projects\\TammBackend\\TammBackendProject\\Controllers\\ClientsController.cs",
+              "RelativeDocumentMoniker": "Controllers\\ClientsController.cs",
+              "ToolTip": "E:\\WORK\\Tamm Projects\\TammBackend\\TammBackendProject\\Controllers\\ClientsController.cs",
+              "RelativeToolTip": "Controllers\\ClientsController.cs",
+              "ViewState": "AgIAADgAAAAAAAAAAAAAABgAAAA7AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-08T07:50:16.924Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "TammBackendProject",
-              "DocumentMoniker": "E:\\WORK\\Tamm Projects\\TammBackend\\TammBackendProject\\TammBackendProject.csproj",
-              "RelativeDocumentMoniker": "TammBackendProject.csproj",
-              "ToolTip": "E:\\WORK\\Tamm Projects\\TammBackend\\TammBackendProject\\TammBackendProject.csproj",
-              "RelativeToolTip": "TammBackendProject.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-09-07T12:56:29.147Z",
+              "Title": "ClientsQueriesServices.cs",
+              "DocumentMoniker": "E:\\WORK\\Tamm Projects\\TammBackend\\TammbusinessLayer\\ClientServices\\ClientsQueriesServices.cs",
+              "RelativeDocumentMoniker": "..\\TammbusinessLayer\\ClientServices\\ClientsQueriesServices.cs",
+              "ToolTip": "E:\\WORK\\Tamm Projects\\TammBackend\\TammbusinessLayer\\ClientServices\\ClientsQueriesServices.cs",
+              "RelativeToolTip": "..\\TammbusinessLayer\\ClientServices\\ClientsQueriesServices.cs",
+              "ViewState": "AgIAADMAAAAAAAAAAAAAAEYAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-08T07:47:32.559Z",
               "EditorCaption": ""
             }
           ]

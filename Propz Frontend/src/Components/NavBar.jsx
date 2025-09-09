@@ -17,6 +17,7 @@ import {
   FaCog,
   FaSignOutAlt,
   FaCheck,
+  FaChevronDown,
 } from "react-icons/fa";
 import BtnLanguage from "../Buttons/BtnLanguage";
 import DecodedTokenAndReturnCurrentClientInfoInfo, {
@@ -38,7 +39,7 @@ export default function NavBar() {
   const { mode, toggleMode } = useTheme();
   const { userToken } = useAuth();
   const isDark = mode === "dark";
-  const [profileMenuOpen, setProfileMenuOpen] = useState(true);
+  const [profileMenuOpen, setProfileMenuOpen] = useState(false);
   const profileRefDesktop = useRef();
   const profileRefMobile = useRef();
   const [connection, setConnection] = useState(null);
@@ -326,14 +327,29 @@ export default function NavBar() {
         <div className="relative" ref={profileRefMobile}>
           <button
             onClick={() => setProfileMenuOpen(!profileMenuOpen)}
-            className={`p-2 rounded-full ${
-              isDark ? "bg-gray-800 text-white" : "bg-gray-200 text-black"
-            } hover:brightness-90 transition`}
+            className={`
+    relative group flex items-center gap-2 rounded-full px-2 py-1
+    ${isDark ? "bg-gray-800 text-white" : "bg-gray-200 text-black"}
+    hover:brightness-95 hover:shadow-md shadow-sm
+    transition duration-200
+    focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/70 focus-visible:ring-offset-2
+    active:scale-95
+  `}
             aria-label={
               language === "العربية" ? "قائمة البروفايل" : "Profile menu"
             }
           >
             <UserAvatar imageUrl={ImageUrl} size={40} />
+
+            {/* سهم بيدل على وجود قائمة */}
+            <FaChevronDown
+              className={`text-sm transition-transform duration-200 ${
+                profileMenuOpen ? "rotate-180" : "rotate-0"
+              }`}
+            />
+
+            {/* overlay خفيف عند الـhover */}
+            <span className="absolute inset-0 rounded-full bg-black/0 group-hover:bg-black/5 transition" />
           </button>
           {profileMenuOpen && (
             <div className="absolute left-0 mt-2 w-56 bg-white dark:bg-gray-800 shadow-lg rounded-md py-2 z-30 text-black dark:text-white">
