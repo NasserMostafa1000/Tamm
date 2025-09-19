@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -9,8 +9,8 @@ using Newtonsoft.Json;
 public class PayPalClient
 {
     private readonly HttpClient _httpClient;
-    private readonly string _clientId = "AbaYFaxibJgq266zJBB_hy3PLXvpIMe-EZBMYv_6-S_VncjSAuKdwzVMA92I5KeRtvBEYSaWdNUFEYHG";
-    private readonly string _clientSecret = "EKryY2pZn4Y-pe5T91K7cRmHIQang3H3kvbQapVB7Cq1TilYzoBs7AfLM7-QyICZJB4TlFbe2v7_lyAS";
+    private readonly string _clientId = "_";
+    private readonly string _clientSecret = "-";
 
     private string _accessToken;
     private DateTime _accessTokenExpiration;
