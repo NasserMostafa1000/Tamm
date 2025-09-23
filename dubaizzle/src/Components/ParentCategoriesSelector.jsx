@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLanguage } from "../Context/LangContext";
-import fetchCategories from "../Services/PostAd";
+import fetchCategories from "../Services/PostUpdateAd";
 import {
   FaCar,
   FaBuilding,

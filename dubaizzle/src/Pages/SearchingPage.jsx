@@ -5,10 +5,81 @@ import { API_BASE_URL, SiteNameAR, SiteNameEN } from "../Utils/Constant";
 import { useLocation, useNavigate } from "react-router-dom";
 import NavBar from "../Components/NavBar";
 import { addToFavorites } from "../Services/Favorites";
-import { FiHeart, FiMapPin, FiDollarSign, FiFilter } from "react-icons/fi";
-import { RiHeartFill, RiSearchLine } from "react-icons/ri";
 import { motion, AnimatePresence } from "framer-motion";
 import { Helmet } from "react-helmet";
+
+// قاموس الإيموجيز
+const attributeIcons = {
+  Area: "📐",
+  المساحة: "📐",
+  Bedrooms: "🛏️",
+  "غرف النوم": "🛏️",
+  Bathrooms: "🚿",
+  الحمامات: "🚿",
+  "Furnished?": "🛋️",
+  "التأثيث؟": "🛋️",
+  "Monthly Rent": "💰",
+  "الإيجار الشهري": "💰",
+  "Floor Number": "🏢",
+  "رقم الطابق": "🏢",
+  "Balcony?": "🌅",
+  "شرفة؟": "🌅",
+  "Parking?": "🚗",
+  "مواقف سيارات؟": "🚗",
+  "AC Type": "❄️",
+  "نوع التكييف": "❄️",
+  "Mortgage Available?": "🏦",
+  "الرهن متاح؟": "🏦",
+  "Year Built": "🏗️",
+  "سنة البناء": "🏗️",
+  "Contract Duration": "📝",
+  "مدة العقد": "📝",
+  "Bills Included?": "🧾",
+  "الفواتير مشمولة؟": "🧾",
+  Brand: "🏷️",
+  الماركة: "🏷️",
+  Model: "🚙",
+  الموديل: "🚙",
+  Year: "📅",
+  السنة: "📅",
+  Mileage: "🛣️",
+  "المسافة المقطوعة": "🛣️",
+  "Fuel Type": "⛽",
+  "نوع الوقود": "⛽",
+  Transmission: "⚙️",
+  "ناقل الحركة": "⚙️",
+  Condition: "🔧",
+  الحالة: "🔧",
+  Color: "🎨",
+  اللون: "🎨",
+  Price: "💵",
+  السعر: "💵",
+};
+
+// إيموجيز عامة للاستخدام في الواجهة
+const generalIcons = {
+  search: "🔍",
+  filter: "⚡",
+  home: "🏠",
+  calendar: "📅",
+  location: "📍",
+  dollar: "💵",
+  heart: "❤️",
+  heartFilled: "💖",
+  user: "👤",
+  layers: "📚",
+  car: "🚗",
+  phone: "📱",
+  clothes: "👕",
+  book: "📖",
+  game: "🎮",
+  health: "🏥",
+  tree: "🌳",
+  building: "🏢",
+  area: "📐",
+  bath: "🚿",
+  cube: "📦",
+};
 
 export default function SearchingPage({ searchTerm: propSearchTerm }) {
   const { language } = useLanguage();
@@ -28,6 +99,47 @@ export default function SearchingPage({ searchTerm: propSearchTerm }) {
   const loadMoreRef = useRef();
   const navigate = useNavigate();
   const token = localStorage.getItem("userToken");
+
+  // دالة للحصول على الإيموجي المناسب بناءً على اسم السمة
+  const getAttributeIcon = (attributeName) => {
+    if (!attributeName) return generalIcons.cube;
+
+    // البحث في قاموس الإيموجيز أولاً
+    const exactMatch = attributeIcons[attributeName];
+    if (exactMatch) return exactMatch;
+
+    // البحث الجزئي إذا لم يكن هناك تطابق تام
+    const name = attributeName.toLowerCase();
+
+    if (name.includes("area") || name.includes("مساحة"))
+      return generalIcons.area;
+    if (name.includes("bath") || name.includes("حمام"))
+      return generalIcons.bath;
+    if (name.includes("bed") || name.includes("نوم")) return "🛏️";
+    if (name.includes("car") || name.includes("سيارة")) return generalIcons.car;
+    if (name.includes("phone") || name.includes("هاتف"))
+      return generalIcons.phone;
+    if (name.includes("clothes") || name.includes("ملابس"))
+      return generalIcons.clothes;
+    if (name.includes("book") || name.includes("كتاب"))
+      return generalIcons.book;
+    if (name.includes("game") || name.includes("لعبة"))
+      return generalIcons.game;
+    if (name.includes("health") || name.includes("صحة"))
+      return generalIcons.health;
+    if (name.includes("tree") || name.includes("شجرة"))
+      return generalIcons.tree;
+    if (name.includes("building") || name.includes("مبنى"))
+      return generalIcons.building;
+    if (name.includes("price") || name.includes("سعر"))
+      return generalIcons.dollar;
+    if (name.includes("location") || name.includes("موقع"))
+      return generalIcons.location;
+    if (name.includes("date") || name.includes("تاريخ"))
+      return generalIcons.calendar;
+
+    return generalIcons.cube;
+  };
 
   const handleAddFavorite = async (e, listingId) => {
     e.stopPropagation();
@@ -170,11 +282,7 @@ export default function SearchingPage({ searchTerm: propSearchTerm }) {
         {/* Search Header */}
         <div className="text-center mb-10">
           <div className="flex items-center justify-center mb-4">
-            <RiSearchLine
-              className={`text-3xl ${
-                isDark ? "text-blue-400" : "text-blue-600"
-              } mr-3`}
-            />
+            <span className="text-3xl mr-3">{generalIcons.search}</span>
             <h1
               className={`text-3xl font-bold ${
                 isDark ? "text-white" : "text-gray-800"
@@ -192,6 +300,7 @@ export default function SearchingPage({ searchTerm: propSearchTerm }) {
           </p>
         </div>
 
+        {/* Filter Section */}
         <div className="mb-8">
           <div
             className={`p-5 rounded-2xl shadow-lg ${
@@ -206,11 +315,7 @@ export default function SearchingPage({ searchTerm: propSearchTerm }) {
                   isDark ? "text-white" : "text-gray-800"
                 }`}
               >
-                <FiFilter
-                  className={`mr-2 ${
-                    isDark ? "text-blue-400" : "text-blue-600"
-                  }`}
-                />
+                <span className="mr-2">{generalIcons.filter}</span>
                 {isArabic ? "تصفية النتائج" : "Filter Results"}
               </h3>
               <span
@@ -259,7 +364,7 @@ export default function SearchingPage({ searchTerm: propSearchTerm }) {
                       isDark ? "text-gray-400" : "text-gray-500"
                     }`}
                   >
-                    <FiDollarSign className="text-xl" />
+                    <span className="text-xl">{generalIcons.dollar}</span>
                   </div>
                 </div>
               </div>
@@ -299,7 +404,7 @@ export default function SearchingPage({ searchTerm: propSearchTerm }) {
                       isDark ? "text-gray-400" : "text-gray-500"
                     }`}
                   >
-                    <FiDollarSign className="text-xl" />
+                    <span className="text-xl">{generalIcons.dollar}</span>
                   </div>
                 </div>
               </div>
@@ -373,7 +478,7 @@ export default function SearchingPage({ searchTerm: propSearchTerm }) {
                 isDark ? "bg-gray-700" : "bg-gray-200"
               } flex items-center justify-center mb-4`}
             >
-              <RiSearchLine className="text-3xl text-gray-400" />
+              <span className="text-3xl">{generalIcons.search}</span>
             </div>
             <h3
               className={`text-xl font-semibold mb-2 ${
@@ -390,100 +495,205 @@ export default function SearchingPage({ searchTerm: propSearchTerm }) {
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {ads.map((item) => (
-              <motion.div
-                key={item.listingId}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3 }}
-                className={`relative rounded-xl overflow-hidden shadow-lg cursor-pointer group ${
-                  isDark ? "bg-gray-800" : "bg-white"
-                }`}
-                onClick={() => handleClick(item.listingId)}
-              >
-                {/* Favorite Button */}
-                <button
-                  onClick={(e) => handleAddFavorite(e, item.listingId)}
-                  disabled={favoriteLoading}
-                  className={`absolute top-3 right-3 z-10 p-2 rounded-full backdrop-blur-sm ${
-                    isDark
-                      ? "bg-black/30 hover:bg-black/50 text-pink-400 hover:text-pink-300"
-                      : "bg-white/80 hover:bg-white text-pink-500 hover:text-pink-600"
-                  } transition-all duration-300 shadow-md`}
-                  aria-label={isArabic ? "إضافة للمفضلة" : "Add to favorites"}
+            {ads.map((item) => {
+              const firstAttributeIcon = getAttributeIcon(
+                item.firstAttributeName
+              );
+              const secondAttributeIcon = getAttributeIcon(
+                item.secondAttributeName
+              );
+
+              return (
+                <motion.div
+                  key={item.listingId}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3 }}
+                  className={`relative rounded-xl overflow-hidden shadow-lg cursor-pointer group ${
+                    isDark ? "bg-gray-800" : "bg-white"
+                  }`}
+                  onClick={() => handleClick(item.listingId)}
                 >
-                  {item.isFavorite ? (
-                    <RiHeartFill className="text-xl" />
-                  ) : (
-                    <FiHeart className="text-xl" />
-                  )}
-                </button>
-
-                {/* Image */}
-                <div className="relative h-48 overflow-hidden">
-                  <img
-                    src={item.imageUrl || "/Images/default.jpg"}
-                    alt={item.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                    <span className="text-white font-medium">
-                      {isArabic ? "عرض التفاصيل" : "View Details"}
+                  {/* Favorite Button */}
+                  <button
+                    onClick={(e) => handleAddFavorite(e, item.listingId)}
+                    disabled={favoriteLoading}
+                    className={`absolute top-3 right-3 z-10 p-2 rounded-full backdrop-blur-sm ${
+                      isDark
+                        ? "bg-black/30 hover:bg-black/50 text-pink-400 hover:text-pink-300"
+                        : "bg-white/80 hover:bg-white text-pink-500 hover:text-pink-600"
+                    } transition-all duration-300 shadow-md`}
+                    aria-label={isArabic ? "إضافة للمفضلة" : "Add to favorites"}
+                  >
+                    <span className="text-xl">
+                      {item.isFavorite
+                        ? generalIcons.heartFilled
+                        : generalIcons.heart}
                     </span>
-                  </div>
-                </div>
+                  </button>
 
-                {/* Content */}
-                <div className="p-4">
-                  <h3
-                    className={`font-semibold text-lg mb-2 line-clamp-2 ${
-                      isDark ? "text-white" : "text-gray-800"
-                    }`}
-                  >
-                    {item.title}
-                  </h3>
-                  <p
-                    className={`text-sm mb-3 line-clamp-2 ${
-                      isDark ? "text-gray-300" : "text-gray-600"
-                    }`}
-                  >
-                    {item.description}
-                  </p>
-
-                  {item.price && (
-                    <div className="flex items-center text-green-500 font-bold mb-3">
-                      <FiDollarSign className="mr-1" />
-                      <span>
-                        {item.price
-                          ? `${item.price} AED`
-                          : isArabic
-                          ? "غير محدد"
-                          : "Not specified"}
+                  {/* Image */}
+                  <div className="relative h-48 overflow-hidden">
+                    <img
+                      src={item.imageUrl || "/Images/default.jpg"}
+                      alt={item.title}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                      <span className="text-white font-medium">
+                        {isArabic ? "عرض التفاصيل" : "View Details"}
                       </span>
                     </div>
-                  )}
+                  </div>
 
-                  {item.cityName && item.placeName && (
-                    <div
-                      className={`flex items-center text-sm ${
-                        isDark ? "text-gray-400" : "text-gray-500"
+                  {/* Content */}
+                  <div className="p-4">
+                    <h3
+                      className={`font-semibold text-lg mb-2 line-clamp-2 ${
+                        isDark ? "text-white" : "text-gray-800"
                       }`}
                     >
-                      <FiMapPin className="mr-1.5" />
-                      <span className="line-clamp-1">
-                        {item.cityName} - {item.placeName}
-                      </span>
+                      {item.title}
+                    </h3>
+                    <p
+                      className={`text-sm mb-3 line-clamp-2 ${
+                        isDark ? "text-gray-300" : "text-gray-600"
+                      }`}
+                    >
+                      {item.description}
+                    </p>
+
+                    {/* Attributes Section */}
+                    {(item.firstAttributeName || item.secondAttributeName) && (
+                      <div className="grid grid-cols-2 gap-2 mb-3">
+                        {item.firstAttributeName &&
+                          item.firstAttributeValue && (
+                            <div
+                              className={`flex items-center space-x-2 rtl:space-x-reverse p-2 rounded-lg ${
+                                isDark ? "bg-gray-700/50" : "bg-gray-100"
+                              }`}
+                            >
+                              <span className="text-lg">
+                                {firstAttributeIcon}
+                              </span>
+                              <div className="flex-1 min-w-0">
+                                <div
+                                  className={`text-xs ${
+                                    isDark ? "text-gray-400" : "text-gray-500"
+                                  }`}
+                                >
+                                  {item.firstAttributeName}
+                                </div>
+                                <div
+                                  className={`text-sm font-medium truncate ${
+                                    isDark ? "text-white" : "text-gray-800"
+                                  }`}
+                                >
+                                  {item.firstAttributeValue}
+                                </div>
+                              </div>
+                            </div>
+                          )}
+
+                        {item.secondAttributeName &&
+                          item.secondAttributeValue && (
+                            <div
+                              className={`flex items-center space-x-2 rtl:space-x-reverse p-2 rounded-lg ${
+                                isDark ? "bg-gray-700/50" : "bg-gray-100"
+                              }`}
+                            >
+                              <span className="text-lg">
+                                {secondAttributeIcon}
+                              </span>
+                              <div className="flex-1 min-w-0">
+                                <div
+                                  className={`text-xs ${
+                                    isDark ? "text-gray-400" : "text-gray-500"
+                                  }`}
+                                >
+                                  {item.secondAttributeName}
+                                </div>
+                                <div
+                                  className={`text-sm font-medium truncate ${
+                                    isDark ? "text-white" : "text-gray-800"
+                                  }`}
+                                >
+                                  {item.secondAttributeValue}
+                                </div>
+                              </div>
+                            </div>
+                          )}
+                      </div>
+                    )}
+
+                    {/* Price and Location */}
+                    <div className="space-y-2">
+                      {item.price && item.price > 0 && (
+                        <div className="flex items-center text-green-500 font-bold">
+                          <span className="mr-1">{generalIcons.dollar}</span>
+                          <span>{item.price.toLocaleString()} AED</span>
+                        </div>
+                      )}
+
+                      {item.cityName && item.placeName && (
+                        <div
+                          className={`flex items-center text-sm ${
+                            isDark ? "text-gray-400" : "text-gray-500"
+                          }`}
+                        >
+                          <span className="mr-1.5">
+                            {generalIcons.location}
+                          </span>
+                          <span className="line-clamp-1">
+                            {item.cityName} - {item.placeName}
+                          </span>
+                        </div>
+                      )}
+
+                      {/* Date */}
+                      <div
+                        className={`flex items-center text-xs ${
+                          isDark ? "text-gray-500" : "text-gray-400"
+                        }`}
+                      >
+                        <span className="mr-1.5">{generalIcons.calendar}</span>
+                        <span>
+                          {new Date(item.createdAt).toLocaleDateString(
+                            isArabic ? "ar-EG" : "en-US",
+                            {
+                              year: "numeric",
+                              month: "short",
+                              day: "numeric",
+                            }
+                          )}
+                        </span>
+                      </div>
                     </div>
-                  )}
-                </div>
-              </motion.div>
-            ))}
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        )}
+
+        {/* Loading Indicator */}
+        {loading && (
+          <div className="text-center py-8">
+            <div className="inline-flex items-center space-x-2 rtl:space-x-reverse">
+              <div className="w-4 h-4 bg-blue-500 rounded-full animate-bounce"></div>
+              <div className="w-4 h-4 bg-blue-500 rounded-full animate-bounce delay-100"></div>
+              <div className="w-4 h-4 bg-blue-500 rounded-full animate-bounce delay-200"></div>
+            </div>
+            <p className={`mt-2 ${isDark ? "text-gray-400" : "text-gray-500"}`}>
+              {isArabic ? "جاري تحميل المزيد..." : "Loading more..."}
+            </p>
           </div>
         )}
 
         {/* Load More Trigger */}
         <div ref={loadMoreRef} className="h-10" />
+
         {/* Favorite Message */}
         <AnimatePresence>
           {favoriteMessage && (

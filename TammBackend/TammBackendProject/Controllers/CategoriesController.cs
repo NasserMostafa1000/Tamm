@@ -94,7 +94,19 @@ namespace TammBackendProject.Controllers
                 return StatusCode(500, new { success = false, message = ex.Message });
             }
         }
-
+        [HttpGet("GetAll")]
+        public async Task<IActionResult> GetAll([FromQuery] string lang = "en")
+        {
+            try
+            {
+                var json = await _categoriesQueries.GetCategoriesWithChildrenAsync(lang);
+                return Content(json, "application/json");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = ex.Message });
+            }
+        }
 
     }
 }

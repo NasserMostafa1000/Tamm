@@ -32,6 +32,12 @@ namespace TammDataLayer.Categories
             public string CategoryNameAr { get; set; } = null!;
         }
 
+        public class CategoryDto
+        {
+            public int CategoryId { get; set; }
+            public string CategoryName { get; set; }
+            public string Children { get; set; } // JSON string of children
+        }
 
     }
 }

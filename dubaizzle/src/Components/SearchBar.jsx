@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useLanguage } from "../Context/LangContext";
 import { useTheme } from "../Context/ThemeContext";
-import { FaSearch } from "react-icons/fa";
+import {
+  FaSearch,
+  FaFilm,
+  FaMusic,
+  FaGamepad,
+  FaBook,
+  FaCar,
+  FaUser,
+  FaHome,
+} from "react-icons/fa";
 import { useLocation } from "react-router-dom";
-
-const bgImages = [
-  "/ProjectsImages/Uae1.jpeg",
-  "/ProjectsImages/uae4.jpg",
-  "/ProjectsImages/uae6.jpeg",
-];
 
 // استخدم hook خارجي لاستقبال كويري باراميتر
 function useQuery() {
@@ -27,7 +30,6 @@ export default function SearchBar({ onSearch, suggestions = [] }) {
   // state لحقول البحث (input)
   const [query, setQuery] = useState(searchTermFromUrl);
 
-  const [bgIndex, setBgIndex] = useState(0);
   const [placeholderIndex, setPlaceholderIndex] = useState(0);
   const [isTyping, setIsTyping] = useState(true);
   const [displayText, setDisplayText] = useState("");
@@ -46,14 +48,6 @@ export default function SearchBar({ onSearch, suggestions = [] }) {
   const handleKeyDown = (e) => {
     if (e.key === "Enter") handleSearch();
   };
-
-  // تغيير خلفية الصورة كل 5 ثواني
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setBgIndex((prev) => (prev + 1) % bgImages.length);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, []);
 
   // فلترة الاقتراحات بناءً على النص المكتوب
   useEffect(() => {
@@ -160,18 +154,48 @@ export default function SearchBar({ onSearch, suggestions = [] }) {
     );
   };
 
+  // أزرار البحث السريع
+  const quickSearchButtons = [
+    {
+      label: isArabic ? "وظائف شاغرة" : "Vacancies",
+      icon: <FaUser />,
+      query: "Vacancies",
+    },
+    {
+      label: isArabic ? "عقارات" : "Real Estate",
+      icon: <FaHome />,
+      query: "Real Estate",
+    },
+    {
+      label: isArabic ? "موظفين" : "employees",
+      icon: <FaUser />,
+      query: "employees",
+    },
+    { label: isArabic ? "موتورات" : "Cars", icon: <FaCar />, query: "Cars" },
+  ];
+
+  const handleQuickSearch = (searchQuery) => {
+    setQuery(searchQuery);
+    onSearch(searchQuery);
+  };
+
   return (
     <div
-      className="w-full h-[80vh] bg-fixed bg-cover flex flex-col justify-center items-center 
-         m-0 p-0 border-none rounded-none animate-fade-in duration-1000"
+      className="w-screen h-[60vh] flex flex-col justify-center items-center
+             m-0 p-0 border-none rounded-none animate-fade-in duration-1000 relative overflow-hidden"
       style={{
-        backgroundImage: `url(${bgImages[bgIndex]})`,
-        backgroundPosition: "center center",
+        backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
-        transition: "background-image 1s ease-in-out",
+        backgroundImage: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
       }}
     >
+      {/* تأثير تدرج لوني إضافي */}
+      <div
+        className="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-30"
+        style={{ zIndex: 0 }}
+      ></div>
+
       <style jsx>{`
         @keyframes blink {
           0%,
@@ -182,15 +206,33 @@ export default function SearchBar({ onSearch, suggestions = [] }) {
             opacity: 0;
           }
         }
+        @keyframes float {
+          0%,
+          100% {
+            transform: translateY(0);
+          }
+          50% {
+            transform: translateY(-10px);
+          }
+        }
       `}</style>
 
-      <div className="relative flex flex-col items-center w-full max-w-xl px-4">
+      <div className="relative flex flex-col items-center w-full max-w-2xl px-4 z-10">
+        <h1
+          className={`text-3xl md:text-4xl font-bold mb-6 text-center ${
+            isDarkMode ? "text-white" : "text-white"
+          } drop-shadow-lg`}
+        >
+          {isArabic ? "ابحث عن ما تريد" : "Find What You Need"}
+        </h1>
+
         <div
-          className={`flex items-center px-5 py-3 rounded-2xl shadow-lg border-2 focus-within:ring-2 w-full transition-colors duration-300 ${
+          className={`flex items-center px-5 py-4 rounded-2xl shadow-lg border-2 focus-within:ring-2 w-full transition-all duration-300 ${
             isDarkMode
-              ? "bg-black bg-opacity-60 text-white border-gray-600 ring-purple-500"
-              : "bg-white bg-opacity-80 text-black border-gray-300 ring-blue-400"
-          }`}
+              ? "bg-black bg-opacity-70 text-white border-gray-600 ring-purple-500"
+              : "bg-white bg-opacity-90 text-black border-gray-300 ring-blue-400"
+          } backdrop-blur-sm`}
+          style={{ boxShadow: "0 10px 30px rgba(0,0,0,0.2)" }}
         >
           <input
             type="text"
@@ -198,8 +240,10 @@ export default function SearchBar({ onSearch, suggestions = [] }) {
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder=" "
-            className={`flex-grow outline-none text-base px-2 bg-transparent ${
-              isDarkMode ? "text-white" : "text-black"
+            className={`flex-grow outline-none text-lg px-2 bg-transparent ${
+              isDarkMode
+                ? "text-white placeholder-gray-400"
+                : "text-black placeholder-gray-500"
             }`}
             dir={isArabic ? "rtl" : "ltr"}
           />
@@ -219,7 +263,7 @@ export default function SearchBar({ onSearch, suggestions = [] }) {
             {renderAnimatedPlaceholder()}
           </div>
 
-          <div className="w-8 flex justify-center">
+          <div className="w-10 flex justify-center">
             <FaSearch
               className={`cursor-pointer text-xl hover:scale-110 transition-transform duration-200 ${
                 isDarkMode ? "text-purple-300" : "text-blue-500"
@@ -232,9 +276,10 @@ export default function SearchBar({ onSearch, suggestions = [] }) {
         {/* الاقتراحات أثناء الكتابة */}
         {filteredSuggestions.length > 0 && (
           <div
-            className={`mt-2 w-full rounded-xl shadow-lg overflow-hidden z-10 absolute top-full ${
+            className={`mt-2 w-full rounded-xl shadow-lg overflow-hidden z-20 absolute top-full ${
               isDarkMode ? "bg-gray-800" : "bg-white"
             }`}
+            style={{ top: "100%", marginTop: "0.5rem" }}
           >
             {filteredSuggestions.map((item, index) => (
               <div
@@ -255,6 +300,27 @@ export default function SearchBar({ onSearch, suggestions = [] }) {
             ))}
           </div>
         )}
+
+        {/* أزرار البحث السريع */}
+        <div className="mt-8 flex flex-wrap justify-center gap-3">
+          {quickSearchButtons.map((button, index) => (
+            <button
+              key={index}
+              onClick={() => handleQuickSearch(button.query)}
+              className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all duration-300 hover:scale-105 ${
+                isDarkMode
+                  ? "bg-white bg-opacity-20 text-white hover:bg-opacity-30"
+                  : "bg-white bg-opacity-80 text-gray-800 hover:bg-opacity-100"
+              } backdrop-blur-sm shadow-md`}
+              style={{
+                animation: `float 3s infinite ${index * 0.2}s ease-in-out`,
+              }}
+            >
+              {button.icon}
+              <span>{button.label}</span>
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   );

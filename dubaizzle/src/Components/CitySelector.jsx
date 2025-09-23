@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLanguage } from "../Context/LangContext";
-import { fetchCities } from "../Services/PostAd.js";
+import { fetchCities } from "../Services/PostUpdateAd.js";
 
 export default function CitySelector({ onCitySelect }) {
   const { language } = useLanguage();

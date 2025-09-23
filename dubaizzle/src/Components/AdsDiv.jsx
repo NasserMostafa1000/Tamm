@@ -85,7 +85,7 @@ export default function AdsDiv({ filterWith }) {
       >
         <div
           ref={adsContainerRef}
-          className="flex overflow-x-auto gap-6 p-4 w-full scrollbar"
+          className="flex overflow-x-auto gap-6 px-0 w-full scrollbar"
           style={{
             scrollbarWidth: "thin",
             scrollbarColor: isDarkMode ? "#4a5568 #2d3748" : "#c1c1c1 #f1f1f1",

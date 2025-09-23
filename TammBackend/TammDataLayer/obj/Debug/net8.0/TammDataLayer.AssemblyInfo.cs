@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TammDataLayer")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f8b3bec3e26d00756e6d22bd34ba1108f20c38e8")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e0c702fd55185d49c360e0914b2b987601c6c547")]
 [assembly: System.Reflection.AssemblyProductAttribute("TammDataLayer")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TammDataLayer")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

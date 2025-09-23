@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 import AppleButton from "../Buttons/AppleButton.jsx";
@@ -181,9 +181,21 @@ export default function Login() {
             onChange={() => setAgreeToPrivacy(!agreeToPrivacy)}
           />
           <label htmlFor="privacy" className="text-sm">
-            {isArabic
-              ? "أوافق على شروط الخصوصية"
-              : "I agree to the privacy policy"}
+            {isArabic ? (
+              <>
+                أوافق على{" "}
+                <Link to="/PrivacyAndTerms" className="text-blue-600 underline">
+                  الشروط والخصوصية
+                </Link>
+              </>
+            ) : (
+              <>
+                I agree to the{" "}
+                <Link to="/PrivacyAndTerms" className="text-blue-600 underline">
+                  privacy policy
+                </Link>
+              </>
+            )}
           </label>
         </div>
 

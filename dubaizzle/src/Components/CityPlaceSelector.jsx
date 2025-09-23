@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLanguage } from "../Context/LangContext";
-import { fetchCityPlaces, addNewPlace } from "../Services/PostAd.js";
+import { fetchCityPlaces, addNewPlace } from "../Services/PostUpdateAd.js";
+import { GetCurrentUserRoleName } from "../Utils/Constant.js";
 
 export default function CityPlaceSelector({
   cityId,
@@ -15,8 +16,8 @@ export default function CityPlaceSelector({
   const [showAddForm, setShowAddForm] = useState(false);
   const [placeNameAr, setPlaceNameAr] = useState("");
   const [placeNameEn, setPlaceNameEn] = useState("");
-
   const isArabic = language === "العربية";
+  const CurrentRole = GetCurrentUserRoleName(localStorage.getItem("userToken"));
 
   useEffect(() => {
     if (!cityId) return;
@@ -109,13 +110,14 @@ export default function CityPlaceSelector({
           ))}
         </div>
       )}
-
-      <button
-        className="mt-5 text-yellow-600 dark:text-yellow-400 underline hover:text-yellow-800 dark:hover:text-yellow-300 transition"
-        onClick={() => setShowAddForm(!showAddForm)}
-      >
-        {isArabic ? "إضافة مكان جديد" : "Add New Place"}
-      </button>
+      {CurrentRole == "Admin" && (
+        <button
+          className="mt-5 text-yellow-600 dark:text-yellow-400 underline hover:text-yellow-800 dark:hover:text-yellow-300 transition"
+          onClick={() => setShowAddForm(!showAddForm)}
+        >
+          {isArabic ? "إضافة مكان جديد" : "Add New Place"}
+        </button>
+      )}
 
       {showAddForm && (
         <div className="mt-4 bg-yellow-50 dark:bg-yellow-900 p-6 rounded-xl space-y-5 shadow-lg">

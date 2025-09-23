@@ -22,6 +22,17 @@ namespace TammbusinessLayer.Users
             }
         }
 
+        public async Task<string?> GetEmailByUserIdAsync(int userId)
+        {
+            try
+            {
+                return await TammDataLayer.Users.UsersQueriesDAL.GetEmailByUserIdAsync(userId);
+            }catch
+            {
+                throw;
+            }
+        }
+
         public async Task<string> GetLoginProviderNameAsync(int personId)
         {
             try

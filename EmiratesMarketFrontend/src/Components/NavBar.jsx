@@ -2,6 +2,8 @@ import { useState, useRef, useEffect } from "react";
 import TammLogo from "../Layouts/TammLogo";
 import CustomButton from "../Buttons/CustomButton";
 import { useTheme } from "../Context/ThemeContext";
+import { motion } from "framer-motion";
+
 import { useAuth } from "../Context/TokenContext";
 import * as signalR from "@microsoft/signalr";
 import { BookOpen, Coins, Handshake, PhoneCall, UserCog } from "lucide-react";
@@ -499,13 +501,24 @@ export default function NavBar() {
         </div>
 
         <div className="flex items-center gap-4">
-          <TammLogo />
-
+          <motion.img
+            src="/TammIcon.ico"
+            alt="Tamm Logo"
+            style={{
+              width: "20%",
+              height: "20%",
+              objectFit: "contain",
+              marginTop: "20px", // ← هنا أضفنا المارجن من الأعلى
+            }}
+            initial={{ scale: 1 }}
+            whileHover={{ scale: 1.1, rotate: 3 }}
+            transition={{ type: "spring", stiffness: 100 }}
+          />
           {location.pathname === "/" && (
             <select
               value={currentPlace}
               onChange={(e) => setCurrentPlace(e.target.value)}
-              className={`rounded-md px-2 py-1 text-sm border ${
+              className={`mt-12 rounded-md px-2 py-1 text-sm border ${
                 isDark
                   ? "bg-gray-800 text-white border-gray-600"
                   : "bg-white text-black border-gray-300"
@@ -531,7 +544,9 @@ export default function NavBar() {
       </div>
 
       {/* الأزرار - سطح المكتب */}
-      <div className="hidden md:flex justify-center items-center gap-4 z-10 relative -translate-y-5">
+      {/*      <div className="hidden md:flex justify-center items-center gap-4 z-10 relative -translate-y-10">
+       */}
+      <div className="hidden md:flex justify-center items-center gap-4 z-10 relative  mt-[-40px]">
         <BtnLanguage
           bgColor={isDark ? "bg-gray-800" : "bg-gray-200"}
           textColor={isDark ? "text-white" : "text-black"}

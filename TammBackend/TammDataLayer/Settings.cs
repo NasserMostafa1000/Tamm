@@ -10,12 +10,13 @@ namespace TammDataLayer
 {
     public static class Settings
     {
-         public static string _ProductionConnectionString = "Data Source=SQL1004.site4now.net;Initial Catalog=db_abc1c6_tammuae;User Id=db_abc1c6_tammuae_admin;Password=Naser0120#";
-        public static string _ProductionBackendServerPath = "https://tammuae-001-site1.qtempurl.com/";
+        public static string _ProductionConnectionString = "Data Source=SQL9001.site4now.net;Initial Catalog=db_abe1a2_salamatraveluae;User Id=db_abe1a2_salamatraveluae_admin;Password=Naser0120#";
 
-      //  public static string _ProductionConnectionString = "Server=localhost;Database=TammDb;User Id=Sa;Password=Naser0120#;TrustServerCertificate=True;";
+       public static string _ProductionBackendServerPath = "https://salamatraveluae-001-site1.qtempurl.com/";
 
-//        public static string _ProductionBackendServerPath = "https://localhost:7244/";
+      //public static string _ProductionConnectionString = "Server=localhost;Database=TammDb;User Id=Sa;Password=Naser0120#;TrustServerCertificate=True;";
+
+        // public static string _ProductionBackendServerPath = "https://localhost:7244/";
 
 
         public static byte AdminId = 23;

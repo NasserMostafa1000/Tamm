@@ -88,3 +88,4 @@ E:\WORK\Tamm Projects\TammBackend\TammBackendProject\obj\Release\net8.0\rjimswa.
 E:\WORK\Tamm Projects\TammBackend\TammBackendProject\obj\Release\net8.0\rjsmrazor.dswa.cache.json
 E:\WORK\Tamm Projects\TammBackend\TammBackendProject\obj\Release\net8.0\rjsmcshtml.dswa.cache.json
 E:\WORK\Tamm Projects\TammBackend\TammBackendProject\obj\Release\net8.0\staticwebassets.build.json.cache
+E:\WORK\Tamm Projects\TammBackend\TammBackendProject\obj\Release\net8.0\swae.build.ex.cache

@@ -3,6 +3,7 @@ import {
   getUnapprovedListings,
   approveListing,
   rejectListing,
+  requestListingEdit,
 } from "../Services/AdVerfications";
 import { useAuth } from "../Context/TokenContext";
 import { useLanguage } from "../Context/LangContext";
@@ -11,16 +12,21 @@ import { useNavigate } from "react-router-dom";
 import { CheckCircle, XCircle, Eye, ClipboardList, Loader } from "lucide-react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
 export default function UnapprovedListingsContainer() {
   const { userToken } = useAuth();
   const { language } = useLanguage();
   const { mode } = useTheme();
   const isDarkMode = mode === "dark";
   const navigate = useNavigate();
+
   const [listings, setListings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [processingId, setProcessingId] = useState(null);
+  const [processingIds, setProcessingIds] = useState([]); // array بدل processingId فردي
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [currentListingId, setCurrentListingId] = useState(null);
+  const [editReason, setEditReason] = useState("");
 
   useEffect(() => {
     async function fetchListings() {
@@ -43,8 +49,44 @@ export default function UnapprovedListingsContainer() {
     if (userToken) fetchListings();
   }, [userToken, language]);
 
-  // تأكد إنك مستخدم <ToastContainer /> في جذر المشروع بتاعك
+  // 🔹 ارسال طلب تعديل
+  async function handleRequestEdit() {
+    if (!editReason.trim()) {
+      toast.error(
+        language === "العربية"
+          ? "يرجى كتابة سبب التعديل"
+          : "Please enter a reason"
+      );
+      return;
+    }
 
+    try {
+      await requestListingEdit(
+        currentListingId,
+        editReason,
+        userToken,
+        language === "العربية" ? "ar" : "en"
+      );
+      toast.success(
+        language === "العربية" ? "تم إرسال طلب التعديل" : "Edit request sent"
+      );
+      setListings((prev) =>
+        prev.filter((item) => item.listingId !== currentListingId)
+      );
+    } catch {
+      toast.error(
+        language === "العربية"
+          ? "فشل إرسال طلب التعديل"
+          : "Failed to send edit request"
+      );
+    } finally {
+      setShowEditModal(false);
+      setEditReason("");
+      setCurrentListingId(null);
+    }
+  }
+
+  // 🔹 قبول إعلان
   async function handleApprove(listingId) {
     if (
       !window.confirm(
@@ -53,34 +95,24 @@ export default function UnapprovedListingsContainer() {
     )
       return;
 
+    setProcessingIds((prev) => [...prev, listingId]); // أضف إلى array المعالجة
     try {
-      setProcessingId(listingId);
       await approveListing(listingId, userToken);
       setListings((prev) =>
         prev.filter((item) => item.listingId !== listingId)
       );
+      toast.success(language === "العربية" ? "تم قبول الإعلان" : "Ad approved");
     } catch (error) {
-      console.log("Full error object:", error);
-
-      const backendMessage =
-        error?.response?.data?.message ||
-        error?.response?.data || // احتياط لو الرسالة مش في .message
-        error?.message ||
-        "فشل قبول الإعلان.";
-
-      console.log("Extracted message:", backendMessage);
-
-      // حاول نفصل الرسالة لو فيها نقطة
-      const parts = backendMessage.split(".");
-      const userMessage = parts[parts.length - 1].trim();
-
-      toast.error(userMessage || "فشل قبول الإعلان", {
-        position: "top-center",
-        autoClose: 3000,
-      });
+      console.log("Error approving listing:", error);
+      toast.error(
+        language === "العربية" ? "فشل قبول الإعلان" : "Failed to approve ad"
+      );
+    } finally {
+      setProcessingIds((prev) => prev.filter((id) => id !== listingId)); // إزالة من array المعالجة
     }
   }
 
+  // 🔹 رفض إعلان
   async function handleReject(listingId) {
     if (
       !window.confirm(
@@ -89,18 +121,19 @@ export default function UnapprovedListingsContainer() {
     )
       return;
 
+    setProcessingIds((prev) => [...prev, listingId]);
     try {
-      setProcessingId(listingId);
       await rejectListing(listingId, userToken);
       setListings((prev) =>
         prev.filter((item) => item.listingId !== listingId)
       );
+      toast.success(language === "العربية" ? "تم رفض الإعلان" : "Ad rejected");
     } catch {
-      alert(
+      toast.error(
         language === "العربية" ? "فشل رفض الإعلان" : "Failed to reject the ad"
       );
     } finally {
-      setProcessingId(null);
+      setProcessingIds((prev) => prev.filter((id) => id !== listingId));
     }
   }
 
@@ -150,7 +183,7 @@ export default function UnapprovedListingsContainer() {
       }`}
     >
       <div className="max-w-6xl mx-auto">
-        {/* Header Section */}
+        {/* Header */}
         <div className="flex flex-col items-center mb-8">
           <div
             className={`p-3 rounded-full mb-4 ${
@@ -173,7 +206,7 @@ export default function UnapprovedListingsContainer() {
           </p>
         </div>
 
-        {/* Table Section */}
+        {/* Table */}
         <div
           className={`rounded-lg shadow-md overflow-hidden ${
             isDarkMode ? "bg-gray-800" : "bg-white"
@@ -229,7 +262,6 @@ export default function UnapprovedListingsContainer() {
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-black dark:text-white">
                         {index + 1}
                       </td>
-
                       <td className="px-6 py-4 whitespace-nowrap">
                         <button
                           onClick={() => navigate(`/Listing/${item.listingId}`)}
@@ -242,38 +274,54 @@ export default function UnapprovedListingsContainer() {
                         </button>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="flex gap-3">
+                        <div className="flex gap-3 flex-wrap">
+                          {/* Reject */}
                           <button
-                            disabled={processingId === item.listingId}
+                            disabled={processingIds.includes(item.listingId)}
                             onClick={() => handleReject(item.listingId)}
                             className={`flex items-center gap-2 px-4 py-2 rounded-md ${
-                              processingId === item.listingId
+                              processingIds.includes(item.listingId)
                                 ? "bg-gray-300 dark:bg-gray-600 text-gray-500 dark:text-gray-400"
                                 : "bg-red-600 hover:bg-red-700 text-white"
                             } transition-colors`}
                           >
-                            {processingId === item.listingId ? (
+                            {processingIds.includes(item.listingId) ? (
                               <Loader className="animate-spin h-5 w-5" />
                             ) : (
                               <XCircle className="h-5 w-5" />
                             )}
                             {language === "العربية" ? "رفض" : "Reject"}
                           </button>
+
+                          {/* Approve */}
                           <button
-                            disabled={processingId === item.listingId}
+                            disabled={processingIds.includes(item.listingId)}
                             onClick={() => handleApprove(item.listingId)}
                             className={`flex items-center gap-2 px-4 py-2 rounded-md ${
-                              processingId === item.listingId
+                              processingIds.includes(item.listingId)
                                 ? "bg-gray-300 dark:bg-gray-600 text-gray-500 dark:text-gray-400"
                                 : "bg-green-600 hover:bg-green-700 text-white"
                             } transition-colors`}
                           >
-                            {processingId === item.listingId ? (
+                            {processingIds.includes(item.listingId) ? (
                               <Loader className="animate-spin h-5 w-5" />
                             ) : (
                               <CheckCircle className="h-5 w-5" />
                             )}
                             {language === "العربية" ? "قبول" : "Approve"}
+                          </button>
+
+                          {/* Request Edit */}
+                          <button
+                            disabled={processingIds.includes(item.listingId)}
+                            onClick={() => {
+                              setCurrentListingId(item.listingId);
+                              setShowEditModal(true);
+                            }}
+                            className="flex items-center gap-2 px-4 py-2 rounded-md bg-yellow-600 hover:bg-yellow-700 text-white transition-colors"
+                          >
+                            ✏️
+                            {language === "العربية" ? "تعديل" : "Edit"}
                           </button>
                         </div>
                       </td>
@@ -285,6 +333,55 @@ export default function UnapprovedListingsContainer() {
           </div>
         </div>
       </div>
+
+      {/* Edit Modal */}
+      {showEditModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div
+            className={`w-full max-w-md p-6 rounded-lg shadow-lg ${
+              isDarkMode ? "bg-gray-800 text-white" : "bg-white text-gray-800"
+            }`}
+          >
+            <h2 className="text-xl font-semibold mb-4">
+              {language === "العربية" ? "سبب التعديل" : "Edit Reason"}
+            </h2>
+            <textarea
+              value={editReason}
+              onChange={(e) => setEditReason(e.target.value)}
+              rows={4}
+              className={`w-full p-3 border rounded-md ${
+                isDarkMode
+                  ? "bg-gray-700 border-gray-600 text-white"
+                  : "bg-gray-100 border-gray-300 text-black"
+              }`}
+              placeholder={
+                language === "العربية"
+                  ? "اكتب سبب التعديل هنا..."
+                  : "Enter your edit reason..."
+              }
+            />
+
+            <div className="mt-4 flex justify-end gap-3">
+              <button
+                onClick={() => {
+                  setShowEditModal(false);
+                  setEditReason("");
+                  setCurrentListingId(null);
+                }}
+                className="px-4 py-2 rounded-md bg-gray-500 hover:bg-gray-600 text-white"
+              >
+                {language === "العربية" ? "إلغاء" : "Cancel"}
+              </button>
+              <button
+                onClick={handleRequestEdit}
+                className="px-4 py-2 rounded-md bg-blue-600 hover:bg-blue-700 text-white"
+              >
+                {language === "العربية" ? "إرسال" : "Submit"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

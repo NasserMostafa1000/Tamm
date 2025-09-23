@@ -169,37 +169,6 @@ export async function addListing(listingData) {
   }
 }
 
-export async function uploadListingImages(listingId, files) {
-  const token = localStorage.getItem("userToken"); // أو الاسم الصحيح للتوكن حسب ما خزّنته
-
-  for (const file of files) {
-    try {
-      const formData = new FormData();
-      formData.append("imageFile", file);
-
-      const res = await fetch(
-        `${API_BASE_URL}Listings/UploadAdImage?ListingId=${listingId}`,
-        {
-          method: "POST",
-          body: formData,
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (!res.ok) {
-        throw new Error("Failed to upload image");
-      }
-
-      await res.json(); // لو عايز تستخدم النتيجة
-    } catch (error) {
-      console.error("Error uploading image:", error);
-      throw error;
-    }
-  }
-}
-
 export async function fetchAttributesByCategory(subCategoryId, lang) {
   try {
     const response = await fetch(
@@ -303,3 +272,80 @@ export const getUserCoins = async (userId) => {
     throw error;
   }
 };
+// جلب الإعلان كامل للتعديل
+export async function getFullListingForEdit(listingId, token) {
+  const res = await fetch(`${API_BASE_URL}Listings/Edit/${listingId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  if (!res.ok) throw new Error("Failed to fetch listing");
+  const data = await res.json();
+  return data;
+}
+
+// تحديث إعلان كامل
+export async function updateListingFull(dto, token) {
+  const res = await fetch(`${API_BASE_URL}Listings/update`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(dto),
+  });
+  if (!res.ok) throw new Error("Failed to update listing");
+  return await res.json();
+}
+export async function uploadListingImages(listingId, files) {
+  const token = localStorage.getItem("userToken"); // أو الاسم الصحيح للتوكن حسب ما خزّنته
+
+  for (const file of files) {
+    try {
+      const formData = new FormData();
+      formData.append("imageFile", file);
+
+      const res = await fetch(
+        `${API_BASE_URL}Listings/UploadAdImage?ListingId=${listingId}`,
+        {
+          method: "POST",
+          body: formData,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!res.ok) {
+        throw new Error("Failed to upload image");
+      }
+
+      await res.json(); // لو عايز تستخدم النتيجة
+    } catch (error) {
+      console.error("Error uploading image:", error);
+      throw error;
+    }
+  }
+}
+
+// رفع الصور (كلها مرّة واحدة)
+export async function uploadAdImage(file, listingId, token) {
+  const formData = new FormData();
+  formData.append("imageFile", file);
+
+  const res = await fetch(
+    `${API_BASE_URL}Listings/UploadAdImage?ListingId=${listingId}`,
+    {
+      method: "POST",
+      headers: { Authorization: `Bearer ${token}` },
+      body: formData,
+    }
+  );
+
+  if (!res.ok) {
+    const errText = await res.text(); // بدل json
+    throw new Error("Failed to upload image: " + errText);
+  }
+
+  return await res.json();
+}

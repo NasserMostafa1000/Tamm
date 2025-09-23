@@ -88,6 +88,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "TammBackendProject.Controllers.AdsVerficationsHistoryController",
+    "Method": "Get",
+    "RelativePath": "api/AdsVerficationsHistory",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "listingId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "TammBackendProject.Controllers.AttributesController",
     "Method": "AddAttribute",
     "RelativePath": "api/Attributes/AddAttribute",
@@ -168,6 +184,22 @@
         "Name": "category",
         "Type": "TammDataLayer.Categories.CategoriesDTOs\u002BPostSubCategoryDTO",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TammBackendProject.Controllers.CategoriesController",
+    "Method": "GetAll",
+    "RelativePath": "api/Categories/GetAll",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "lang",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -982,6 +1014,43 @@
   },
   {
     "ContainingType": "TammBackendProject.Controllers.ListingsController",
+    "Method": "GetListingForEdit",
+    "RelativePath": "api/Listings/Edit/{listingId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "listingId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TammBackendProject.Controllers.ListingsController",
+    "Method": "GetAllCLientAdsByUserId",
+    "RelativePath": "api/Listings/GetAllCLientAdsByUserId",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "lang",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TammBackendProject.Controllers.ListingsController",
     "Method": "GetListingsPreviewByPersonId",
     "RelativePath": "api/Listings/GetListingsPreviewByUserId",
     "HttpMethod": "GET",
@@ -1086,6 +1155,32 @@
   },
   {
     "ContainingType": "TammBackendProject.Controllers.ListingsController",
+    "Method": "RequestListingEdit",
+    "RelativePath": "api/Listings/RequestEdit",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "listingId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "reason",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "lang",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TammBackendProject.Controllers.ListingsController",
     "Method": "SearchListings",
     "RelativePath": "api/Listings/Search",
     "HttpMethod": "GET",
@@ -1163,6 +1258,22 @@
         "Name": "listingId",
         "Type": "System.Int32",
         "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TammBackendProject.Controllers.ListingsController",
+    "Method": "UpdateListing",
+    "RelativePath": "api/Listings/update",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "TammDataLayer.Listings.ListingsDtos\u002BUpdateListingFullDTO",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []
@@ -1268,6 +1379,43 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TammBackendProject.Controllers.SearchingExpectionsController",
+    "Method": "AddOrUpdateUserSearchAsync",
+    "RelativePath": "api/SearchingExpections/AddOrUpdateUserSearch",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userUUID",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "ListingId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TammBackendProject.Controllers.SearchingExpectionsController",
+    "Method": "GetUserLastCategoryAsync",
+    "RelativePath": "api/SearchingExpections/GetUserLastCategory",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userUUID",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
     "ReturnTypes": []
   },
   {

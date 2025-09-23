@@ -7,6 +7,10 @@ import MainCategoriesGrid from "../Components/MainCategoriesGrid";
 import { SiteNameAR, SiteNameEN } from "../Utils/Constant";
 import { Helmet } from "react-helmet";
 import ContactUs from "./ContactUs";
+import TammLogo from "../Layouts/TammLogo";
+import CategoriesMenu from "../Components/ParentAndSubCategories"; // تم إضافة هذا
+
+import { useEffect, useState } from "react"; // تم إضافة هذا
 
 export default function Home() {
   const { language } = useLanguage();
@@ -29,6 +33,7 @@ export default function Home() {
         { label: "نجار" },
         { label: "هواتف" },
         { label: "أيفون" },
+        { label: "سيارات للإيجار" },
       ]
     : [
         { label: "Property for Sale" },
@@ -47,10 +52,23 @@ export default function Home() {
         { label: "carpenter" },
         { label: "Phones" },
         { label: "Apple" },
+        { label: "Car for rent" },
       ];
 
+  // ✅ حالة التحقق من حجم الشاشة
+  const [isDesktop, setIsDesktop] = useState(true);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsDesktop(window.innerWidth >= 1024); // الديسكتوب إذا كانت الشاشة >= 1024px
+    };
+    handleResize(); // تحقق عند التحميل
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 px-4 py-6 space-y-10 border-none">
+    <div className="pt-5 space-y-10 w-full">
       <Helmet>
         <title>
           {isArabic
@@ -65,9 +83,8 @@ export default function Home() {
               : `Explore thousands of free classifieds for real estate, cars, phones, jobs, and more on ${SiteNameEN}`
           }
         />
-        <Helmet>
-          <script type="application/ld+json">
-            {`
+        <script type="application/ld+json">
+          {`
       {
         "@context": "https://schema.org",
         "@type": "WebSite",
@@ -80,44 +97,51 @@ export default function Home() {
         }
       }
     `}
-          </script>
-        </Helmet>
+        </script>
       </Helmet>
 
-      {/* تثبيت النافبار */}
-      <div className="fixed top-0 left-0 right-0 z-50 bg-gray-50 dark:bg-gray-900">
-        <NavBar />
-        {/* خط فاصل تحت النافبار */}
-        <div className="border-b border-gray-300 dark:border-gray-700"></div>
-      </div>
+      {/* الرأس الثابت مع اللوجو والنافبار */}
+      <header className="fixed top-0 left-0 right-0 z-50 bg-gray-50 dark:bg-gray-900 shadow-sm transition-all duration-300">
+        {/* شيل الـ container */}
+        <div className="w-full">
+          {/* اللوجو في الأعلى */}
+          <div className="flex justify-center py-3">
+            <div className="w-16 h-16 md:w-20 md:h-20">
+              <TammLogo />
+            </div>
+          </div>
 
-      {/* محتوى الصفحة مع padding top يعادل ارتفاع الـ NavBar + الفاصل */}
-      <div className="pt-[96px] -mx-4">
+          {/* النافبار بدون أي padding */}
+          <div className="border-t border-gray-300 dark:border-gray-700 w-full">
+            <NavBar />
+          </div>
+        </div>
+      </header>
+
+      <div className="pt-5 space-y-10 w-full mx-auto">
         <SearchBar
           onSearch={(term) =>
             navigate(`/Searching?search=${encodeURIComponent(term)}`)
           }
           suggestions={suggestions}
-        />
+        />{" "}
+        <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-center mb-2 text-green-700 dark:text-green-300">
+          {isArabic
+            ? `${SiteNameAR} - منصة الإعلانات المبوبة في الإمارات`
+            : `${SiteNameEN} - UAE's Classifieds Platform`}
+        </h1>
+        <p className="text-base md:text-lg text-center text-gray-600 dark:text-gray-400 max-w-xl mx-auto -mt-2">
+          {isArabic
+            ? `اكتشف آلاف الإعلانات في العقارات، السيارات، الهواتف، الوظائف والمزيد عبر ${SiteNameAR}`
+            : `Browse thousands of ads for real estate, cars, phones, jobs and more on ${SiteNameEN}`}
+        </p>
+        <MainCategoriesGrid />
+        {/* ✅ CategoriesMenu يظهر فقط على الديسكتوب */}
+        <HomeSections />
+        {/** isDesktop && <CategoriesMenu />*/}
+        {<CategoriesMenu />}
+        <ContactUs />
       </div>
-
-      {/* 🟢 عنوان SEO واضح ومحسّن */}
-      <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-center mb-2 text-green-700 dark:text-green-300">
-        {isArabic
-          ? `${SiteNameAR} - منصة الإعلانات المبوبة في الإمارات`
-          : `${SiteNameEN} - UAE's Classifieds Platform`}
-      </h1>
-
-      {/* 🔵 وصف مساعد لتحسين الفكرة و SEO */}
-      <p className="text-base md:text-lg text-center text-gray-600 dark:text-gray-400 max-w-xl mx-auto -mt-2">
-        {isArabic
-          ? `اكتشف آلاف الإعلانات في العقارات، السيارات، الهواتف، الوظائف والمزيد عبر ${SiteNameAR}`
-          : `Browse thousands of ads for real estate, cars, phones, jobs and more on ${SiteNameEN}`}
-      </p>
-
-      <MainCategoriesGrid />
-      <HomeSections />
-      <ContactUs />
     </div>
   );
 }

@@ -81,6 +81,19 @@ namespace TammDataLayer.Categories
 
             return result;
         }
+        public static async Task<string> GetCategoriesWithChildrenAsync(string lang)
+        {
+            using (SqlConnection conn = new SqlConnection(Settings._ProductionConnectionString))
+            using (SqlCommand cmd = new SqlCommand("GetCategoriesWithChildren", conn))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Lang", lang);
+
+                await conn.OpenAsync();
+                var result = await cmd.ExecuteScalarAsync();
+                return result?.ToString() ?? "[]";
+            }
+        }
     }
 }
 

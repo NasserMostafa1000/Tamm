@@ -1,10 +1,7 @@
-import { useState, useRef, useEffect } from "react";
-import TammLogo from "../Layouts/TammLogo";
-import CustomButton from "../Buttons/CustomButton";
+import { useState, useEffect } from "react";
 import { useTheme } from "../Context/ThemeContext";
 import { useAuth } from "../Context/TokenContext";
 import * as signalR from "@microsoft/signalr";
-import { BookOpen, Coins, Handshake, PhoneCall, UserCog } from "lucide-react";
 import { useLanguage } from "../Context/LangContext";
 import {
   FaMoon,
@@ -13,72 +10,76 @@ import {
   FaUserPlus,
   FaBullhorn,
   FaEnvelope,
-  FaClipboardList,
+  FaHome,
+  FaUser,
   FaCog,
-  FaSignOutAlt,
-  FaCheck,
-  FaChevronDown,
+  FaInfoCircle,
+  FaHeadset,
 } from "react-icons/fa";
 import BtnLanguage from "../Buttons/BtnLanguage";
-import DecodedTokenAndReturnCurrentClientInfoInfo, {
-  API_BASE_URL,
-  GetCurrentUserRoleName,
-  GetImageUrl,
+import {
   playNotificationSound,
   ServerPath,
+  SiteNameEN,
 } from "../Utils/Constant.js";
-import GroupIcon from "@mui/icons-material/Group";
 import { useNavigate } from "react-router-dom";
-import { useLocationContext } from "../Context/LocationProvider.jsx";
-import UserAvatar from "./userAvatar.jsx";
 import { fetchUnreadMessagesCount } from "../Services/messages.js";
 import { toast } from "react-toastify";
+import ProfileMenu from "./ProfileMenu.jsx";
+
 export default function NavBar() {
+  const [connection, setConnection] = useState(null);
   const [unreadMessages, setUnreadMessages] = useState(0);
   const { language } = useLanguage();
   const { mode, toggleMode } = useTheme();
   const { userToken } = useAuth();
+  const {} = useAuth();
   const isDark = mode === "dark";
-  const [profileMenuOpen, setProfileMenuOpen] = useState(false);
-  const profileRefDesktop = useRef();
-  const profileRefMobile = useRef();
-  const [connection, setConnection] = useState(null);
-  const { currentPlace, setCurrentPlace, emirates } = useLocationContext();
+  const isRTL = language === "العربية";
+  const navigate = useNavigate();
   const token = localStorage.getItem("userToken");
-  const ImageUrl = GetImageUrl(token);
-  const translateEmirate = (en) => {
-    const map = {
-      "All Emirates": "كل الأمارات",
-      "Abu Dhabi": "أبو ظبي",
-      Dubai: "دبي",
-      Sharjah: "الشارقة",
-      Ajman: "عجمان",
-      "Ras Al Khaimah": "رأس الخيمة",
-      Fujairah: "الفجيرة",
-      "Umm Al Quwain": "أم القيوين",
-    };
-    return map[en] || en;
+
+  // نظام الألوان المحسّن
+  const theme = {
+    light: {
+      background: "bg-white",
+      text: "text-gray-900",
+      primary: "bg-gradient-to-r from-blue-500 to-blue-600",
+      primaryHover: "bg-gradient-to-r from-blue-600 to-blue-700",
+      secondary: "bg-gray-100",
+      secondaryHover: "bg-gray-200",
+      border: "border-gray-200",
+      card: "bg-white",
+      icon: "text-gray-600",
+    },
+    dark: {
+      background: "bg-gray-900",
+      text: "text-white",
+      primary: "bg-gradient-to-r from-blue-600 to-blue-700",
+      primaryHover: "bg-gradient-to-r from-blue-700 to-blue-800",
+      secondary: "bg-gray-800",
+      secondaryHover: "bg-gray-700",
+      border: "border-gray-700",
+      card: "bg-gray-800",
+      icon: "text-gray-300",
+    },
   };
-  // 🟢 أولاً: عرف الدالة خارج الـ useEffect
+
+  const currentTheme = isDark ? theme.dark : theme.light;
+
   const fetchMessages = async () => {
     if (userToken) {
       try {
         const count = await fetchUnreadMessagesCount();
         setUnreadMessages(count);
-
         if (count > 0) {
-          playNotificationSound("/recievemessage.mp3"); // شغل الصوت الأول
+          playNotificationSound("/recievemessage.mp3");
           toast(
             <div
               onClick={() => navigate("/Messages")}
-              style={{
-                cursor: "pointer",
-                display: "flex",
-                alignItems: "center",
-                gap: "8px",
-              }}
+              className="cursor-pointer flex items-center gap-2"
             >
-              <FaEnvelope color="red" size={20} />
+              <FaEnvelope className="text-red-500" size={20} />
               {language === "العربية" ? "رسائل غير مقروءة" : "Unread messages"}
             </div>
           );
@@ -90,561 +91,344 @@ export default function NavBar() {
   };
 
   useEffect(() => {
-    fetchMessages(); // 👈 أول تحميل
+    fetchMessages();
   }, [userToken]);
 
   useEffect(() => {
     if (!userToken) return;
 
-    let connectionInstance = null;
-
     const connectToHub = async () => {
       try {
-        const newConnection = new signalR.HubConnectionBuilder()
+        const connection = new signalR.HubConnectionBuilder()
           .withUrl(`${ServerPath}chatHub`, {
             accessTokenFactory: () => userToken,
           })
-          .withAutomaticReconnect({
-            nextRetryDelayInMilliseconds: () => 2000,
-          })
-          .configureLogging(signalR.LogLevel.Information)
+          .withAutomaticReconnect()
           .build();
 
-        newConnection.on("ReceiveMessage", () => {
+        connection.on("ReceiveMessage", () => {
           setUnreadMessages((prev) => prev + 1);
         });
 
-        newConnection.onclose((error) => {
-          console.warn("Connection closed. Trying to reconnect...", error);
-          reconnect();
-        });
-
-        await newConnection.start();
-        console.log("SignalR connected ✅");
-        setConnection(newConnection);
-        connectionInstance = newConnection;
+        await connection.start();
+        setConnection(connection);
       } catch (error) {
-        console.error("SignalR connection error ❌", error);
-        setTimeout(connectToHub, 3000);
-      }
-    };
-
-    const reconnect = () => {
-      if (!connectionInstance || connectionInstance.state === "Disconnected") {
-        connectToHub();
+        console.error("SignalR connection error:", error);
       }
     };
 
     connectToHub();
-
-    return () => {
-      if (connectionInstance) {
-        connectionInstance.stop();
-      }
-    };
   }, [userToken]);
 
-  const navigate = useNavigate();
-  const logout = () => {
-    localStorage.removeItem("userToken");
-    window.location.reload();
+  const handleLogin = (redirectName, goTo = "/") => {
+    navigate("/Login", { state: { fromButton: redirectName, GoTo: goTo } });
   };
-  function HandleLogin(redirectName, GoTO) {
-    navigate("/Login", { state: { fromButton: redirectName, GoTo: GoTO } });
-  }
 
-  function HandlePostAd() {
+  const handlePostAd = () => {
     if (!userToken) {
-      HandleLogin(
+      handleLogin(
         language === "العربية" ? "انشر إعلانك" : "Post Ad",
         "/PostAd"
       );
       return;
     }
     navigate("/PostAd");
-  }
-  function CheckAds() {
-    if (!userToken) {
-      HandleLogin(
-        language === "العربية" ? "انشر إعلانك" : "Post Ad",
-        "/PostAd"
-      );
-      return;
-    }
-    navigate("/Admin/AdVerification");
-  }
-  function Clients() {
-    if (!userToken) {
-      HandleLogin(
-        language === "العربية" ? "انشر إعلانك" : "Post Ad",
-        "/Admin/Clients"
-      );
-      return;
-    }
-    navigate("/Admin/Clients");
-  }
-  function GoToUpdateContact() {
-    navigate("/Admin/UpdateContacts");
-  }
-  function CheckReports() {
-    if (!userToken) {
-      HandleLogin(
-        language === "العربية" ? "انشر إعلانك" : "Post Ad",
-        "/Admin/ListingReports"
-      );
-      return;
-    }
-    navigate("/Admin/ListingReports");
-  }
-  function GoToCoinsManager() {
-    if (!userToken) {
-      HandleLogin(
-        language === "العربية" ? "ادراه العملات" : "Coins Manager",
-        "/Admin/Coins"
-      );
-      return;
-    }
-    navigate("/Admin/Coins");
-  }
+  };
 
-  function GoToCoinsResharger() {
+  const goToMessages = () => {
     if (!userToken) {
-      HandleLogin(
-        language === "العربية" ? "شحن عملاتك" : "Recharging Coins",
-        "/RechargingCoins"
-      );
-      return;
-    }
-    navigate("/RechargingCoins");
-  }
-  function goToProfile() {
-    setProfileMenuOpen(false);
-    if (!userToken) {
-      HandleLogin(
-        language === "العربية" ? "الملف الشخصي" : "Profile",
-        "/Profile"
-      );
-      return;
-    }
-    navigate("/Profile");
-  }
-  function goToPrivacyAndTerms() {
-    navigate("/PrivacyAndTerms");
-  }
-
-  function goToMessages() {
-    setProfileMenuOpen(false);
-    if (!userToken) {
-      HandleLogin(language === "العربية" ? "الرسائل" : "Messages", "Messages");
+      handleLogin(language === "العربية" ? "الرسائل" : "Messages", "/Messages");
       return;
     }
     navigate("/Messages");
-  }
+  };
 
-  function goToMyAds() {
-    setProfileMenuOpen(false);
+  const goToFavorites = () => {
     if (!userToken) {
-      HandleLogin(language === "العربية" ? "إعلاناتي" : "My Ads", "/MyAds");
-      return;
-    }
-    navigate("/MyAds");
-  }
-  function goToAddCategorypage() {
-    setProfileMenuOpen(false);
-    if (!userToken) {
-      HandleLogin(language === "العربية" ? "اضافه قسم جديد" : " ", " ");
-      return;
-    }
-    navigate("/Admin/AddNewCategory");
-  }
-  function goToMyFavourits() {
-    setProfileMenuOpen(false);
-    if (!userToken) {
-      HandleLogin(
+      handleLogin(
         language === "العربية" ? "المفضلة" : "Favorites",
-        "Favorites"
+        "/MyFavourits"
       );
       return;
     }
     navigate("/MyFavourits");
-  }
-  function goToAboutUs() {
-    setProfileMenuOpen(false);
-    navigate("/AboutUs");
-  }
-  function goToSettings() {
-    setProfileMenuOpen(false);
-    navigate("/Settings");
-  }
-  function goToContactUs() {
-    setProfileMenuOpen(false);
-    navigate("/ContactUs");
-  }
-  useEffect(() => {
-    function handleClickOutside(event) {
-      if (
-        profileRefDesktop.current &&
-        !profileRefDesktop.current.contains(event.target) &&
-        profileRefMobile.current &&
-        !profileRefMobile.current.contains(event.target)
-      ) {
-        setProfileMenuOpen(false);
-      }
-    }
+  };
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  const goToHome = () => {
+    navigate("/");
+  };
+
+  const goToAboutUs = () => {
+    navigate("/aboutus");
+  };
+
+  const goToContactUs = () => {
+    navigate("/contactus");
+  };
+
   return (
     <div
-      className={`w-full border-none transition-colors duration-500 relative ${
-        isDark ? "bg-gray-900 text-white" : "bg-white text-black"
-      }`}
+      className={`w-full ${currentTheme.background} ${currentTheme.text} transition-colors duration-300`}
+      dir={isRTL ? "rtl" : "ltr"}
     >
-      {/* تأثير الشمس أو النجوم */}
-      {!isDark ? (
-        <div className="absolute top-[-50px] left-[-50px] w-40 h-40 bg-gradient-to-br from-yellow-200 to-yellow-400 rounded-full opacity-40 blur-2xl pointer-events-none z-0" />
-      ) : (
-        <>
-          <div className="absolute top-2 right-5 text-yellow-100 text-xs z-0">
-            ✦
-          </div>
-          <div className="absolute top-6 left-10 text-white text-sm z-0">✧</div>
-          <div className="absolute top-10 right-16 text-white text-[10px] z-0">
-            ★
-          </div>
-          <div className="absolute top-3 left-1/2 text-yellow-200 text-[8px] z-0">
-            ✩
-          </div>
-          <div className="absolute bottom-3 left-4 text-yellow-100 text-[12px] z-0">
-            ✨
-          </div>
-        </>
-      )}
-
-      {/* الشعار وزر البروفايل - في الأعلى */}
-      <div className="flex justify-between items-center mb-4 md:mb-0 z-10 relative">
-        <div className="relative" ref={profileRefMobile}>
-          <button
-            onClick={() => setProfileMenuOpen(!profileMenuOpen)}
-            className={`
-    relative group flex items-center gap-2 rounded-full px-2 py-1
-    ${isDark ? "bg-gray-800 text-white" : "bg-gray-200 text-black"}
-    hover:brightness-95 hover:shadow-md shadow-sm
-    transition duration-200
-    focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/70 focus-visible:ring-offset-2
-    active:scale-95
-  `}
-            aria-label={
-              language === "العربية" ? "قائمة البروفايل" : "Profile menu"
-            }
-          >
-            <UserAvatar imageUrl={ImageUrl} size={40} />
-
-            {/* سهم بيدل على وجود قائمة */}
-            <FaChevronDown
-              className={`text-sm transition-transform duration-200 ${
-                profileMenuOpen ? "rotate-180" : "rotate-0"
-              }`}
-            />
-
-            {/* overlay خفيف عند الـhover */}
-            <span className="absolute inset-0 rounded-full bg-black/0 group-hover:bg-black/5 transition" />
-          </button>
-          {profileMenuOpen && (
-            <div className="absolute left-0 mt-2 w-56 bg-white dark:bg-gray-800 shadow-lg rounded-md py-2 z-30 text-black dark:text-white">
+      {/* شريط التنقل العلوي - Desktop */}
+      <div className="hidden lg:block">
+        <div className="max-w-7xl mx-auto px-6 py-4">
+          <div className="flex items-center justify-between">
+            {/* الجزء الأيسر - الشعار والتنقل */}
+            <div className="flex items-center gap-8">
               <button
-                onClick={() => goToProfile()}
-                className="flex items-center gap-2 px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 w-full text-start"
+                onClick={goToHome}
+                className="flex items-center gap-3 group"
               >
-                <UserAvatar imageUrl={ImageUrl} size={25} />
-                {language === "العربية" ? "الملف الشخصي" : "Profile"}
-              </button>
-              <button
-                onClick={goToMyAds}
-                className="flex items-center gap-2 px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 w-full text-start"
-              >
-                <FaClipboardList />{" "}
-                {language === "العربية" ? "إعلاناتي" : "My Ads"}
-              </button>
-              {/* تم تغيير زر الرسائل إلى زر المفضلة هنا */}
-              <button
-                onClick={goToMyFavourits}
-                className="flex items-center gap-2 px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 w-full text-start"
-              >
-                <FaHeart /> {language === "العربية" ? "المفضلة" : "Favorites"}
-              </button>
-              {GetCurrentUserRoleName(token) == "Admin" && (
-                <button
-                  onClick={goToAddCategorypage}
-                  className="flex items-center gap-2 px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 w-full text-start"
+                <div
+                  className={`w-10 h-10 rounded-lg ${currentTheme.primary} flex items-center justify-center group-hover:scale-110 transition-transform`}
                 >
-                  <FaClipboardList />{" "}
-                  {language === "العربية" ? "اضف قسم جديد" : "Add New Category"}
-                </button>
-              )}
-              {GetCurrentUserRoleName(token) == "Admin" && (
-                <button
-                  onClick={CheckAds}
-                  className="flex items-center gap-2 px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 w-full text-start"
-                >
-                  <FaCheck />{" "}
-                  {language === "العربية"
-                    ? "مراجعة الاعلانات"
-                    : "Ad Verification"}
-                </button>
-              )}
-              <button
-                onClick={GoToCoinsResharger}
-                className="flex items-center gap-2 px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 w-full text-start"
-              >
-                <Coins />
-                {language === "العربية" ? "تعبئه العملات" : "Recharging Coins"}
-              </button>
-              {GetCurrentUserRoleName(token) == "Admin" && (
-                <button
-                  onClick={CheckReports}
-                  className="flex items-center gap-2 px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 w-full text-start"
-                >
-                  <FaCheck />
-                  {language === "العربية"
-                    ? "مراجعة الأبلاغات"
-                    : "Reports Verification"}
-                </button>
-              )}
-              {GetCurrentUserRoleName(token) == "Admin" && (
-                <button
-                  onClick={GoToCoinsManager}
-                  className="flex items-center gap-2 px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 w-full text-start"
-                >
-                  <Coins />
-                  {language === "العربية" ? "ادراه العملات" : "Coins Manager"}
-                </button>
-              )}
-              {GetCurrentUserRoleName(token) == "Admin" && (
-                <button
-                  onClick={Clients}
-                  className="flex items-center gap-2 px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 w-full text-start"
-                >
-                  <GroupIcon />
-                  {language === "العربية" ? "العملاء" : "Clients"}
-                </button>
-              )}
-              {GetCurrentUserRoleName(token) == "Admin" && (
-                <button
-                  onClick={GoToUpdateContact}
-                  className="flex items-center gap-2 px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 w-full text-start"
-                >
-                  <UserCog />
-                  {language === "العربية"
-                    ? "اعدادات التواصل"
-                    : "Contact Settings"}
-                </button>
-              )}
-              <button
-                onClick={goToAboutUs}
-                className="flex items-center gap-2 px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 w-full text-start"
-              >
-                <Handshake /> {language === "العربية" ? "من نحن" : "About Us"}
-              </button>
-              <button
-                onClick={goToPrivacyAndTerms}
-                className="flex items-center gap-2 px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 w-full text-start"
-              >
-                <BookOpen />{" "}
-                {language === "العربية"
-                  ? "الشروط والخصوصية"
-                  : "Privacy And Terms"}
+                  <FaHome className="text-white text-lg" />
+                </div>
+                <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">
+                  {SiteNameEN}
+                </span>
               </button>
 
-              <button
-                onClick={goToContactUs}
-                className="flex items-center gap-2 px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 w-full text-start"
-              >
-                <PhoneCall />{" "}
-                {language === "العربية" ? "تواصل معنا" : "Contact Us"}
-              </button>
-              <button
-                onClick={goToSettings}
-                className="flex items-center gap-2 px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 w-full text-start"
-              >
-                <FaCog /> {language === "العربية" ? "الإعدادات" : "Settings"}
-              </button>
-              {userToken && (
+              <nav className="flex items-center gap-6">
                 <button
-                  onClick={logout}
-                  className="flex items-center gap-2 px-4 py-2 text-red-600 hover:bg-red-100 dark:hover:bg-red-700 w-full text-start"
+                  onClick={goToAboutUs}
+                  className={`px-4 py-2 rounded-lg font-medium hover:${currentTheme.secondaryHover} transition-colors flex items-center gap-2`}
                 >
-                  <FaSignOutAlt />{" "}
-                  {language === "العربية" ? "تسجيل خروج" : "Logout"}
+                  <FaInfoCircle />
+                  <span>
+                    {language === "العربية" ? "عن التطبيق" : "About Us"}
+                  </span>
                 </button>
-              )}
-              {!userToken && (
+                <button
+                  onClick={goToContactUs}
+                  className={`px-4 py-2 rounded-lg font-medium hover:${currentTheme.secondaryHover} transition-colors flex items-center gap-2`}
+                >
+                  <FaHeadset />
+                  <span>
+                    {language === "العربية" ? "اتصل بنا" : "Contact Us"}
+                  </span>
+                </button>
+              </nav>
+            </div>
+
+            {/* زر نشر الإعلان في المنتصف */}
+            <div className="absolute left-1/2 transform -translate-x-1/2">
+              <button
+                onClick={handlePostAd}
+                className={`px-8 py-3 rounded-xl font-bold text-lg text-white shadow-2xl hover:scale-105 transition-all duration-300 flex items-center gap-3 ${currentTheme.primary} hover:${currentTheme.primaryHover}`}
+              >
+                <FaBullhorn className="text-lg" />
+                <span>
+                  {language === "العربية" ? "انشر إعلانك" : "Post Ad"}
+                </span>
+              </button>
+            </div>
+
+            {/* الجزء الأيمن - المستخدم والإعدادات */}
+            <div className="flex items-center gap-4">
+              {/* زر الوضع */}
+              <button
+                onClick={toggleMode}
+                className={`p-3 rounded-xl ${currentTheme.secondary} hover:${currentTheme.secondaryHover} transition-colors`}
+                title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
+              >
+                {isDark ? (
+                  <FaSun className="text-yellow-400" />
+                ) : (
+                  <FaMoon className="text-gray-600" />
+                )}
+              </button>
+              {/* زر اللغة */}
+              <BtnLanguage
+                className={`${currentTheme.secondary} hover:${currentTheme.secondaryHover}`}
+              />
+              {/* زر الرسائل */}
+              <button
+                onClick={goToMessages}
+                className={`p-3 rounded-xl ${currentTheme.secondary} hover:${currentTheme.secondaryHover} transition-colors relative`}
+                title={language === "العربية" ? "الرسائل" : "Messages"}
+              >
+                <FaEnvelope className={currentTheme.icon} />
+                {unreadMessages > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center animate-pulse">
+                    {unreadMessages}
+                  </span>
+                )}
+              </button>
+              {/* زر المفضلة */}
+              <button
+                onClick={goToFavorites}
+                className={`p-3 rounded-xl ${currentTheme.secondary} hover:${currentTheme.secondaryHover} transition-colors`}
+                title={language === "العربية" ? "المفضلة" : "Favorites"}
+              >
+                <FaHeart className={currentTheme.icon} />
+              </button>
+              {/* زر المستخدم */}
+              {userToken ? (
+                <div
+                  className="relative"
+                  style={{ direction: isRTL ? "rtl" : "ltr" }}
+                >
+                  <ProfileMenu
+                    token={token}
+                    userToken={userToken}
+                    isDark={isDark}
+                    isRTL={isRTL}
+                  />
+                </div>
+              ) : (
                 <button
                   onClick={() =>
-                    HandleLogin(
-                      language === "العربية" ? "إنشاء حساب" : "Create Account"
+                    handleLogin(
+                      language === "العربية" ? "تسجيل الدخول" : "Sign In"
                     )
                   }
-                  className="flex items-center gap-2 px-4 py-2 text-green-600 hover:bg-red-100 dark:hover:bg-green-700 w-full text-start"
+                  className={`px-6 py-3 rounded-xl font-medium ${currentTheme.secondary} hover:${currentTheme.secondaryHover} transition-colors flex items-center gap-2`}
                 >
-                  <FaUserPlus />{" "}
-                  {language === "العربية"
-                    ? "تسجيل دخول / انشاء حساب"
-                    : "Sign in / Sign Up"}
+                  <FaUser className={currentTheme.icon} />
+                  <span>
+                    {language === "العربية" ? "تسجيل الدخول" : "Sign In"}
+                  </span>
                 </button>
               )}
             </div>
-          )}
+          </div>
         </div>
+      </div>
 
-        <div className="flex items-center gap-4">
-          <TammLogo />
-
-          {location.pathname === "/" && (
-            <select
-              value={currentPlace}
-              onChange={(e) => setCurrentPlace(e.target.value)}
-              className={`rounded-md px-2 py-1 text-sm border ${
-                isDark
-                  ? "bg-gray-800 text-white border-gray-600"
-                  : "bg-white text-black border-gray-300"
-              }`}
+      {/* شريط التنقل السفلي - Mobile */}
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50">
+        <div
+          className={`${currentTheme.card} border-t ${currentTheme.border} shadow-2xl`}
+        >
+          <div className="flex justify-around items-center py-3">
+            {/* زر الرئيسية */}
+            <button
+              onClick={goToHome}
+              className="flex flex-col items-center gap-1 p-2 rounded-lg transition-colors"
             >
-              {emirates.map((em) => (
-                <option key={em} value={em}>
-                  {language === "العربية" ? translateEmirate(em) : em}
-                </option>
-              ))}
-            </select>
-          )}
+              <FaHome className={`text-xl ${currentTheme.icon}`} />
+              <span className="text-xs">
+                {language === "العربية" ? "الرئيسية" : "Home"}
+              </span>
+            </button>
 
-          {!isDark ? (
-            <FaSun
-              className="text-yellow-400 text-xl animate-pulse"
-              title="نهار"
+            {/* زر عن التطبيق */}
+            <button
+              onClick={goToAboutUs}
+              className="flex flex-col items-center gap-1 p-2 rounded-lg transition-colors"
+            >
+              <FaInfoCircle className={`text-xl ${currentTheme.icon}`} />
+              <span className="text-xs">
+                {language === "العربية" ? "عن التطبيق" : "About"}
+              </span>
+            </button>
+
+            {/* زر نشر إعلان (مركزي) */}
+            <button
+              onClick={handlePostAd}
+              className="flex flex-col items-center gap-1 transform -translate-y-4"
+            >
+              <div
+                className={`p-4 rounded-full ${currentTheme.primary} shadow-2xl hover:scale-110 transition-transform`}
+              >
+                <FaBullhorn className="text-white text-xl" />
+              </div>
+              <span className="text-xs font-semibold">
+                {language === "العربية" ? "نشر اعلان" : "Post ad"}
+              </span>
+            </button>
+
+            {/* زر اتصل بنا */}
+            <button
+              onClick={goToContactUs}
+              className="flex flex-col items-center gap-1 p-2 rounded-lg transition-colors"
+            >
+              <FaHeadset className={`text-xl ${currentTheme.icon}`} />
+              <span className="text-xs">
+                {language === "العربية" ? "اتصل بنا" : "Contact"}
+              </span>
+            </button>
+
+            {/* زر الرسائل */}
+            <button
+              onClick={goToMessages}
+              className="flex flex-col items-center gap-1 p-2 rounded-lg transition-colors relative"
+            >
+              <FaEnvelope className={`text-xl ${currentTheme.icon}`} />
+              {unreadMessages > 0 && (
+                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center animate-pulse">
+                  {unreadMessages}
+                </span>
+              )}
+              <span className="text-xs">
+                {language === "العربية" ? "الرسائل" : "Messages"}
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* شريط الإعدادات العلوي - Mobile */}
+      <div className="lg:hidden">
+        <div
+          className={`px-4 py-3 border-b ${currentTheme.border} flex justify-between items-center`}
+        >
+          {/* الشعار */}
+          <button onClick={goToHome} className="flex items-center gap-2">
+            <div
+              className={`w-8 h-8 rounded-lg ${currentTheme.primary} flex items-center justify-center`}
+            >
+              <FaHome className="text-white" />
+            </div>
+            <span className="font-bold text-lg bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">
+              {SiteNameEN}
+            </span>
+          </button>
+
+          {/* الإعدادات */}
+          <div className="flex items-center gap-2">
+            <button
+              onClick={toggleMode}
+              className={`p-2 rounded-lg ${currentTheme.secondary}`}
+              title={isDark ? "Light Mode" : "Dark Mode"}
+            >
+              {isDark ? (
+                <FaSun className="text-yellow-400" />
+              ) : (
+                <FaMoon className="text-gray-600" />
+              )}
+            </button>
+
+            <BtnLanguage
+              className={`${currentTheme.secondary}`}
+              compact={true}
             />
-          ) : (
-            <FaMoon className="text-blue-200 text-xl" title="ليل" />
-          )}
+
+            {userToken ? (
+              <div className={`relative ${isRTL ? "" : "ltr-profile-menu"}`}>
+                <ProfileMenu
+                  token={token}
+                  userToken={userToken}
+                  isDark={isDark}
+                  isRTL={isRTL}
+                />
+              </div>
+            ) : (
+              <button
+                onClick={() =>
+                  handleLogin(language === "العربية" ? "تسجيل" : "Sign In")
+                }
+                className={`p-2 rounded-lg ${currentTheme.secondary}`}
+                title={language === "العربية" ? "تسجيل الدخول" : "Sign In"}
+              >
+                <FaUser className={currentTheme.icon} />
+              </button>
+            )}
+          </div>
         </div>
-      </div>
-
-      {/* الأزرار - سطح المكتب */}
-      <div className="hidden md:flex justify-center items-center gap-4 z-10 relative -translate-y-5">
-        <BtnLanguage
-          bgColor={isDark ? "bg-gray-800" : "bg-gray-200"}
-          textColor={isDark ? "text-white" : "text-black"}
-        />
-
-        <CustomButton
-          icon={isDark ? FaSun : FaMoon}
-          onClick={toggleMode}
-          text=""
-          className={`${
-            isDark ? "bg-gray-700 text-yellow-400" : "bg-gray-100 text-black"
-          } hover:scale-110 transition`}
-        />
-
-        <div className="relative">
-          <CustomButton
-            icon={FaEnvelope}
-            text={language === "العربية" ? "الرسائل" : "Messages"}
-            onClick={goToMessages}
-            className={`${
-              isDark
-                ? "bg-slate-800 hover:bg-slate-700 text-white"
-                : "bg-slate-100 hover:bg-slate-200 text-black"
-            }`}
-          />
-          {unreadMessages > 0 && (
-            <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
-              {unreadMessages}
-            </span>
-          )}
-        </div>
-
-        {!userToken && (
-          <CustomButton
-            icon={FaUserPlus}
-            text={
-              language === "العربية"
-                ? "تسجيل / انشاء حساب"
-                : "Sign in / Sign Up"
-            }
-            className={`${
-              isDark
-                ? "bg-slate-800 hover:bg-slate-700 text-white"
-                : "bg-slate-100 hover:bg-slate-200 text-black"
-            }`}
-            onClick={() =>
-              HandleLogin(
-                language === "العربية" ? "إنشاء حساب" : "Create Account"
-              )
-            }
-          />
-        )}
-
-        <div className="mx-4">
-          <CustomButton
-            icon={FaBullhorn}
-            text={language === "العربية" ? "انشر إعلانك" : "Post Ad"}
-            onClick={() => HandlePostAd()}
-            className={`${
-              isDark
-                ? "bg-blue-600 hover:bg-blue-700 text-white"
-                : "bg-blue-100 hover:bg-blue-200 text-black"
-            }`}
-          />
-        </div>
-      </div>
-
-      {/* أزرار الجوال - أسفل الشاشة */}
-      <div className="fixed bottom-0 left-0 w-full bg-white dark:bg-gray-900 shadow-inner py-2 flex justify-around items-center px-4 md:hidden z-20">
-        {/* زر الرسائل */}
-        <div className="relative">
-          <CustomButton
-            icon={FaEnvelope}
-            text=""
-            className={`${
-              isDark
-                ? "bg-gray-700 hover:bg-gray-600 text-white"
-                : "bg-gray-100 hover:bg-gray-200 text-black"
-            } p-2 rounded-full`}
-            onClick={goToMessages}
-          />
-          {unreadMessages > 0 && (
-            <span className="absolute top-0 right-0 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
-              {unreadMessages}
-            </span>
-          )}
-        </div>
-
-        {/* زر انشر إعلانك في المنتصف */}
-        <div className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 top-0">
-          <CustomButton
-            icon={FaBullhorn}
-            text={language === "العربية" ? "انشر" : "Post"}
-            className={`${
-              isDark
-                ? "bg-blue-600 hover:bg-blue-700 text-white"
-                : "bg-blue-500 hover:bg-blue-600 text-white"
-            } font-bold px-4 py-2 shadow-lg rounded-full text-sm`}
-            onClick={HandlePostAd}
-          />
-        </div>
-
-        {/* زر المفضلة */}
-        <CustomButton
-          icon={FaHeart}
-          text=""
-          className={`${
-            isDark
-              ? "bg-gray-700 hover:bg-gray-600 text-white"
-              : "bg-gray-100 hover:bg-gray-200 text-black"
-          } p-2 rounded-full`}
-          onClick={goToMyFavourits}
-        />
       </div>
     </div>
   );

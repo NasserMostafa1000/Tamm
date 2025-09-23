@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useLanguage } from "../Context/LangContext";
 import ImagesUploader from "./ImagesUplader";
-import { fetchAttributesByCategory } from "../Services/PostAd";
+import { fetchAttributesByCategory } from "../Services/PostUpdateAd";
 
 export default function StepFiveListingDetails({
   setTitleEn,
   setTitleAr,
   setDescriptionEn,
   setDescriptionAr,
+  setWhatsappNumber,
+  setYourEmail,
   setPrice,
   SelectedImages,
   SetSelectedImages,
@@ -99,6 +101,22 @@ export default function StepFiveListingDetails({
         type="number"
         onChange={(e) => setPrice(parseFloat(e.target.value))}
         placeholder={isArabic ? "السعر" : "Price "}
+        className="w-full p-2 border border-green-400 rounded mb-3 text-black placeholder-black"
+      />
+      <textarea
+        required
+        onChange={(e) => setYourEmail(e.target.value)}
+        placeholder={!isArabic ? "Your Contact Email" : "ادخل بريدك الالكتروني"}
+        className="w-full p-2 border border-green-400 rounded mb-3 text-black placeholder-black"
+      />
+      <textarea
+        required
+        onChange={(e) => setWhatsappNumber(e.target.value)}
+        placeholder={
+          isArabic
+            ? "رقم الواتساب مع رمز الدوله من فضلك"
+            : "Whatsapp number With Countery Code Please"
+        }
         className="w-full p-2 border border-green-400 rounded mb-3 text-black placeholder-black"
       />
 

@@ -34,6 +34,8 @@ import ResetPasswordForm from "./Pages/RecetPasswordFrom.jsx";
 import UpdateContactInfo from "./Pages/UpdateContacts.jsx";
 import TermsAndPrivacy from "./Pages/TermsAndPrivacy.jsx";
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
+import EditListing from "./Pages/UpdateListing.jsx";
+import AdVerificationHistoryContainer from "./Pages/AdVerficationHistory.jsx";
 
 const clientId =
   "711767028404-59t8c0804kcoomt50mfcfpiulcj2fdqi.apps.googleusercontent.com";
@@ -63,11 +65,19 @@ createRoot(document.getElementById("root")).render(
                   element={<UpdateContactInfo />}
                 />
                 <Route path="/Settings" element={<SettingsPage />} />
+                <Route
+                  path="/AdVerficationHistory"
+                  element={<AdVerificationHistoryContainer />}
+                />
                 <Route path="/PrivacyAndTerms" element={<TermsAndPrivacy />} />
                 <Route path="/Register" element={<Register />} />
                 <Route path="/MyFavourits" element={<MyFavorites />} />
                 <Route path="/ViewMore" element={<SearchingPage />} />
                 <Route path="/Listing/:id" element={<ListingDetails />} />
+                <Route
+                  path="/EditListing/:listingId"
+                  element={<EditListing />}
+                />
                 <Route path="/Admin/Coins" element={<AdminCoinsManager />} />
                 <Route path="/Admin/Clients" element={<ClientsTable />} />
                 <Route path="/AboutUs" element={<AboutPage />} />

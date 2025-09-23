@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
+using System.Security.Claims;
 using TammbusinessLayer.Interfaces;
 using TammDataLayer;
 using TammDataLayer.Chat;
@@ -131,12 +132,14 @@ namespace TammBackendProject.Controllers
         {
             try
             {
+                var CurrentEmployee = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
                 var usersInfo = await _listingReportsQueries.GetListingReportsWithUsersInfoAsync(reportId);
 
                 if (usersInfo == null)
                     return NotFound("Report info not found.");
 
-                await _ListingCommand.DeleteListingAndImagesAsync(adId);
+                await _ListingCommand.DeleteListingAndImagesAsync(adId,int.Parse(CurrentEmployee));
                 await _listingReportsCommands.ApproveReportAndDeleteAdAsync(adId, reportId);
 
                 string messageAr = "شكرًا لإبلاغك. بعد مراجعة البلاغ المُقدَّم، تأكدنا من مخالفته وتم حذف الإعلان من النظام.";

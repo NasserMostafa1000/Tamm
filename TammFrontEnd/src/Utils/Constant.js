@@ -80,8 +80,9 @@ export const playNotificationSound = (path) => {
 
 export const SiteNameEN = "TAMM";
 export const SiteNameAR = "تم";
-export const API_BASE_URL = "https://tammuae-001-site1.qtempurl.com/api/";
-export const ServerPath = "https://tammuae-001-site1.qtempurl.com/";
+export const API_BASE_URL =
+  "https://salamatraveluae-001-site1.qtempurl.com/api/";
+export const ServerPath = "https://salamatraveluae-001-site1.qtempurl.com/";
 
 //export const API_BASE_URL = "https://localhost:7244/api/";
 //export const ServerPath = "https://localhost:7244/";

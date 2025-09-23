@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
 import { useLanguage } from "../Context/LangContext";
 import { useTheme } from "../Context/ThemeContext";
-import { fetchSubCategories, addSubCategory } from "../Services/PostAd.js";
+import {
+  fetchSubCategories,
+  addSubCategory,
+} from "../Services/PostUpdateAd.js";
 import { FiSearch } from "react-icons/fi";
+import { GetCurrentUserRoleName } from "../Utils/Constant.js";
 
 export default function SubCategoriesSelector({
   parentCategoryName,
@@ -18,12 +22,13 @@ export default function SubCategoriesSelector({
   const [loading, setLoading] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
-
   const [showForm, setShowForm] = useState(false);
   const [categoryNameAr, setCategoryNameAr] = useState("");
   const [categoryNameEn, setCategoryNameEn] = useState("");
   const [formError, setFormError] = useState("");
   const [adding, setAdding] = useState(false);
+  const CurrentRole = GetCurrentUserRoleName(localStorage.getItem("userToken"));
+
   useEffect(() => {
     if (!parentCategoryName?.trim()) {
       setSubCategories([]);
@@ -160,6 +165,7 @@ export default function SubCategoriesSelector({
 
       {showAddLabel &&
         !showForm &&
+        CurrentRole == "Admin" &&
         parentCategoryName !== "Real Estate" &&
         parentCategoryName !== "عقارات" && (
           <div className="flex justify-center mt-4">

@@ -3,7 +3,7 @@ import { API_BASE_URL } from "../Utils/Constant";
 export async function getMyListings(lang, token, UserId) {
   try {
     const response = await fetch(
-      `${API_BASE_URL}Listings/GetListingsPreviewByUserId?lang=${lang}&userId=${UserId}`,
+      `${API_BASE_URL}Listings/GetAllCLientAdsByUserId?lang=${lang}&userId=${UserId}`,
       {
         method: "GET",
         headers: {

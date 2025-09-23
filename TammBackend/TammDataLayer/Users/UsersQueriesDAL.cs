@@ -203,6 +203,27 @@ namespace TammDataLayer.Users
             }
         }
 
+        public static async Task<string?> GetEmailByUserIdAsync(int userId)
+        {
+            string? email = null;
+            string query = "SELECT Email FROM Users WHERE UserId = @UserId;";
+
+            using (SqlConnection conn = new SqlConnection(Settings._ProductionConnectionString))
+            using (SqlCommand cmd = new SqlCommand(query, conn))
+            {
+                cmd.Parameters.AddWithValue("@UserId", userId);
+
+                await conn.OpenAsync();
+                object result = await cmd.ExecuteScalarAsync();
+
+                if (result != null && result != DBNull.Value)
+                {
+                    email = result.ToString();
+                }
+            }
+
+            return email;
+        }
 
     }
 }

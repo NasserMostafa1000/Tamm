@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Microsoft.Data.SqlClient;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TammbusinessLayer.Interfaces;
+using TammDataLayer;
 using TammDataLayer.ListingReports;
 using TammDataLayer.Listings;
 using static TammDataLayer.Listings.ListingsDtos;
@@ -91,5 +93,29 @@ namespace TammbusinessLayer.Listings
                 throw;    
             }
         }
+
+        public async Task<FullListingForEditDTO?> GetFullListingForEditAsync(int listingId)
+        {
+            try
+            {
+                return await TammDataLayer.Listings.ListingQueriesDAL.GetFullListingForEditAsync(listingId);
+            }catch
+            {
+                throw;
+            }
+        }
+
+        public async Task<List<ListingPreviewDtoV2>> GetClientsListingsPreviewByPersonIdAsync(string lang, int UserId)
+        {
+
+            try
+            {
+                return await TammDataLayer.Listings.ListingQueriesDAL.GetClientsListingsPreviewByPersonIdAsync(lang, UserId);
+            }catch
+            {
+                throw;
+            }
+        }
+
     }
 }

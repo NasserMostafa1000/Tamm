@@ -157,6 +157,28 @@
         }
       }
     },
+    "/api/AdsVerficationsHistory": {
+      "get": {
+        "tags": [
+          "AdsVerficationsHistory"
+        ],
+        "parameters": [
+          {
+            "name": "listingId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Attributes/GetAttributesByCategory": {
       "get": {
         "tags": [
@@ -448,6 +470,28 @@
             }
           }
         },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Categories/GetAll": {
+      "get": {
+        "tags": [
+          "Categories"
+        ],
+        "parameters": [
+          {
+            "name": "lang",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": "en"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -1826,6 +1870,35 @@
         }
       }
     },
+    "/api/Listings/GetAllCLientAdsByUserId": {
+      "get": {
+        "tags": [
+          "Listings"
+        ],
+        "parameters": [
+          {
+            "name": "lang",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "userId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Listings/DeleteListing/{listingId}": {
       "delete": {
         "tags": [
@@ -1968,6 +2041,97 @@
         }
       }
     },
+    "/api/Listings/RequestEdit": {
+      "post": {
+        "tags": [
+          "Listings"
+        ],
+        "parameters": [
+          {
+            "name": "listingId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "reason",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "lang",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": "en"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Listings/Edit/{listingId}": {
+      "get": {
+        "tags": [
+          "Listings"
+        ],
+        "parameters": [
+          {
+            "name": "listingId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Listings/update": {
+      "put": {
+        "tags": [
+          "Listings"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateListingFullDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateListingFullDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateListingFullDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/ListingsAddresses": {
       "post": {
         "tags": [
@@ -2066,6 +2230,56 @@
             }
           }
         },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/SearchingExpections/AddOrUpdateUserSearch": {
+      "post": {
+        "tags": [
+          "SearchingExpections"
+        ],
+        "parameters": [
+          {
+            "name": "userUUID",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ListingId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/SearchingExpections/GetUserLastCategory": {
+      "get": {
+        "tags": [
+          "SearchingExpections"
+        ],
+        "parameters": [
+          {
+            "name": "userUUID",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -2404,6 +2618,36 @@
         },
         "additionalProperties": false
       },
+      "ListingAttributeWithAttributesNamesDTO": {
+        "type": "object",
+        "properties": {
+          "attributeId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "attributeNameEn": {
+            "type": "string",
+            "nullable": true
+          },
+          "attributeNameAr": {
+            "type": "string",
+            "nullable": true
+          },
+          "value": {
+            "type": "string",
+            "nullable": true
+          },
+          "unitEn": {
+            "type": "string",
+            "nullable": true
+          },
+          "unitAr": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "LoginRequest": {
         "type": "object",
         "properties": {
@@ -2505,6 +2749,14 @@
           "listingAddressId": {
             "type": "integer",
             "format": "int32"
+          },
+          "whatssAppNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "emailAddress": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -2657,6 +2909,82 @@
           },
           "hashedPassword": {
             "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateListingFullDTO": {
+        "type": "object",
+        "properties": {
+          "existingImageUrls": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "listingId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "personId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "subCategoryId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "titleEn": {
+            "type": "string",
+            "nullable": true
+          },
+          "titleAr": {
+            "type": "string",
+            "nullable": true
+          },
+          "descriptionEn": {
+            "type": "string",
+            "nullable": true
+          },
+          "descriptionAr": {
+            "type": "string",
+            "nullable": true
+          },
+          "price": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "listingAddressId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "phoneNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "cityPlaceId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "imageUrls": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "attributes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ListingAttributeWithAttributesNamesDTO"
+            },
             "nullable": true
           }
         },

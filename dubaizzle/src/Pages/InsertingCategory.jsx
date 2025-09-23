@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { addParentCategory } from "../Services/PostAd";
+import { addParentCategory } from "../Services/PostUpdateAd";
 import LoadingSpinner from "../Loader/LoadingSpinner";
 import { useLanguage } from "../Context/LangContext";
 import { AddAttribute } from "../Services/Attributes";

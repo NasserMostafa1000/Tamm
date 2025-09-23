@@ -10,6 +10,7 @@ namespace TammbusinessLayer.Interfaces
 {
     public interface ICategoriesQueries
     {
+        Task<string> GetCategoriesWithChildrenAsync(string lang);
         Task<List<GetParentsCategoriesDTO>> GetParentCategoriesAsync(string language);
         Task<List<CategoriesDTOs.GetSubCategoryDTO>> GetSubCategoriesAsync(string language, string parentCategoryName);
     }

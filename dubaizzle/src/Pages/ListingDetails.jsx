@@ -12,19 +12,59 @@ import NavBar from "../Components/NavBar";
 import { formatDistanceToNow } from "date-fns";
 import { Helmet } from "react-helmet";
 import { ar, enUS } from "date-fns/locale";
-import { FiMessageCircle, FiShare2, FiFlag, FiStar } from "react-icons/fi";
-import { motion } from "framer-motion";
+import {
+  FiMessageCircle,
+  FiShare2,
+  FiFlag,
+  FiStar,
+  FiMapPin,
+  FiCalendar,
+  FiEye,
+  FiHeart,
+  FiDollarSign,
+  FiCheckCircle,
+  FiUser,
+  FiClock,
+} from "react-icons/fi";
+import {
+  IoShieldCheckmarkOutline,
+  IoLocationOutline,
+  IoTimeOutline,
+  IoStarHalfOutline,
+  IoArrowRedoOutline,
+} from "react-icons/io5";
+import {
+  MdOutlineDescription,
+  MdOutlinePriceChange,
+  MdOutlineVerified,
+  MdOutlineLocalOffer,
+} from "react-icons/md";
+import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "react-toastify";
 import { jwtDecode } from "jwt-decode";
 import {
+  addOrUpdateUserSearch,
   API_BASE_URL,
   GetCurrentUserRoleName,
+  getOrCreateUserUUID,
   SiteNameAR,
   SiteNameEN,
 } from "../Utils/Constant";
 import ReportListing from "../Components/ListingReport";
-import { FaCheckCircle } from "react-icons/fa";
-import { FaCrown, FaStar, FaRegStar, FaStore } from "react-icons/fa";
+import {
+  FaCrown,
+  FaStore,
+  FaRegStar,
+  FaStar,
+  FaStarHalfAlt,
+  FaWhatsapp,
+  FaPhoneAlt,
+  FaShareAlt,
+  FaExclamationCircle,
+} from "react-icons/fa";
+import SellerCard from "../Components/sellerCard";
+import ListingAttributes from "../Components/ListingAttributes";
+
 const FinalListingDetails = () => {
   const navigate = useNavigate();
   const { language } = useLanguage();
@@ -35,6 +75,7 @@ const FinalListingDetails = () => {
   const [listing, setListing] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [showReportModal, setShowReportModal] = useState(false);
+  const [imageLoading, setImageLoading] = useState(true);
   const userToken = localStorage.getItem("userToken");
   const [userRating, setUserRating] = useState(0);
   const [ratingSummary, setRatingSummary] = useState(null);
@@ -64,12 +105,24 @@ const FinalListingDetails = () => {
       console.error(err);
     }
   };
+  useEffect(() => {
+    const saveSearch = async () => {
+      try {
+        const userUUID = getOrCreateUserUUID(); // هنا بناخد او نرجع نفس ال UUID
+        await addOrUpdateUserSearch(userUUID, id); // ننده عالـ API ونضيف العملية
+      } catch (error) {
+        console.error("Error saving search:", error);
+      }
+    };
 
+    if (id) {
+      saveSearch();
+    }
+  }, [id]);
   useEffect(() => {
     fetchListing();
   }, [id, isArabic, userToken]);
 
-  // استخدام useCallback لتحسين الأداء ومنع إعادة التصيير غير الضروري
   const fetchRating = useCallback(async () => {
     if (!listing?.userId || !userToken) return;
 
@@ -78,8 +131,6 @@ const FinalListingDetails = () => {
       const summary = await getCustomerRating(listing.userId, userToken);
       if (summary) {
         setRatingSummary(summary);
-
-        // إذا كان المستخدم قد قام بالتقييم مسبقاً، نعرض تقييمه
         if (summary.UserRating) {
           setUserRating(summary.UserRating);
         }
@@ -94,14 +145,12 @@ const FinalListingDetails = () => {
     }
   }, [listing?.userId, userToken, isArabic]);
 
-  // useEffect لجلب التقييمات عندما يتوفر listing.userId
   useEffect(() => {
     if (listing?.userId && userToken) {
       fetchRating();
     }
   }, [listing?.userId, userToken, fetchRating]);
 
-  // دالة معالجة إرسال التقييم
   const handleRatingSubmit = async (value) => {
     if (!listing?.userId) {
       toast.error(
@@ -126,8 +175,6 @@ const FinalListingDetails = () => {
       await upsertCustomerRating(listing.userId, value, userToken);
       setUserRating(value);
       toast.success(isArabic ? "تم التقييم بنجاح" : "Rating submitted!");
-
-      // إعادة جلب التقييمات لتحديث المتوسط
       await fetchRating();
     } catch (err) {
       console.error("فشل في إرسال التقييم:", err);
@@ -204,6 +251,18 @@ const FinalListingDetails = () => {
     setShowReportModal(!showReportModal);
   };
 
+  const nextImage = () => {
+    setCurrentImageIndex((prev) =>
+      prev === listing.images.length - 1 ? 0 : prev + 1
+    );
+  };
+
+  const prevImage = () => {
+    setCurrentImageIndex((prev) =>
+      prev === 0 ? listing.images.length - 1 : prev - 1
+    );
+  };
+
   if (!listing) {
     return (
       <div className="flex justify-center items-center min-h-screen">
@@ -277,7 +336,7 @@ const FinalListingDetails = () => {
 
   return (
     <div
-      className={`min-h-screen ${
+      className={`min-h-screen font-sans ${
         isDarkMode ? "bg-gray-900 text-gray-100" : "bg-gray-50 text-gray-900"
       }`}
       dir={direction}
@@ -329,494 +388,324 @@ const FinalListingDetails = () => {
       </div>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 pb-24">
-        {/* بطاقة البائع مع زر التواصل */}
+        {/* Image Gallery with Modern Design */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className={`flex flex-col md:flex-row items-start justify-between p-5 rounded-2xl mb-8 ${
-            isDarkMode
-              ? "bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700"
-              : "bg-gradient-to-br from-white to-gray-50 border border-gray-200 shadow-md"
-          }`}
-        >
-          {/* معلومات البائع */}
-          <div className="flex items-start space-x-4 rtl:space-x-reverse w-full md:w-auto">
-            <div className="relative">
-              <div className="relative rounded-2xl overflow-hidden">
-                <img
-                  src={
-                    isOwner
-                      ? localStorage.getItem("userImage") ||
-                        "/default-avatar.png"
-                      : listing.userImageUrl || "/default-avatar.png"
-                  }
-                  alt={isOwner ? "Your profile" : listing.ownerName}
-                  className="w-16 h-16 md:w-20 md:h-20 object-cover rounded-2xl border-2 border-cyan-500/30"
-                />
-                {!isOwner && listing.userId === 23 && (
-                  <div className="absolute -top-2 -right-2 bg-amber-500 text-white p-1 rounded-full">
-                    <FaCrown className="w-3 h-3" />
-                  </div>
-                )}
-              </div>
-              {!isOwner && (
-                <span className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white dark:border-gray-900 rounded-full"></span>
-              )}
-            </div>
-
-            <div className="flex-1">
-              <div className="flex items-center space-x-2 rtl:space-x-reverse">
-                <h3 className="font-bold text-lg">
-                  {isOwner ? (
-                    isArabic ? (
-                      "أنت"
-                    ) : (
-                      "You"
-                    )
-                  ) : listing.userId === 23 ? (
-                    <span className="flex items-center">
-                      <FaCheckCircle className="text-blue-500 mr-1" />
-                      {isArabic ? SiteNameAR : SiteNameEN}
-                    </span>
-                  ) : (
-                    listing.ownerName
-                  )}
-                </h3>
-                {listing.userId === 23 && (
-                  <span
-                    className={`px-2 py-1 rounded-full text-xs flex items-center ${
-                      isDarkMode
-                        ? "bg-blue-900/30 text-blue-300"
-                        : "bg-blue-100 text-blue-700"
-                    }`}
-                  >
-                    <FaStore className="mr-1" />
-                    {isArabic ? "متجر معتمد" : "Verified Store"}
-                  </span>
-                )}
-              </div>
-
-              <div className="mt-2 flex items-center">
-                <div className="flex">
-                  {[1, 2, 3, 4, 5].map((star) => (
-                    <span key={star} className="text-amber-500">
-                      {star <= Math.round(ratingSummary?.averageRating || 0) ? (
-                        <FaStar className="w-4 h-4" />
-                      ) : (
-                        <FaRegStar className="w-4 h-4" />
-                      )}
-                    </span>
-                  ))}
-                </div>
-                {ratingSummary && (
-                  <span
-                    className={`text-sm ml-2 ${
-                      isDarkMode ? "text-gray-400" : "text-gray-600"
-                    }`}
-                  >
-                    ({ratingSummary.totalRatings || 0})
-                  </span>
-                )}
-              </div>
-
-              {!isOwner && (
-                <motion.button
-                  whileHover={{ scale: 1.03 }}
-                  whileTap={{ scale: 0.98 }}
-                  onClick={handleSendMessageClick}
-                  className={`flex items-center space-x-2 rtl:space-x-reverse mt-3 py-2 px-4 rounded-xl ${
-                    isDarkMode
-                      ? "bg-cyan-700 hover:bg-cyan-600 text-white"
-                      : "bg-cyan-500 hover:bg-cyan-600 text-white"
-                  } shadow-md transition-all duration-200`}
-                >
-                  <FiMessageCircle className="w-4 h-4" />
-                  <span className="text-sm font-medium">
-                    {isArabic ? "تواصل مع البائع" : "Contact Seller"}
-                  </span>
-                </motion.button>
-              )}
-            </div>
-          </div>
-
-          {/* التقييم والأزرار */}
-          <div className="flex flex-col items-end mt-4 md:mt-0 w-full md:w-auto">
-            <div
-              className={`p-4 rounded-xl mb-4 w-full ${
-                isDarkMode ? "bg-gray-700/50" : "bg-gray-100"
-              }`}
-            >
-              <h4 className="font-semibold text-sm mb-2 flex items-center">
-                <FaStar className="text-amber-500 mr-1" />
-                {isArabic ? "قيم هذا البائع" : "Rate this seller"}
-              </h4>
-
-              {isLoadingRating ? (
-                <div className="text-center py-2">
-                  <span className="text-gray-500 text-sm">
-                    {isArabic ? "جاري التحميل..." : "Loading..."}
-                  </span>
-                </div>
-              ) : (
-                <>
-                  <div className="flex justify-center mb-2">
-                    {[1, 2, 3, 4, 5].map((star) => (
-                      <button
-                        key={star}
-                        onClick={() => handleRatingSubmit(star)}
-                        disabled={isOwner || !userToken}
-                        className={`mx-1 text-2xl transition-transform ${
-                          isOwner || !userToken
-                            ? "cursor-not-allowed opacity-50"
-                            : "cursor-pointer hover:scale-125"
-                        } ${
-                          // التصحيح هنا: استخدام ratingSummary.UserRating بدلاً من userRating
-                          (ratingSummary?.UserRating &&
-                            ratingSummary.UserRating >= star) ||
-                          userRating >= star
-                            ? "text-amber-500"
-                            : "text-gray-400"
-                        }`}
-                        title={
-                          isOwner
-                            ? isArabic
-                              ? "لا يمكن تقييم نفسك"
-                              : "Cannot rate yourself"
-                            : !userToken
-                            ? isArabic
-                              ? "يجب تسجيل الدخول للتقييم"
-                              : "Login to rate"
-                            : ""
-                        }
-                      >
-                        {/* استخدام أيقونات مختلفة للتمييز بين التقييم الحالي والتقييمات الأخرى */}
-                        {(ratingSummary?.UserRating &&
-                          ratingSummary.UserRating >= star) ||
-                        userRating >= star ? (
-                          <FaStar />
-                        ) : (
-                          <FaRegStar />
-                        )}
-                      </button>
-                    ))}
-                  </div>
-                  <div className="text-center mt-2">
-                    <div
-                      className={`text-sm ${
-                        isDarkMode ? "text-gray-300" : "text-gray-700"
-                      }`}
-                    >
-                      {ratingSummary ? (
-                        <div className="flex flex-col items-center">
-                          {/* متوسط التقييم */}
-                          <div className="flex items-center justify-center mb-1">
-                            <div className="flex items-center bg-amber-500/10 px-3 py-1 rounded-full">
-                              <FaStar className="text-amber-500 mr-1" />
-                              <span className="font-semibold">
-                                {ratingSummary.averageRating?.toFixed(1) || 0}
-                                <span className="text-xs opacity-70">/5</span>
-                              </span>
-                            </div>
-
-                            {/* عدد التقييمات */}
-                            <span className="mx-2">•</span>
-                            <span>
-                              {ratingSummary.totalRatings || 0}{" "}
-                              {isArabic ? "تقييم" : "ratings"}
-                            </span>
-                          </div>
-
-                          {/* إظهار تقييم المستخدم إذا كان موجودًا */}
-                          {ratingSummary.UserRating && (
-                            <div
-                              className={`mt-1 inline-flex items-center px-3 py-1 rounded-full ${
-                                isDarkMode
-                                  ? "bg-amber-900/30 text-amber-300"
-                                  : "bg-amber-100 text-amber-700"
-                              }`}
-                            >
-                              <FaCheckCircle className="mr-1" />
-                              <span className="text-xs font-medium">
-                                {isArabic ? "تقييمك: " : "Your rating: "}
-                                {ratingSummary.UserRating}/5
-                              </span>
-                            </div>
-                          )}
-                        </div>
-                      ) : isArabic ? (
-                        <div className="flex items-center justify-center text-amber-600">
-                          <FaRegStar className="mr-1" />
-                          كن أول من يقيم
-                        </div>
-                      ) : (
-                        <div className="flex items-center justify-center text-amber-600">
-                          <FaRegStar className="mr-1" />
-                          Be the first to rate
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </>
-              )}
-            </div>
-
-            {/* أزرار المشاركة والإبلاغ */}
-            <div className="flex space-x-2 rtl:space-x-reverse self-center md:self-end">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={handleShareClick}
-                className={`p-3 rounded-xl flex items-center ${
-                  isDarkMode
-                    ? "bg-gray-700 hover:bg-gray-600 text-cyan-400"
-                    : "bg-gray-100 hover:bg-gray-200 text-cyan-600"
-                } transition-colors duration-200`}
-                aria-label={isArabic ? "مشاركة" : "Share"}
-              >
-                <FiShare2 className="w-5 h-5" />
-              </motion.button>
-
-              {!isOwner && (
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={toggleReportModal}
-                  className={`p-3 rounded-xl flex items-center ${
-                    isDarkMode
-                      ? "bg-gray-700 hover:bg-gray-600 text-red-400"
-                      : "bg-gray-100 hover:bg-gray-200 text-red-500"
-                  } transition-colors duration-200`}
-                  aria-label={isArabic ? "الإبلاغ عن الإعلان" : "Report ad"}
-                >
-                  <FiFlag className="w-5 h-5" />
-                </motion.button>
-              )}
-            </div>
-          </div>
-        </motion.div>
-
-        {/* باقي الكود بدون تغيير */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="relative mb-8 rounded-xl overflow-hidden shadow-lg"
+          transition={{ duration: 0.6 }}
+          className="relative mb-8 rounded-2xl overflow-hidden shadow-2xl"
         >
           {images.length > 0 ? (
             <>
-              <img
-                src={images[currentImageIndex].imageUrl}
-                alt={`Listing Image ${currentImageIndex + 1}`}
-                className="w-full h-80 md:h-96 object-cover mb-4 rounded-xl transition-all duration-300"
-              />
-
-              <div className="flex justify-center flex-wrap gap-2">
-                {images.map((img, idx) => (
-                  <img
-                    key={idx}
-                    src={img.imageUrl}
-                    alt={`Thumbnail ${idx + 1}`}
-                    onClick={() => setCurrentImageIndex(idx)}
-                    className={`h-20 w-24 object-cover rounded-md cursor-pointer border-2 transition-all duration-200 ${
-                      idx === currentImageIndex
-                        ? "border-cyan-500"
-                        : "border-transparent"
-                    }`}
+              <div className="relative">
+                <AnimatePresence mode="wait">
+                  <motion.img
+                    key={currentImageIndex}
+                    src={images[currentImageIndex].imageUrl}
+                    alt={`Listing Image ${currentImageIndex + 1}`}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="w-full h-80 md:h-96 object-cover"
+                    onLoad={() => setImageLoading(false)}
                   />
-                ))}
+                </AnimatePresence>
+
+                {images.length > 1 && (
+                  <>
+                    <button
+                      onClick={prevImage}
+                      className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all duration-200"
+                    >
+                      <IoArrowRedoOutline className="w-5 h-5 rotate-180" />
+                    </button>
+                    <button
+                      onClick={nextImage}
+                      className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all duration-200"
+                    >
+                      <IoArrowRedoOutline className="w-5 h-5" />
+                    </button>
+                  </>
+                )}
+
+                <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+                  {images.map((_, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => setCurrentImageIndex(idx)}
+                      className={`w-3 h-3 rounded-full transition-all duration-200 ${
+                        idx === currentImageIndex
+                          ? "bg-white scale-125"
+                          : "bg-white/50"
+                      }`}
+                    />
+                  ))}
+                </div>
+              </div>
+
+              {/* Thumbnail Gallery */}
+              <div className="p-4 bg-gradient-to-t from-black/10 to-transparent">
+                <div className="flex overflow-x-auto space-x-3 pb-2 scrollbar-hide">
+                  {images.map((img, idx) => (
+                    <img
+                      key={idx}
+                      src={img.imageUrl}
+                      alt={`Thumbnail ${idx + 1}`}
+                      onClick={() => setCurrentImageIndex(idx)}
+                      className={`h-16 w-20 object-cover rounded-lg cursor-pointer border-2 transition-all duration-200 flex-shrink-0 ${
+                        idx === currentImageIndex
+                          ? "border-cyan-400 shadow-lg"
+                          : "border-transparent opacity-70 hover:opacity-100"
+                      }`}
+                    />
+                  ))}
+                </div>
               </div>
             </>
           ) : (
             <div
-              className={`w-full h-80 md:h-96 flex items-center justify-center ${
+              className={`w-full h-80 md:h-96 flex flex-col items-center justify-center rounded-2xl ${
                 isDarkMode ? "bg-gray-800" : "bg-gray-200"
               }`}
             >
-              <span className={isDarkMode ? "text-gray-400" : "text-gray-500"}>
+              <FiEye className="w-16 h-16 mb-4 opacity-50" />
+              <span
+                className={`text-lg ${
+                  isDarkMode ? "text-gray-400" : "text-gray-500"
+                }`}
+              >
                 {isArabic ? "لا توجد صور متاحة" : "No images available"}
               </span>
             </div>
           )}
         </motion.div>
 
-        <div className="flex space-x-2 rtl:space-x-reverse mb-6">
-          <button
-            onClick={handleShareClick}
-            className={`p-2 rounded-full ${
-              isDarkMode
-                ? "text-gray-300 hover:bg-gray-700"
-                : "text-gray-600 hover:bg-gray-100"
-            }`}
-            aria-label={isArabic ? "مشاركة" : "Share"}
-          >
-            <FiShare2 className="w-5 h-5" />
-          </button>
-          {!isOwner && (
-            <button
-              onClick={toggleReportModal}
-              className={`p-2 rounded-full ${
-                isDarkMode
-                  ? "text-red-400 hover:bg-gray-700"
-                  : "text-red-500 hover:bg-gray-100"
-              }`}
-              aria-label={isArabic ? "الإبلاغ عن الإعلان" : "Report ad"}
-            >
-              <FiFlag className="w-5 h-5" />
-            </button>
-          )}
-        </div>
-
+        {/* Action Buttons */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          className={`p-6 rounded-xl mb-8 ${
-            isDarkMode ? "bg-gray-800" : "bg-white shadow-sm"
-          }`}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="flex justify-center space-x-4 rtl:space-x-reverse mb-8"
         >
-          <div className="flex justify-between items-start mb-6">
-            <h1 className="text-2xl md:text-3xl font-bold">{listing.title}</h1>
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={handleShareClick}
+            className={`flex items-center space-x-2 px-6 py-3 rounded-full font-medium transition-all duration-200 ${
+              isDarkMode
+                ? "bg-cyan-600 hover:bg-cyan-700 text-white"
+                : "bg-cyan-500 hover:bg-cyan-600 text-white"
+            } shadow-lg`}
+          >
+            <FaShareAlt className="w-4 h-4" />
+            <span>{isArabic ? "مشاركة" : "Share"}</span>
+          </motion.button>
+
+          {!isOwner && (
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={toggleReportModal}
+              className={`flex items-center space-x-2 px-6 py-3 rounded-full font-medium transition-all duration-200 ${
+                isDarkMode
+                  ? "bg-red-600 hover:bg-red-700 text-white"
+                  : "bg-red-500 hover:bg-red-600 text-white"
+              } shadow-lg`}
+            >
+              <FaExclamationCircle className="w-4 h-4" />
+              <span>{isArabic ? "الإبلاغ" : "Report"}</span>
+            </motion.button>
+          )}
+        </motion.div>
+
+        {/* Main Content Card */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className={`p-8 rounded-2xl mb-8 backdrop-blur-sm ${
+            isDarkMode
+              ? "bg-gray-800/80 border border-gray-700"
+              : "bg-white/80 border border-gray-200"
+          } shadow-2xl`}
+        >
+          {/* Header with Title and Price */}
+          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-6 gap-4">
+            <div className="flex-1">
+              <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-cyan-500 to-blue-500 bg-clip-text text-transparent">
+                {listing.title}
+              </h1>
+
+              {/* Badges */}
+              <div className="flex flex-wrap gap-2 mt-3">
+                {listing.isVerified && (
+                  <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
+                    <MdOutlineVerified className="w-4 h-4 ml-1" />
+                    {isArabic ? "موثوق" : "Verified"}
+                  </span>
+                )}
+                <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
+                  <IoTimeOutline className="w-4 h-4 ml-1" />
+                  {formatDate(listing.createdAt)}
+                </span>
+              </div>
+            </div>
+
             <div className="text-right">
-              <p
-                className={`text-2xl font-bold ${
-                  isDarkMode ? "text-cyan-400" : "text-cyan-600"
-                }`}
-              >
-                {listing.price
-                  ? `${listing.price} AED`
-                  : getPriceAttribute() || "0 AED"}
-              </p>
+              <div className="flex items-center space-x-2 rtl:space-x-reverse">
+                <FiDollarSign className="w-6 h-6 text-green-500" />
+                <p
+                  className={`text-3xl font-bold ${
+                    isDarkMode ? "text-cyan-400" : "text-cyan-600"
+                  }`}
+                >
+                  {listing.price
+                    ? `${listing.price} AED`
+                    : getPriceAttribute() || "0 AED"}
+                </p>
+              </div>
 
               {listing.originalPrice && (
-                <p className="text-sm line-through text-gray-500">
+                <p className="text-lg line-through text-gray-500 mt-1">
                   {listing.originalPrice} AED
                 </p>
               )}
             </div>
           </div>
 
-          <div className="mb-6">
-            <h2
-              className={`text-lg font-semibold mb-3 ${
-                isDarkMode ? "text-gray-300" : "text-gray-700"
-              }`}
-            >
-              {isArabic ? "الوصف" : "Description"}
-            </h2>
+          {/* Description */}
+          <div className="mb-8">
+            <div className="flex items-center space-x-2 rtl:space-x-reverse mb-4">
+              <MdOutlineDescription
+                className={`w-6 h-6 ${
+                  isDarkMode ? "text-cyan-400" : "text-cyan-600"
+                }`}
+              />
+              <h2
+                className={`text-xl font-semibold ${
+                  isDarkMode ? "text-gray-300" : "text-gray-700"
+                }`}
+              >
+                {isArabic ? "الوصف" : "Description"}
+              </h2>
+            </div>
             <p
-              className={`leading-relaxed ${
+              className={`leading-relaxed text-lg ${
                 isDarkMode ? "text-gray-400" : "text-gray-600"
               }`}
             >
               {listing.description ||
-                (isArabic ? "لا يوجد وصف" : "No description available")}
+                (isArabic ? "لا يوجد وصف متاح" : "No description available")}
             </p>
           </div>
 
-          <div className="grid grid-cols-2 gap-4 mb-6">
-            <div>
-              <h3
-                className={`text-sm ${
-                  isDarkMode ? "text-gray-400" : "text-gray-500"
-                }`}
-              >
-                {isArabic ? "الموقع" : "Location"}
-              </h3>
-              <p className="font-medium">
-                {listing.cityName}, {listing.placeName}
-              </p>
+          {/* Details Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="flex items-center space-x-3 rtl:space-x-reverse p-3 rounded-lg bg-opacity-20 bg-cyan-500">
+              <IoLocationOutline className="w-5 h-5 text-cyan-500" />
+              <div>
+                <p className="text-sm opacity-75">
+                  {isArabic ? "الموقع" : "Location"}
+                </p>
+                <p className="font-semibold">
+                  {listing.cityName}, {listing.placeName}
+                </p>
+              </div>
             </div>
-            <div>
-              <h3
-                className={`text-sm ${
-                  isDarkMode ? "text-gray-400" : "text-gray-500"
-                }`}
-              >
-                {isArabic ? "تاريخ النشر" : "Posted"}
-              </h3>
-              <p className="font-medium">{formatDate(listing.createdAt)}</p>
+
+            <div className="flex items-center space-x-3 rtl:space-x-reverse p-3 rounded-lg bg-opacity-20 bg-purple-500">
+              <FiCalendar className="w-5 h-5 text-purple-500" />
+              <div>
+                <p className="text-sm opacity-75">
+                  {isArabic ? "تاريخ النشر" : "Posted"}
+                </p>
+                <p className="font-semibold">{formatDate(listing.createdAt)}</p>
+              </div>
             </div>
+
+            {listing.categoryName && (
+              <div className="flex items-center space-x-3 rtl:space-x-reverse p-3 rounded-lg bg-opacity-20 bg-green-500">
+                <MdOutlineLocalOffer className="w-5 h-5 text-green-500" />
+                <div>
+                  <p className="text-sm opacity-75">
+                    {isArabic ? "الفئة" : "Category"}
+                  </p>
+                  <p className="font-semibold">{listing.categoryName}</p>
+                </div>
+              </div>
+            )}
           </div>
         </motion.div>
 
+        {/* Attributes Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.6 }}
-          className={`p-6 rounded-xl mb-8 ${
-            isDarkMode ? "bg-gray-800" : "bg-white shadow-sm"
-          }`}
+          transition={{ duration: 0.6, delay: 0.3 }}
         >
-          <h2
-            className={`text-xl font-bold mb-6 ${
-              isDarkMode ? "text-gray-300" : "text-gray-800"
-            }`}
-          >
-            {isArabic ? "تفاصيل الإعلان" : "Listing Details"}
-          </h2>
-
-          {attributes.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {attributes.map(({ attributeName, value }, idx) => (
-                <div
-                  key={idx}
-                  className="flex justify-between py-3 border-b border-gray-200 dark:border-gray-700"
-                >
-                  <span
-                    className={`font-medium ${
-                      isDarkMode ? "text-gray-400" : "text-gray-600"
-                    }`}
-                  >
-                    {attributeName}
-                  </span>
-                  <span
-                    className={`font-semibold ${
-                      isDarkMode ? "text-gray-300" : "text-gray-800"
-                    }`}
-                  >
-                    {value}
-                  </span>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <p
-              className={`text-center py-4 ${
-                isDarkMode ? "text-gray-500" : "text-gray-400"
-              }`}
-            >
-              {isArabic ? "لا توجد تفاصيل إضافية" : "No additional details"}
-            </p>
-          )}
+          <ListingAttributes
+            attributes={attributes}
+            isDarkMode={isDarkMode}
+            isArabic={isArabic}
+          />
         </motion.div>
       </div>
 
-      {showReportModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div
-            className={`relative rounded-xl p-6 max-w-md w-full ${
-              isDarkMode ? "bg-gray-800" : "bg-white"
-            }`}
+      {/* Seller Card */}
+      <SellerCard
+        isDarkMode={isDarkMode}
+        isArabic={isArabic}
+        isOwner={isOwner}
+        listing={listing}
+        ratingSummary={ratingSummary}
+        userRating={userRating}
+        isLoadingRating={isLoadingRating}
+        userToken={userToken}
+        SiteNameAR={SiteNameAR}
+        SiteNameEN={SiteNameEN}
+        handleSendMessageClick={handleSendMessageClick}
+        handleRatingSubmit={handleRatingSubmit}
+        handleShareClick={handleShareClick}
+        toggleReportModal={toggleReportModal}
+      />
+
+      {/* Report Modal */}
+      <AnimatePresence>
+        {showReportModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
           >
-            <button
-              onClick={toggleReportModal}
-              className={`absolute top-4 ${
-                isArabic ? "left-4" : "right-4"
-              } p-1 rounded-full ${
-                isDarkMode ? "hover:bg-gray-700" : "hover:bg-gray-100"
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className={`relative rounded-2xl p-6 max-w-md w-full ${
+                isDarkMode ? "bg-gray-800" : "bg-white"
               }`}
             >
-              &times;
-            </button>
-            <ReportListing
-              userId={userId}
-              listingId={listing.listingId}
-              onClose={() => setShowReportModal(false)}
-            />
-          </div>
-        </div>
-      )}
+              <button
+                onClick={toggleReportModal}
+                className={`absolute top-4 ${
+                  isArabic ? "left-4" : "right-4"
+                } p-2 rounded-full ${
+                  isDarkMode ? "hover:bg-gray-700" : "hover:bg-gray-100"
+                } transition-colors`}
+              >
+                &times;
+              </button>
+              <ReportListing
+                userId={userId}
+                listingId={listing.listingId}
+                onClose={() => setShowReportModal(false)}
+              />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

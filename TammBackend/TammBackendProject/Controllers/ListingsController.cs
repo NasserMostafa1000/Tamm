@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
+using TammbusinessLayer.Factories;
 using TammbusinessLayer.Interfaces;
 using TammDataLayer;
 using TammDataLayer.Chat;
@@ -19,13 +20,16 @@ namespace TammBackendProject.Controllers
     {
         private readonly IListingCommands _CommandServices;
         private readonly IListingQueries _QueriesServices;
+        private readonly IUserQueries _UsersQueries;
+
         private readonly IHubContext<ChatHub> _chatHub;
 
-        public ListingsController(IHubContext<ChatHub> chatHub, IListingCommands service, IListingQueries QueriesServices)
+        public ListingsController(IHubContext<ChatHub> chatHub, IUserQueries UsersQueries, IListingCommands service, IListingQueries QueriesServices)
         {
             _CommandServices = service;
             _QueriesServices = QueriesServices;
             _chatHub = chatHub;
+            _UsersQueries = UsersQueries; 
         }
         [HttpGet("share/listing")]
         public async Task<IActionResult> ShareListing([FromQuery] int id, [FromQuery] string lang = "en")
@@ -74,7 +78,6 @@ namespace TammBackendProject.Controllers
         [Authorize]
         public async Task<IActionResult> InsertListing([FromBody] ListingsDtos.PostListingDTO dto)
         {
-            var userIdStr = User.FindFirstValue(ClaimTypes.NameIdentifier);
       
             dto.PersonId = await UsersQueriesDAL.GetPersonIdByUserId(dto.PersonId);
 
@@ -223,14 +226,36 @@ namespace TammBackendProject.Controllers
             }
         }
 
+        [HttpGet("GetAllCLientAdsByUserId")]
+        [Authorize]
+        public async Task<IActionResult> GetAllCLientAdsByUserId(string lang, int userId)
+        {
+            try
+            {
+                int UserId = await UsersQueriesDAL.GetPersonIdByUserId(userId);
+                var listings = await _QueriesServices.GetClientsListingsPreviewByPersonIdAsync(lang, userId);
+
+                if (listings == null || listings.Count == 0)
+                    return NotFound("No listings found for this person.");
+
+                return Ok(listings);
+            }
+            catch (Exception ex)
+            {
+                // ممكن نرجع اللوج هنا لو عندك لوجنج
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
         [HttpDelete("DeleteListing/{listingId}")]
         [Authorize]
         public async Task<IActionResult> DeleteListing(int listingId)
         {
             try
             {
-               
-                await _CommandServices.DeleteListingAndImagesAsync(listingId);
+                var CurrentEmployee = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                await _CommandServices.DeleteListingAndImagesAsync(listingId,int.Parse(CurrentEmployee));
                 return Ok(new { message = "Listing and images deleted successfully." });
             }
             catch (Exception ex)
@@ -264,6 +289,7 @@ namespace TammBackendProject.Controllers
         {
             try
             {
+                var CurrentEmployee = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 var listing = await _QueriesServices.GetListingByIdForAdminAsync(lang, listingId);
                 if (listing == null)
                     return NotFound(lang == "ar" ? "الإعلان غير موجود." : "Listing not found.");
@@ -271,7 +297,7 @@ namespace TammBackendProject.Controllers
                 var ownerId = listing.UserId;
 
                 // ❌ حذف الإعلان من قاعدة البيانات
-                await _CommandServices.DeleteListingAndImagesAsync(listingId);
+                await _CommandServices.DeleteListingAndImagesAsync(listingId,int.Parse(CurrentEmployee));
 
                 // 📩 إنشاء رسالة الرفض حسب اللغة
                 string rejectionMessage = lang == "ar"
@@ -311,6 +337,7 @@ namespace TammBackendProject.Controllers
         {
             try
             {
+                var CurrentEmployee = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 var listing = await _QueriesServices.GetListingByIdForAdminAsync(lang, listingId);
                 if (listing == null)
                     return NotFound(lang == "ar" ? "الإعلان غير موجود." : "Listing not found.");
@@ -318,19 +345,19 @@ namespace TammBackendProject.Controllers
                 var ownerId = listing.UserId;
 
                 // ✅ تغيير حالة الإعلان إلى مقبول
-                await _CommandServices.ApproveListingReportAsync(listingId);
+                await _CommandServices.ApproveListingReportAsync(listingId, int.Parse(CurrentEmployee));
 
                 // 💬 رسالة القبول حسب اللغة
                 string approvalMessage = lang == "ar"
                     ? "تمت الموافقة على إعلانك بواسطة الإدارة. بالتوفيق!"
-                    : "Your listing has been approved by the admin. Good luck!";
+                    : "Your ad has been approved by the admin. Good luck!";
                 try
                 {
                     await ChatDAL.InsertMessageAsync(Settings.AdminId, ownerId, listingId, approvalMessage);
                 }
-                catch (Exception ex)
+                catch
                 {
-                    await ChatDAL.InsertMessageAsync(Settings.AdminId, ownerId, listingId, approvalMessage);
+                    throw;
                 }                // 📤 إرسال الرسالة للمستخدم
                 await _chatHub.Clients.User(ownerId.ToString()).SendAsync("ReceiveMessage", new
                 {
@@ -342,6 +369,10 @@ namespace TammBackendProject.Controllers
                 });
 
                 await _chatHub.Clients.User(ownerId.ToString()).SendAsync("UpdateContacts");
+                string? Email =await _UsersQueries.GetEmailByUserIdAsync(listing.UserId);
+                string CurrentUserSiteName = await _UsersQueries.GetLoginProviderNameByEmailAsync(Email);
+                INotification notifier = new NotificationsFactory().GetNotificationSender("gmail");
+                await notifier.SendNotificationAsync(Email,"ad Status Updated", approvalMessage, CurrentUserSiteName);
 
                 return Ok(new
                 {
@@ -371,7 +402,89 @@ namespace TammBackendProject.Controllers
 
             return Ok(result);
         }
+        [HttpPost("RequestEdit")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> RequestListingEdit([FromQuery] int listingId, [FromQuery] string reason, [FromQuery] string lang = "en")
+        {
+            try
+            {
+                var CurrentEmployee = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                // التحقق من وجود الإعلان
+                var listing = await _QueriesServices.GetListingByIdForAdminAsync(lang, listingId);
+                if (listing == null)
+                    return NotFound(lang == "ar" ? "الإعلان غير موجود." : "Listing not found.");
+
+                await _CommandServices.EditListingReasonAsync(listingId, reason,int.Parse(CurrentEmployee));
+
+                var ownerId = listing.UserId;
+
+                // إرسال رسالة للمستخدم
+                string messageText = lang == "ar"
+                    ? $"يرجى تعديل إعلانك بسبب: {reason}"
+                    : $"Please edit your listing due to the following reason: {reason}";
+
+                await ChatDAL.InsertMessageAsync(Settings.AdminId, ownerId, listingId, messageText);
+
+                await _chatHub.Clients.User(ownerId.ToString()).SendAsync("ReceiveMessage", new
+                {
+                    fromUserId = Settings.AdminId,
+                    toUserId = ownerId,
+                    message = messageText,
+                    listingId = listingId,
+                    sentAt = DateTime.UtcNow
+                });
+
+                await _chatHub.Clients.User(ownerId.ToString()).SendAsync("UpdateContacts");
+
+                return Ok(new
+                {
+                    message = lang == "ar"
+                        ? "تم إرسال طلب تعديل الإعلان إلى المستخدم."
+                        : "Edit request sent to the user."
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, lang == "ar"
+                    ? "حدث خطأ أثناء إرسال طلب التعديل."
+                    : $"An error occurred while requesting the edit. {ex.Message}");
+            }
+        }
+        [HttpGet("Edit/{listingId}")]
+        public async Task<IActionResult> GetListingForEdit(int listingId)
+        {
+            try
+            {
+                var listing = await _QueriesServices.GetFullListingForEditAsync(listingId);
+                if (listing == null)
+                    return NotFound(new { message = "Listing not found" });
+
+                return Ok(listing);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = ex.Message });
+            }
+        }
+        [HttpPut("update")]
+        public async Task<IActionResult> UpdateListing([FromBody] UpdateListingFullDTO dto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            try
+            {
+                await _CommandServices.UpdateListingFullAsync(dto);
+                return Ok(new { message = "Listing updated successfully" });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = ex.Message });
+            }
+        }
+
     }
+
 
 }
 

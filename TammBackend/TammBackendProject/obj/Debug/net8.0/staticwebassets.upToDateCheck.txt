@@ -1,5 +1,5 @@
-wwwroot\AdImages\0a3c3fff-8a8f-43c1-b40b-c7993060feaf.jpg
-wwwroot\AdImages\5f225dc9-c263-47f7-be4f-3fdc303a319d.jpeg
-wwwroot\AdImages\b5c2abe3-93e0-45f2-b455-a1a249a8e07e.jpg
-wwwroot\AdImages\cd8b0022-115c-4974-9349-3140a507b5db.jpeg
-wwwroot\AdImages\dd61ec7b-ed75-4f7b-906f-c85cbb2d32e2.jpeg
+wwwroot\AdImages\0e53ee09-4210-473c-b0f0-6b973a11f224.png
+wwwroot\AdImages\3192e6c1-98e8-40ce-a0cb-ab52c2dc0d59.png
+wwwroot\AdImages\50a02efa-1396-4359-8502-7ef807cb3c9a.jpeg
+wwwroot\AdImages\e8f4ba58-61d4-4c85-aa7b-66450197de72.jpeg
+wwwroot\AdImages\eeeeb605-3312-42d5-ba38-249ce1fc0fcb.jpeg

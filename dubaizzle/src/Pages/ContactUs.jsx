@@ -170,7 +170,7 @@ const ContactUsSection = () => {
 
   return (
     <div
-      className={`min-h-screen py-12 px-4 ${
+      className={`min-h-screen py-12 w-full ${
         isDark ? "bg-gray-900 text-white" : "bg-gray-50 text-gray-800"
       }`}
       dir={isArabic ? "rtl" : "ltr"}

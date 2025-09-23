@@ -14,7 +14,7 @@ import {
   addListingAttributes,
   uploadListingImages,
   getUserCoins,
-} from "../Services/PostAd.js";
+} from "../Services/PostUpdateAd.js";
 import LoadingSpinner from "../Loader/LoadingSpinner.jsx";
 import { jwtDecode } from "jwt-decode";
 import SideInfoText from "../Components/SideInfoText.jsx";
@@ -50,6 +50,8 @@ export default function PostAd() {
   const navigate = useNavigate();
   const [loadingLabel, setLoadingLabel] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const [emailAddress, setYourEmail] = useState("");
+  const [whatssAppNumber, setWhatsappNumber] = useState("");
 
   const handleNext = () => {
     if (step === 1 && parentCategoryId) setStep(2);
@@ -226,12 +228,14 @@ export default function PostAd() {
   };
 
   const PostTheAd = async () => {
-    if (Number(coins) < Number(PriceForAd)) {
+    {
+      /**if (Number(coins) < Number(PriceForAd)) {
       showInsufficientBalanceToast();
       playNotificationSound("/failed.mp3");
       return;
     }
-
+ */
+    }
     try {
       setIsLoading(true);
       setLoadingLabel(
@@ -258,6 +262,8 @@ export default function PostAd() {
         titleAr,
         descriptionEn,
         descriptionAr,
+        emailAddress: emailAddress,
+        whatssAppNumber: whatssAppNumber,
         price,
         listingAddressId,
         subCategoryId,
@@ -293,22 +299,6 @@ export default function PostAd() {
 
       playNotificationSound("/successed.mp3");
       setSuccessMessage(message);
-
-      setTimeout(() => {
-        setStep(1);
-        setParentCategoryId("");
-        setSubCategoryId("");
-        setSelectedCity({ id: null, name: "" });
-        setSelectedPlace("");
-        setTitleEn("");
-        setTitleAr("");
-        setDescriptionEn("");
-        setDescriptionAr("");
-        setPrice("");
-        setSelectedImages([]);
-        setAttributeValues([]);
-        setSuccessMessage("");
-      }, 3000);
     } catch (error) {
       console.error("❌ Error posting ad:", error);
       toast.error(
@@ -397,8 +387,7 @@ export default function PostAd() {
         darkMode ? "bg-gray-900" : "bg-gray-50"
       }`}
     >
-      {/* بطاقة العملات */}
-      <motion.div
+      {/* بطاقة العملات  <motion.div
         whileHover={{ scale: 1.03 }}
         onClick={() => navigate("/RechargingCoins")}
         className={`absolute top-4 left-4 flex items-center gap-2 px-3 py-2 rounded-lg shadow cursor-pointer border z-50 transition-colors ${
@@ -426,7 +415,7 @@ export default function PostAd() {
         >
           {language === "العربية" ? "عملات" : "Coins"}
         </span>
-      </motion.div>
+      </motion.div>*/}
 
       {/* شريط التقدم والوصف */}
       <div className="mt-16 mb-8">
@@ -539,12 +528,13 @@ export default function PostAd() {
             >
               {language === "العربية" ? "تفاصيل الإعلان" : "Ad Details"}
             </h2>
-
             <StepFiveListingDetails
               setTitleEn={setTitleEn}
               setTitleAr={setTitleAr}
               setDescriptionEn={setDescriptionEn}
               setDescriptionAr={setDescriptionAr}
+              setWhatsappNumber={setWhatsappNumber}
+              setYourEmail={setYourEmail}
               setPrice={setPrice}
               SelectedImages={selectedImages}
               SetSelectedImages={setSelectedImages}

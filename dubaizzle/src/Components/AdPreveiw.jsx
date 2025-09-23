@@ -11,6 +11,54 @@ import {
   RiMoneyDollarCircleLine,
 } from "react-icons/ri";
 
+// قاموس الأيقونات للسمات المختلفة
+const attributeIcons = {
+  Area: "📐",
+  المساحة: "📐",
+  Bedrooms: "🛏️",
+  "غرف النوم": "🛏️",
+  Bathrooms: "🚿",
+  الحمامات: "🚿",
+  "Furnished?": "🛋️",
+  "التأثيث؟": "🛋️",
+  "Monthly Rent": "💰",
+  "الإيجار الشهري": "💰",
+  "Floor Number": "🏢",
+  "رقم الطابق": "🏢",
+  "Balcony?": "🌅",
+  "شرفة؟": "🌅",
+  "Parking?": "🚗",
+  "مواقف سيارات؟": "🚗",
+  "AC Type": "❄️",
+  "نوع التكييف": "❄️",
+  "Mortgage Available?": "🏦",
+  "الرهن متاح؟": "🏦",
+  "Year Built": "🏗️",
+  "سنة البناء": "🏗️",
+  "Contract Duration": "📝",
+  "مدة العقد": "📝",
+  "Bills Included?": "🧾",
+  "الفواتير مشمولة؟": "🧾",
+  Brand: "🏷️",
+  الماركة: "🏷️",
+  Model: "🚙",
+  الموديل: "🚙",
+  Year: "📅",
+  السنة: "📅",
+  Mileage: "🛣️",
+  "المسافة المقطوعة": "🛣️",
+  "Fuel Type": "⛽",
+  "نوع الوقود": "⛽",
+  Transmission: "⚙️",
+  "ناقل الحركة": "⚙️",
+  Condition: "🔧",
+  الحالة: "🔧",
+  Color: "🎨",
+  اللون: "🎨",
+  Price: "💵",
+  السعر: "💵",
+};
+
 export default function AdPreview({ ad }) {
   const { language } = useLanguage();
   const isArabic = language === "العربية";
@@ -56,6 +104,21 @@ export default function AdPreview({ ad }) {
     navigate(`/Listing/${ad.listingId}`);
   };
 
+  // دالة للحصول على الأيقونة المناسبة للسمة
+  const getAttributeIcon = (attributeName) =>
+    attributeIcons[attributeName] || "📌";
+
+  // تحويل السمات إلى مصفوفة ديناميكية
+  const attributes = Object.keys(ad)
+    .filter((key) => key.endsWith("AttributeName") && ad[key])
+    .map((key) => {
+      const valueKey = key.replace("Name", "Value");
+      return {
+        name: ad[key],
+        value: ad[valueKey] || "",
+      };
+    });
+
   // ألوان مخصصة لكل وضع
   const themeStyles = {
     dark: {
@@ -72,6 +135,7 @@ export default function AdPreview({ ad }) {
       price: "text-green-400",
       attributeName: "text-gray-300",
       attributeValue: "text-gray-400",
+      attributeIcon: "text-yellow-400",
     },
     light: {
       bg: "bg-white",
@@ -87,6 +151,7 @@ export default function AdPreview({ ad }) {
       price: "text-green-600",
       attributeName: "text-gray-600",
       attributeValue: "text-gray-500",
+      attributeIcon: "text-yellow-500",
     },
   };
 
@@ -173,44 +238,56 @@ export default function AdPreview({ ad }) {
             className={`flex items-center ${currentTheme.price} font-bold mb-3`}
           >
             <RiMoneyDollarCircleLine className="mr-1" />
-            <span>{ad.price} AED</span>
+            <span>{ad.price.toLocaleString()} AED</span>
           </div>
         )}
 
+        {/* Location */}
+        {(ad.cityName || ad.placeName) && (
+          <div
+            className={`flex items-center ${currentTheme.secondaryText} mb-2`}
+          >
+            <FiMapPin className={`mr-1.5 ${currentTheme.icon}`} />
+            <span className="line-clamp-1">{`${ad.placeName}, ${ad.cityName}`}</span>
+          </div>
+        )}
+
+        {/* Attributes */}
         <div className="space-y-2 text-sm">
-          {ad.location && (
-            <div className={`flex items-center ${currentTheme.secondaryText}`}>
-              <FiMapPin className={`mr-1.5 ${currentTheme.icon}`} />
-              <span className="line-clamp-1">{ad.location}</span>
-            </div>
-          )}
-
-          {ad.firstAttributeName && (
-            <div className="flex">
+          {attributes.map((attr, index) => (
+            <div key={index} className="flex items-center">
               <span
-                className={`font-medium mr-1 ${currentTheme.attributeName}`}
+                className={`text-base mr-1.5 ${currentTheme.attributeIcon}`}
               >
-                {ad.firstAttributeName}:
+                {getAttributeIcon(attr.name)}
               </span>
-              <span className={currentTheme.attributeValue}>
-                {ad.firstAttributeValue}
-              </span>
+              <div className="flex">
+                <span
+                  className={`font-medium mr-1 ${currentTheme.attributeName}`}
+                >
+                  {attr.name}:
+                </span>
+                <span className={currentTheme.attributeValue}>
+                  {attr.value}
+                </span>
+              </div>
             </div>
-          )}
-
-          {ad.secondAttributeName && (
-            <div className="flex">
-              <span
-                className={`font-medium mr-1 ${currentTheme.attributeName}`}
-              >
-                {ad.secondAttributeName}:
-              </span>
-              <span className={currentTheme.attributeValue}>
-                {ad.secondAttributeValue}
-              </span>
-            </div>
-          )}
+          ))}
         </div>
+
+        {/* Category Badge */}
+        {ad.category && (
+          <div
+            className={`mt-3 inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium ${
+              isDark
+                ? "bg-blue-900/30 text-blue-300"
+                : "bg-blue-100 text-blue-700"
+            }`}
+          >
+            <span className="mr-1">🏷️</span>
+            {ad.category}
+          </div>
+        )}
       </div>
     </motion.div>
   );

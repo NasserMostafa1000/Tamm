@@ -10,6 +10,18 @@ namespace TammbusinessLayer.Categories
 {
     public class CategoriesQueriesServices : ICategoriesQueries
     {
+        public async Task<string> GetCategoriesWithChildrenAsync(string lang)
+        {
+            try
+            {
+                return await TammDataLayer.Categories.CategoriesQueries.GetCategoriesWithChildrenAsync(lang);
+            } catch
+            {
+                throw;
+                    }
+
+        }
+
         public async Task<List<CategoriesDTOs.GetParentsCategoriesDTO>> GetParentCategoriesAsync(string language)
         {
             try
