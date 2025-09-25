@@ -20,15 +20,20 @@ body,
   background-size: cover;
   background-position: center;
 }
-body {
-  border: none !important;
-  margin: 0;
-  padding: 0;
-}
+
 .dark body {
   border: none !important;
 }
+@font-face {
+  font-family: "Sukhumvit_Set";
+  src: url("path/to/SukhumvitSet.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
 
+.font-['Sukhumvit_Set'] {
+  font-family: "Sukhumvit_Set", sans-serif;
+}
 /* keyframes لازم تكون برا أي سيلكتور */
 @keyframes bgImageSwitch {
   0% {
@@ -111,4 +116,224 @@ body {
 }
 .dark .scrollbar::-webkit-scrollbar-thumb:hover {
   background: #718096;
+}
+/* تصميم أساسي - 3 عناصر دائمًا في الصف */
+.main-categories-container {
+  box-sizing: border-box;
+}
+
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  justify-items: center;
+  align-items: center;
+}
+
+.category-item {
+  width: 100%;
+  max-width: 200px;
+  height: 0;
+  padding-bottom: 100%; /* يجعل العنصر مربعًا */
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.category-item > * {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+}
+
+.category-icon {
+  font-size: 1.75rem;
+}
+
+.category-name {
+  font-size: 0.8rem;
+  bottom: 20%;
+  top: auto;
+  transform: translateX(-50%);
+}
+
+/* تعديلات للشاشات الصغيرة جدًا */
+@media (max-width: 640px) {
+  .categories-grid {
+    grid-template-columns: repeat(2, 1fr); /* شاشتين صغيرتين جدًا */
+    gap: 0.8rem;
+  }
+
+  .category-item {
+    max-width: 140px;
+  }
+
+  .category-icon {
+    font-size: 1.5rem;
+  }
+
+  .category-name {
+    font-size: 0.75rem;
+  }
+}
+
+/* شاشات صغيرة (هواتف محمولة) */
+@media (min-width: 641px) and (max-width: 767px) {
+  .categories-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.9rem;
+  }
+
+  .category-item {
+    max-width: 160px;
+  }
+
+  .category-icon {
+    font-size: 1.6rem;
+  }
+
+  .category-name {
+    font-size: 0.8rem;
+  }
+}
+
+/* شاشات متوسطة وكبيرة (3 عناصر دائمًا) */
+@media (min-width: 768px) {
+  .categories-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .category-item {
+    max-width: 180px;
+  }
+
+  .category-icon {
+    font-size: 2rem;
+  }
+
+  .category-name {
+    font-size: 0.9rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .categories-grid {
+    gap: 2rem;
+  }
+
+  .category-item {
+    max-width: 200px;
+  }
+
+  .category-icon {
+    font-size: 2.25rem;
+  }
+
+  .category-name {
+    font-size: 1rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .categories-grid {
+    gap: 2.5rem;
+  }
+
+  .category-item {
+    max-width: 220px;
+  }
+
+  .category-icon {
+    font-size: 2.5rem;
+  }
+
+  .category-name {
+    font-size: 1.1rem;
+  }
+}
+
+@media (min-width: 1536px) {
+  .categories-grid {
+    gap: 3rem;
+  }
+
+  .category-item {
+    max-width: 200px;
+    max-height: 50;
+  }
+
+  .category-icon {
+    font-size: 2.75rem;
+  }
+
+  .category-name {
+    font-size: 1.2rem;
+  }
+}
+body {
+  border: none !important;
+  margin: 0;
+  padding: 0;
+}
+/* في ملف index.css أو globals.css */
+.scrollbar-thin {
+  scrollbar-width: thin; /* Firefox */
+  -ms-overflow-style: auto; /* IE 10+ */
+}
+.scrollbar-thumb-rounded-full {
+  scrollbar-color: #9ca3af #f3f4f6; /* Firefox */
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px; /* Chrome, Safari, Edge */
+}
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: #f3f4f6;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background-color: #9ca3af;
+  border-radius: 9999px;
+  border: 1px solid #f3f4f6;
+}
+/* تحسينات للقائمة المنسدلة */
+.animate-in {
+  animation-duration: 200ms;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.fade-in-0 {
+  animation-name: fadeIn;
+}
+
+.zoom-in-95 {
+  animation-name: zoomIn;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 5;
+    transform: scale(1);
+  }
+}
+
+.z-50 {
+  z-index: 9999 !important;
 }

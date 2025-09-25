@@ -246,7 +246,7 @@ export default function ClientsTable() {
           <>
             {/* Table */}
             <div
-              className={`overflow-hidden rounded-xl shadow-md border ${
+              className={`overflow-x-auto max-h-[calc(100vh-200px)] overflow-y-auto rounded-xl shadow-md border ${
                 theme === "dark" ? "border-gray-700" : "border-gray-200"
               }`}
             >

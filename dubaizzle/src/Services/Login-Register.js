@@ -24,7 +24,7 @@ export default async function LoginReisgteration(
       Gender: null,
       Email: decoded.email,
       HashedPassword: null,
-      LoginProviderName: "Google",
+      LoginProviderName: "Google Dubaizzle",
       RoleId: 2,
     };
 

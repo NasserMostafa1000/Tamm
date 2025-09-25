@@ -8,11 +8,11 @@ import {
   FaMobileAlt,
   FaUserTie,
   FaBriefcase,
-  FaSearch,
 } from "react-icons/fa";
 import fetchCategories from "../Services/PostUpdateAd";
 import { categoryMap } from "../Utils/Constant";
 
+// أيقونات متاحة
 const iconComponents = {
   FaHome,
   FaCar,
@@ -38,21 +38,25 @@ export default function MainCategoriesGrid() {
   }, [language]);
 
   const handleCategoryClick = (category) => {
+    const config = categoryMap[category.categoryName];
     navigate("/SubCategories", {
       state: {
         parentCategoryName: category.categoryName,
-        icon: categoryMap[category.categoryName]?.icon || "FaHome",
-        ar: categoryMap[category.categoryName]?.ar,
-        en: categoryMap[category.categoryName]?.en,
+        icon: config?.icon || "FaCar", // الافتراضي: سيارة
+        ar: config?.ar || category.categoryName,
+        en: config?.en || category.categoryName,
       },
     });
   };
 
   const renderItem = (cat) => {
     const config = categoryMap[cat.categoryName];
-    if (!config) return null;
-    const Icon = iconComponents[config.icon];
-    const displayName = language === "العربية" ? config.ar : config.en;
+    // لو الكاتيجوري مش موجود في الماب → استخدم الاعدادات الافتراضية
+    const Icon = iconComponents[config?.icon] || iconComponents["FaCar"];
+    const displayName =
+      language === "العربية"
+        ? config?.ar || cat.categoryName
+        : config?.en || cat.categoryName;
 
     return (
       <div
@@ -74,9 +78,10 @@ export default function MainCategoriesGrid() {
         />
 
         <span
-          className="mt-8 font-semibold md:font-bold text-center text-sm md:text-base lg:text-lg
-             px-2 py-1 rounded-md bg-black/40 text-white backdrop-blur-sm shadow
-             w-full truncate"
+          className="mt-8 font-semibold md:font-bold text-center 
+     text-xs sm:text-sm md:text-base lg:text-lg
+     px-2 py-1 rounded-md bg-black/40 text-white backdrop-blur-sm shadow
+     w-full whitespace-normal break-words leading-tight"
         >
           {displayName}
         </span>
@@ -110,15 +115,6 @@ export default function MainCategoriesGrid() {
               ? "اختر الفئة التي تريد استعراضها"
               : "Choose the category you want to explore"}
           </p>
-        </div>
-
-        {/* شريط البحث */}
-        <div className="mb-8 md:mb-10 max-w-md mx-auto">
-          <div
-            className={`relative rounded-full shadow-md ${
-              isDark ? "bg-gray-800" : "bg-white"
-            }`}
-          ></div>
         </div>
 
         {/* شبكة الفئات - دائمًا 3 أعمدة */}

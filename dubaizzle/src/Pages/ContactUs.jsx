@@ -54,7 +54,7 @@ const ContactUsSection = () => {
       link: contact?.whatsApp
         ? `https://wa.me/${contact.whatsApp.replace(/\D/g, "")}`
         : null,
-      image: "/ProjectsImages/Whatsapp.png",
+      image: "/ProjectsImages/Whatsapp.jpg",
       color: "bg-emerald-100 dark:bg-emerald-900/30",
       hoverColor: "hover:bg-emerald-200 dark:hover:bg-emerald-800/50",
       iconAnimation: { y: [0, -5, 0] },
@@ -63,7 +63,7 @@ const ContactUsSection = () => {
       name: "Instagram",
       value: contact?.instagram,
       link: contact?.instagram,
-      image: "/ProjectsImages/insta.png",
+      image: "/ProjectsImages/insta.jpg",
       color: "bg-pink-100 dark:bg-pink-900/30",
       hoverColor: "hover:bg-pink-200 dark:hover:bg-pink-800/50",
       iconAnimation: {
@@ -75,7 +75,7 @@ const ContactUsSection = () => {
       name: "Facebook",
       value: contact?.facebook,
       link: contact?.facebook,
-      image: "/ProjectsImages/Facebook.png",
+      image: "/ProjectsImages/Facebook.jpg",
       color: "bg-blue-100 dark:bg-blue-900/30",
       hoverColor: "hover:bg-blue-200 dark:hover:bg-blue-800/50",
       iconAnimation: {

@@ -1,5 +1,0 @@
-User-agent: *
-Disallow: /Admin
-Disallow: /admins
-Disallow: /admin
-Sitemap: https://propz-uae.netlify.app/sitemap.xml

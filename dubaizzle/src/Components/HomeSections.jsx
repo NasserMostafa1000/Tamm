@@ -11,14 +11,9 @@ export default function HomeSections() {
 
   const sections = [
     {
-      key: "شقة للإيجار",
-      ar: "الأكثر شهرة في قسم شقق للإيجار",
-      en: "Most Popular in Apartments for Rent",
-    },
-    {
-      key: "Employees",
-      ar: "الأكثر شهرة في قسم الموظفين",
-      en: "Most Popular in Employees",
+      key: "عقارات",
+      ar: "الأكثر شهرة في قسم العقارات",
+      en: "Most Popular in Real Estate",
     },
     {
       key: "سيارات",
@@ -26,19 +21,14 @@ export default function HomeSections() {
       en: "Most Popular in Cars for Sale",
     },
     {
-      key: "عقار للإيجار",
-      ar: "الأكثر شهرة في قسم عقارات للإيجار",
-      en: "Most Popular in Properties for Rent",
+      key: "سيارات للايجار",
+      ar: "الأكثر شهرة في قسم سيارات للإيجار",
+      en: "Most Popular in Cars for Rent",
     },
     {
-      key: "أرض للبيع",
-      ar: "الأكثر شهرة في قسم أراضي للبيع",
-      en: "Most Popular in Lands for Sale",
-    },
-    {
-      key: "أرض للإيجار",
-      ar: "الأكثر شهرة في قسم أراضي للإيجار",
-      en: "Most Popular in Lands for Rent",
+      key: "هواتف",
+      ar: "الأكثر شهرة في قسم الهواتف",
+      en: "Most Popular in Phones ",
     },
   ];
 

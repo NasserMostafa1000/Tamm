@@ -102,23 +102,24 @@ export default function Home() {
 
       {/* الرأس الثابت مع اللوجو والنافبار */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-gray-50 dark:bg-gray-900 shadow-sm transition-all duration-300">
-        {/* شيل الـ container */}
         <div className="w-full">
-          {/* اللوجو في الأعلى */}
-          <div className="flex justify-center py-3">
-            <div className="w-16 h-16 md:w-20 md:h-20">
-              <TammLogo />
+          <div className="py-1 w-screen">
+            <div className="w-full h-auto max-h-20">
+              <img
+                src="/ProjectsImages/dubaizzleLogo.webp"
+                alt="dubaizzle Logo"
+                className="w-full h-auto max-h-20 mx-auto scale-105" /* زيادة 5% */
+              />
             </div>
           </div>
-
-          {/* النافبار بدون أي padding */}
-          <div className="border-t border-gray-300 dark:border-gray-700 w-full">
+          <div className="border-t border-gray-300 dark:border-gray-700 w-full h-10">
+            {/* بدلاً من h-12 أو h-16 */}
             <NavBar />
           </div>
         </div>
       </header>
 
-      <div className="pt-5 space-y-10 w-full mx-auto">
+      <div className="pt-20 space-y-10 w-full mx-auto">
         <SearchBar
           onSearch={(term) =>
             navigate(`/Searching?search=${encodeURIComponent(term)}`)

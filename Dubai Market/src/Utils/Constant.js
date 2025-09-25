@@ -14,7 +14,7 @@ export default function DecodedTokenAndReturnCurrentClientInfoInfo(token) {
     Gender: null,
     Email: decoded.email || "",
     HashedPassword: null,
-    LoginProviderName: "Google dubai market",
+    LoginProviderName: "google Dubai Market",
     RoleId: 0,
   };
 }
@@ -77,11 +77,66 @@ export const playNotificationSound = (path) => {
 
   sound.play();
 };
+export function generateUUID() {
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
+    const r = (Math.random() * 16) | 0;
+    const v = c === "x" ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
+}
 
+export function getOrCreateUserUUID() {
+  const cookieName = "user_uuid";
+
+  // جلب UUID من الكوكيز
+  const cookies = document.cookie.split("; ").reduce((acc, cookie) => {
+    const [name, value] = cookie.split("=");
+    acc[name] = value;
+    return acc;
+  }, {});
+
+  if (cookies[cookieName]) {
+    return cookies[cookieName]; // موجود فعلاً
+  } else {
+    const newUUID = generateUUID();
+    const expiryDate = new Date();
+    expiryDate.setFullYear(expiryDate.getFullYear() + 10); // 10 سنين
+    document.cookie = `${cookieName}=${newUUID}; expires=${expiryDate.toUTCString()}; path=/; SameSite=Lax`;
+    return newUUID;
+  }
+}
+
+export async function addOrUpdateUserSearch(userUUID, listingId) {
+  const response = await fetch(
+    `${API_BASE_URL}SearchingExpections/AddOrUpdateUserSearch?userUUID=${userUUID}&ListingId=${listingId}`,
+    {
+      method: "POST",
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error("Failed to add or update user search");
+  }
+
+  return true;
+}
+
+export async function getUserLastCategory(userUUID) {
+  const response = await fetch(
+    `${API_BASE_URL}SearchingExpections/GetUserLastCategory?userUUID=${userUUID}`
+  );
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch user last category");
+  }
+
+  return await response.json();
+}
 export const SiteNameEN = "Dubai Market";
 export const SiteNameAR = "سوق دبي";
-export const API_BASE_URL = "https://tammuae-001-site1.qtempurl.com/api/";
-export const ServerPath = "https://tammuae-001-site1.qtempurl.com/";
+export const API_BASE_URL =
+  "https://salamatraveluae-001-site1.qtempurl.com/api/";
+export const ServerPath = "https://salamatraveluae-001-site1.qtempurl.com/";
 
 //export const API_BASE_URL = "https://localhost:7244/api/";
 //export const ServerPath = "https://localhost:7244/";
