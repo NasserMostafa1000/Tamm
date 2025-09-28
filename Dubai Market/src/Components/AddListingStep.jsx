@@ -25,7 +25,10 @@ export default function StepFiveListingDetails({
   useEffect(() => {
     if (subCategoryId) {
       const categoryId =
-        parentCategoryName === "عقارات" || parentCategoryName === "Real Estate"
+        parentCategoryName === "عقارات" ||
+        parentCategoryName === "Real Estate" ||
+        parentCategoryName === "الكترونيات" ||
+        parentCategoryName === "Electronics"
           ? subCategoryId
           : parentCategoryId;
 

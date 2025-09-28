@@ -15,7 +15,6 @@ import {
 } from "react-icons/fa";
 
 import fetchCategories from "../Services/PostUpdateAd";
-import { categoryMap } from "../Utils/Constant";
 
 // أيقونات متاحة
 const iconComponents = {
@@ -29,6 +28,24 @@ const iconComponents = {
   FaTv, // الكترونيات
   FaCarSide, // سيارات للايجار
 };
+
+// ماب الكاتيجوريات باستخدام categoryId
+export const categoryMap = {
+  1: { icon: "FaHome", ar: "عقارات", en: "Real Estate" },
+  47: { icon: "FaCar", ar: "سيارات", en: "Cars" },
+  60: { icon: "FaCarSide", ar: "سيارات للإيجار", en: "Cars For Rent" },
+  81: {
+    icon: "FaTools",
+    ar: "أدوات كهربائية وسباكة",
+    en: "Electrical & Plumbing Tools",
+  },
+  68: { icon: "FaTv", ar: "الكترونيات", en: "Electronics" },
+  49: { icon: "FaUserTie", ar: "موظفين", en: "Employees" },
+  80: { icon: "FaCouch", ar: "أثاث", en: "Furniture" },
+  61: { icon: "FaMobileAlt", ar: "جوالات", en: "Phones" },
+  51: { icon: "FaBriefcase", ar: "وظائف", en: "Vacancies" },
+};
+
 export default function MainCategoriesGrid() {
   const { language } = useLanguage();
   const { mode } = useTheme();
@@ -46,11 +63,11 @@ export default function MainCategoriesGrid() {
   }, [language]);
 
   const handleCategoryClick = (category) => {
-    const config = categoryMap[category.categoryName];
+    const config = categoryMap[category.categoryId];
     navigate("/SubCategories", {
       state: {
-        parentCategoryName: category.categoryName,
-        icon: config?.icon || "FaCar", // الافتراضي: سيارة
+        parentCategoryName: language === "العربية" ? config?.ar : config?.en,
+        icon: config?.icon || "FaCar",
         ar: config?.ar || category.categoryName,
         en: config?.en || category.categoryName,
       },
@@ -58,13 +75,9 @@ export default function MainCategoriesGrid() {
   };
 
   const renderItem = (cat) => {
-    const config = categoryMap[cat.categoryName];
-    // لو الكاتيجوري مش موجود في الماب → استخدم الاعدادات الافتراضية
+    const config = categoryMap[cat.categoryId];
     const Icon = iconComponents[config?.icon] || iconComponents["FaCar"];
-    const displayName =
-      language === "العربية"
-        ? config?.ar || cat.categoryName
-        : config?.en || cat.categoryName;
+    const displayName = language === "العربية" ? config?.ar : config?.en;
 
     return (
       <div
@@ -84,18 +97,13 @@ export default function MainCategoriesGrid() {
             isDark ? "text-orange-500" : "text-red-600"
           }`}
         />
-
         <span
           className="mt-8 font-semibold md:font-bold text-center 
-     text-xs sm:text-sm md:text-base lg:text-lg
-     px-2 py-1 rounded-md bg-black/40 text-white backdrop-blur-sm shadow
-     w-full whitespace-normal break-words leading-tight"
+          text-xs sm:text-sm md:text-base lg:text-lg
+          px-2 py-1 rounded-md bg-black/40 text-white backdrop-blur-sm shadow
+          w-full whitespace-normal break-words leading-tight"
         >
-          {displayName == "Electrical & Plumbing Tools"
-            ? "Electrical & Tools"
-            : displayName == "أدوات كهربائية وسباكة"
-            ? "كهرباء وسباكة"
-            : displayName}
+          {displayName}
         </span>
       </div>
     );
@@ -129,7 +137,7 @@ export default function MainCategoriesGrid() {
           </p>
         </div>
 
-        {/* شبكة الفئات - دائمًا 3 أعمدة */}
+        {/* شبكة الفئات */}
         {filteredCategories.length > 0 ? (
           <div className="grid grid-cols-3 gap-2 sm:gap-3 md:gap-4">
             {filteredCategories.map(renderItem)}
