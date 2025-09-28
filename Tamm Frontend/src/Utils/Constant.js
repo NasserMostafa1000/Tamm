@@ -47,21 +47,25 @@ export function GetImageUrl(token) {
   }
 }
 export const categoryMap = {
-  "Real Estate": { ar: "عقارات", en: "Real Estate", icon: "FaHome" },
-  عقارات: { ar: "عقارات", en: "Real Estate", icon: "FaHome" },
-
-  Cars: { ar: "سيارات", en: "Cars", icon: "FaCar" },
-  سيارات: { ar: "سيارات", en: "Cars", icon: "FaCar" },
-
-  employees: { ar: "الموظفين", en: "employees", icon: "FaUserTie" },
-  الموظفين: { ar: "الموظفين", en: "employees", icon: "FaUserTie" },
-
-  Vacancies: { ar: "وظائف شاغرة", en: "Vacancies", icon: "FaBriefcase" },
-  "وظائف شاغره": { ar: "وظائف شاغرة", en: "Vacancies", icon: "FaBriefcase" },
-
-  Phones: { ar: "هواتف", en: "Phones", icon: "FaMobileAlt" },
-  هواتف: { ar: "هواتف", en: "Phones", icon: "FaMobileAlt" },
+  عقارات: { icon: "FaHome", ar: "عقارات", en: "Real Estate" },
+  سيارات: { icon: "FaCar", ar: "سيارات", en: "Cars" },
+  "أدوات كهربائية وسباكة": {
+    icon: "FaTools",
+    ar: "أدوات كهربائية وسباكة",
+    en: "Electrical & Plumbing Tools",
+  },
+  اثاث: { icon: "FaCouch", ar: "اثاث", en: "Furniture" },
+  الكترونيات: { icon: "FaTv", ar: "الكترونيات", en: "Electronics" },
+  الموظفين: { icon: "FaUserTie", ar: "الموظفين", en: "Employees" },
+  "سيارات للايجار": {
+    icon: "FaCarSide",
+    ar: "سيارات للايجار",
+    en: "Cars for Rent",
+  },
+  هواتف: { icon: "FaMobileAlt", ar: "هواتف", en: "Mobile Phones" },
+  "وظائف شاغره": { icon: "FaBriefcase", ar: "وظائف شاغره", en: "Jobs" },
 };
+
 export const playNotificationSound = (path) => {
   const sound = new Howl({
     src: [`/ProjectSounds/${path}`],

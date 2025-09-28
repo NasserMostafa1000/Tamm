@@ -12,10 +12,12 @@ import {
   FaLaptop,
   FaTshirt,
   FaCouch,
+  FaTv,
   FaBicycle,
   FaFootballBall,
   FaBook,
   FaUtensils,
+  FaCarSide,
   FaBaby,
   FaPaw,
   FaTools,
@@ -23,34 +25,13 @@ import {
   FaSearch,
 } from "react-icons/fa";
 
-// نظام ألوان متكامل
-const lightTheme = {
-  primary: "#4CAF50",
-  secondary: "#2196F3",
-  background: "#f8f9fa",
-  cardBg: "#ffffff",
-  text: "#2d3748",
-  iconBg: "#e6f7e6",
-  hoverBg: "#f0f0f0",
-  border: "#e2e8f0",
-};
-
-const darkTheme = {
-  primary: "#81C784",
-  secondary: "#64B5F6",
-  background: "#121212",
-  cardBg: "#1e1e1e",
-  text: "#e2e8f0",
-  iconBg: "#2e3b4e",
-  hoverBg: "#2d3748",
-  border: "#374151",
-};
-
+// أيقونات متاحة
 const iconComponents = {
   FaHome,
   FaCar,
   FaMobileAlt,
   FaUserTie,
+  FaTv,
   FaBriefcase,
   FaLaptop,
   FaTshirt,
@@ -59,6 +40,7 @@ const iconComponents = {
   FaFootballBall,
   FaBook,
   FaUtensils,
+  FaCarSide,
   FaBaby,
   FaPaw,
   FaTools,
@@ -69,7 +51,6 @@ export default function SubCategories() {
   const { language } = useLanguage();
   const isDark = mode === "dark";
   const isRTL = language === "العربية";
-  const theme = isDark ? darkTheme : lightTheme;
   const navigate = useNavigate();
   const location = useLocation();
   const { parentCategoryName, icon, ar, en } = location.state || {};
@@ -104,9 +85,7 @@ export default function SubCategories() {
 
   const handleClick = (subCategory) => {
     navigate("/Searching", {
-      state: {
-        searchTerm: subCategory.categoryName,
-      },
+      state: { searchTerm: subCategory.categoryName },
     });
   };
 
@@ -120,11 +99,11 @@ export default function SubCategories() {
     return (
       <div
         className="min-h-screen flex items-center justify-center"
-        style={{ backgroundColor: theme.background }}
+        style={{ backgroundColor: isDark ? "#121212" : "#f8f9fa" }}
       >
         <div
           className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4"
-          style={{ borderColor: theme.primary }}
+          style={{ borderColor: isDark ? "#81C784" : "#4CAF50" }}
         ></div>
       </div>
     );
@@ -132,8 +111,7 @@ export default function SubCategories() {
 
   return (
     <div
-      className="w-full min-h-screen"
-      style={{ backgroundColor: theme.background }}
+      className={`w-full min-h-screen ${isDark ? "bg-gray-900" : "bg-gray-50"}`}
       dir={isRTL ? "rtl" : "ltr"}
     >
       <div className="max-w-7xl mx-auto px-4 py-8">
@@ -144,9 +122,9 @@ export default function SubCategories() {
               onClick={handleBack}
               className="flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-200 hover:scale-105"
               style={{
-                backgroundColor: theme.cardBg,
-                color: theme.text,
-                border: `1px solid ${theme.border}`,
+                backgroundColor: isDark ? "#1e1e1e" : "#ffffff",
+                color: isDark ? "#e2e8f0" : "#2d3748",
+                border: `1px solid ${isDark ? "#374151" : "#e2e8f0"}`,
               }}
             >
               <FaArrowLeft className={isRTL ? "rotate-180" : ""} />
@@ -159,8 +137,8 @@ export default function SubCategories() {
               <div
                 className="p-3 rounded-full flex items-center justify-center"
                 style={{
-                  backgroundColor: theme.iconBg,
-                  color: theme.primary,
+                  backgroundColor: isDark ? "#2e3b4e" : "#e6f7e6",
+                  color: isDark ? "#81C784" : "#4CAF50",
                 }}
               >
                 <Icon size={28} />
@@ -168,11 +146,14 @@ export default function SubCategories() {
               <div>
                 <h1
                   className="text-2xl md:text-3xl font-bold"
-                  style={{ color: theme.text }}
+                  style={{ color: isDark ? "#e2e8f0" : "#2d3748" }}
                 >
                   {language === "العربية" ? ar : en}
                 </h1>
-                <p className="text-sm opacity-75" style={{ color: theme.text }}>
+                <p
+                  className="text-sm opacity-75"
+                  style={{ color: isDark ? "#e2e8f0" : "#2d3748" }}
+                >
                   {language === "العربية"
                     ? `${filteredSubCategories.length} قسم فرعي`
                     : `${filteredSubCategories.length} subcategories`}
@@ -191,7 +172,10 @@ export default function SubCategories() {
               >
                 <FaSearch
                   className="h-4 w-4"
-                  style={{ color: theme.text, opacity: 0.7 }}
+                  style={{
+                    color: isDark ? "#e2e8f0" : "#2d3748",
+                    opacity: 0.7,
+                  }}
                 />
               </div>
               <input
@@ -207,10 +191,9 @@ export default function SubCategories() {
                   isRTL ? "pr-10" : "pl-10"
                 } rounded-xl border-0 focus:ring-2 focus:ring-offset-2 transition-all duration-200`}
                 style={{
-                  backgroundColor: theme.cardBg,
-                  color: theme.text,
-                  border: `1px solid ${theme.border}`,
-                  focusRingColor: theme.primary,
+                  backgroundColor: isDark ? "#1e1e1e" : "#ffffff",
+                  color: isDark ? "#e2e8f0" : "#2d3748",
+                  border: `1px solid ${isDark ? "#374151" : "#e2e8f0"}`,
                 }}
               />
             </div>
@@ -219,35 +202,34 @@ export default function SubCategories() {
 
         {/* شبكة الأقسام الفرعية */}
         {filteredSubCategories.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-4 md:gap-6">
+          <div className="grid grid-cols-3 gap-2 sm:gap-3 md:gap-4">
             {filteredSubCategories.map((sub) => (
               <div
                 key={sub.categoryId}
                 onClick={() => handleClick(sub)}
-                className="group cursor-pointer flex flex-col items-center justify-center p-2 sm:p-4 md:p-4 rounded-2xl shadow-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
+                className={`category-item cursor-pointer rounded-2xl shadow-lg flex flex-col items-center justify-center 
+                  transition-all duration-300 p-2 md:p-4 hover:shadow-xl hover:-translate-y-1`}
                 style={{
-                  backgroundColor: theme.cardBg,
-                  color: theme.text,
-                  border: `1px solid ${theme.border}`,
-                  minHeight: "120px",
+                  minHeight: "100px",
+                  maxHeight: "150px",
+                  backgroundColor: isDark ? "#1e1e1e" : "#ffffff",
+                  color: isDark ? "#e2e8f0" : "#2d3748",
+                  border: `1px solid ${isDark ? "#374151" : "#e2e8f0"}`,
                 }}
               >
-                <div
-                  className="p-3 md:p-4 rounded-2xl mb-2 flex items-center justify-center group-hover:scale-110 transition-transform duration-300"
-                  style={{
-                    backgroundColor: theme.iconBg,
-                    color: theme.primary,
-                  }}
+                <Icon
+                  className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl mb-1 sm:mb-2 ${
+                    isDark ? "text-orange-500" : "text-red-600"
+                  }`}
+                />
+                <span
+                  className="mt-8 font-semibold md:font-bold text-center 
+                    text-xs sm:text-sm md:text-base lg:text-lg
+                    px-2 py-1 rounded-md bg-black/40 text-white backdrop-blur-sm shadow
+                    w-full whitespace-normal break-words leading-tight"
                 >
-                  <Icon size={28} className="md:w-8 md:h-8" />
-                </div>
-                <span className="text-xs sm:text-sm md:text-base font-semibold text-center leading-tight px-2 py-1 rounded-md bg-black/40 text-white backdrop-blur-sm shadow-md line-clamp-2">
                   {sub.categoryName}
                 </span>
-                <div
-                  className="w-0 group-hover:w-8 h-1 rounded-full mt-2 transition-all duration-300"
-                  style={{ backgroundColor: theme.primary }}
-                ></div>
               </div>
             ))}
           </div>
@@ -255,17 +237,23 @@ export default function SubCategories() {
           <div className="text-center py-16">
             <div
               className="w-24 h-24 mx-auto mb-4 rounded-full flex items-center justify-center"
-              style={{ backgroundColor: theme.iconBg, color: theme.primary }}
+              style={{
+                backgroundColor: isDark ? "#2e3b4e" : "#e6f7e6",
+                color: isDark ? "#81C784" : "#4CAF50",
+              }}
             >
               <FaSearch size={32} />
             </div>
             <h3
               className="text-xl font-semibold mb-2"
-              style={{ color: theme.text }}
+              style={{ color: isDark ? "#e2e8f0" : "#2d3748" }}
             >
               {language === "العربية" ? "لا توجد نتائج" : "No results found"}
             </h3>
-            <p className="opacity-75" style={{ color: theme.text }}>
+            <p
+              className="opacity-75"
+              style={{ color: isDark ? "#e2e8f0" : "#2d3748" }}
+            >
               {language === "العربية"
                 ? "لم نتمكن من العثور على أقسام تطابق بحثك"
                 : "We couldn't find any subcategories matching your search"}

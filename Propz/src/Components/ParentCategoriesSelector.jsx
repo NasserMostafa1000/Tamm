@@ -4,11 +4,14 @@ import fetchCategories from "../Services/PostUpdateAd";
 import {
   FaCar,
   FaBuilding,
-  FaPhone,
+  FaMobileAlt,
   FaUsers,
   FaSuitcase,
+  FaTv,
+  FaCouch,
+  FaTools,
+  FaCarSide,
 } from "react-icons/fa";
-
 export default function CategoriesSelector({ onCategorySelect }) {
   const { language } = useLanguage();
   const [categories, setCategories] = useState([]);
@@ -41,28 +44,53 @@ export default function CategoriesSelector({ onCategorySelect }) {
 
   const getCategoryIcon = (name) => {
     const normalized = name.toLowerCase();
+
     if (
       normalized.includes("سيارات") ||
       normalized.includes("cars") ||
       normalized.includes("car")
     )
       return <FaCar className="text-3xl mb-2" />;
+
     if (normalized.includes("عقارات") || normalized.includes("real estate"))
       return <FaBuilding className="text-3xl mb-2" />;
+
     if (
       normalized.includes("هواتف") ||
       normalized.includes("phones") ||
       normalized.includes("phone")
     )
-      return <FaPhone className="text-3xl mb-2" />;
+      return <FaMobileAlt className="text-3xl mb-2" />;
+
     if (normalized.includes("موظفين") || normalized.includes("employees"))
       return <FaUsers className="text-3xl mb-2" />;
+
     if (
       normalized.includes("وظائف") ||
       normalized.includes("vacancies") ||
       normalized.includes("job")
     )
       return <FaSuitcase className="text-3xl mb-2" />;
+
+    if (normalized.includes("الكترونيات") || normalized.includes("electronics"))
+      return <FaTv className="text-3xl mb-2" />;
+
+    if (normalized.includes("اثاث") || normalized.includes("furniture"))
+      return <FaCouch className="text-3xl mb-2" />;
+
+    if (
+      normalized.includes("أدوات كهربائية وسباكة") ||
+      normalized.includes("electrical") ||
+      normalized.includes("plumbing")
+    )
+      return <FaTools className="text-3xl mb-2" />;
+
+    if (
+      normalized.includes("سيارات للايجار") ||
+      normalized.includes("cars for rent")
+    )
+      return <FaCarSide className="text-3xl mb-2" />;
+
     return null; // ما فيش أيقونة مناسبة
   };
 

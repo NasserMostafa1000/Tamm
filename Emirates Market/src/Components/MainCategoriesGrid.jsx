@@ -8,7 +8,12 @@ import {
   FaMobileAlt,
   FaUserTie,
   FaBriefcase,
+  FaTools,
+  FaCouch,
+  FaTv,
+  FaCarSide,
 } from "react-icons/fa";
+
 import fetchCategories from "../Services/PostUpdateAd";
 import { categoryMap } from "../Utils/Constant";
 
@@ -19,8 +24,11 @@ const iconComponents = {
   FaMobileAlt,
   FaUserTie,
   FaBriefcase,
+  FaTools, // أدوات كهربائية وسباكة
+  FaCouch, // اثاث
+  FaTv, // الكترونيات
+  FaCarSide, // سيارات للايجار
 };
-
 export default function MainCategoriesGrid() {
   const { language } = useLanguage();
   const { mode } = useTheme();
@@ -83,7 +91,11 @@ export default function MainCategoriesGrid() {
      px-2 py-1 rounded-md bg-black/40 text-white backdrop-blur-sm shadow
      w-full whitespace-normal break-words leading-tight"
         >
-          {displayName}
+          {displayName == "Electrical & Plumbing Tools"
+            ? "Electrical & Tools"
+            : displayName == "أدوات كهربائية وسباكة"
+            ? "كهرباء وسباكة"
+            : displayName}
         </span>
       </div>
     );
